@@ -28,7 +28,9 @@ export default {
         "MorabbaLight" : "Morabba Light",
         "MorabbaMedium" : "Morabba Medium",
         "MorabbaBold" : "Morabba Bold",
-        
+      },
+      letterSpacing:{
+        "tightest" : "-0.0625em"
       }
     },
   },

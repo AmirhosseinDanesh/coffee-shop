@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function Header() {
   return (
-    <header className='fixed top-9 right-0 left-0 flex items-center px-10 rounded-3xl w-[90%] h-24 mx-auto bg-black/50 '>
+    <header className='fixed top-9 right-0 left-0 flex items-center px-10 rounded-3xl w-[90%] h-24 mx-auto bg-black/50 backdrop-blur-[6px]'>
       <div className='flex items-center w-full justify-between'>
         {/* logo & Menu */}
         <nav className='flex items-center gap-x-9'>
@@ -11,7 +11,7 @@ export default function Header() {
             <img src="/images/app-logo.png" alt="Golden Coffee" />
           </div>
           {/* Menu */}
-          <ul className='flex gap-x-9 text-lg text-gray-300'>
+          <ul className='flex gap-x-9 text-xl text-gray-300 tracking-tightest'>
             <li className='font-DanaMedium text-orange-200'>
               <a href="#">صفحه اصلی</a>
             </li>
@@ -51,7 +51,7 @@ export default function Header() {
         {/* Cart & Login */}
         <div className='flex text-orange-200 text-xl gap-x-10'>
           {/* Cart and darkmode */}
-          <div className='flex gap-x-5 items-center'>
+          <div className='flex items-center gap-x-5 '>
             {/* Cart */}
             <div>
               <svg className='w-8 h-8' xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
@@ -69,11 +69,11 @@ export default function Header() {
           <span className='block w-px h-14 bg-white/20'></span>
           
           {/* Login */}
-          <a href="#" className='flex gap-x-2.5 items-center'>
+          <a href="#" className='flex items-center gap-x-2.5 tracking-tightest '>
             <svg className="w-8 h-8 rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
             </svg>
-            <span>
+            <span className='text-xl'>
               ورود | ثبت‌نام
             </span>
           </a>
