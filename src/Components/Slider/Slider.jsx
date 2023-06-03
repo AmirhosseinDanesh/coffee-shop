@@ -21,8 +21,8 @@ export default function Slider({ sliders }) {
       >
         {
           sliders.map(slider => (
-            <SwiperSlide>
-              <img src={slider.src} alt={slider.alt} key={slider.id}/>
+            <SwiperSlide key={slider.id}>
+              <img src={slider.src} alt={slider.alt}/>
             </SwiperSlide>
           ))
         }
