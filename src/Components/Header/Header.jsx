@@ -1,7 +1,13 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
+import { DataUrlV1 } from "../../Data/Data"
 export default function Header() {
-  const [dark, setDark] = useState(false)
+  const [headerLink, setHeaderLink] = useState([])
+  useEffect(() => {
+    fetch(`${DataUrlV1}/menus`)
+      .then(res => res.json())
+      .then(data => setHeaderLink(data))
+  })
   return (
     <header className='fixed top-9 right-0 left-0 flex items-center px-10 rounded-3xl w-[90%] h-24 mx-auto bg-black/50 backdrop-blur-[6px] z-50'>
       <div className='flex items-center w-full justify-between'>
@@ -9,36 +15,47 @@ export default function Header() {
         <nav className='flex items-center gap-x-9 h-14'>
           {/* logo */}
           <div>
-            <img src="/images/app-logo.png" alt="Golden Coffee" />
+            <NavLink to="/">
+              <img src="/images/app-logo.png" alt="Golden Coffee" />
+            </NavLink>
           </div>
           {/* Menu */}
           <ul className='flex gap-x-9 h-full text-xl text-gray-300 tracking-tightest child:leading-[56px] child-hover:text-orange-300 transition-colors '>
             <li className='font-DanaMedium text-orange-200'>
               <a href="#">صفحه اصلی</a>
             </li>
-            <li className='relative group '>
-              <a href="#">فروشگاه</a>
-              {/* sub menu */}
+            {
+              headerLink.map((menu) => (
+                <li key={menu._id} className='relative group'>
+                  <NavLink  to={menu.href}>
+                    {menu.title}
+                    {
+                      menu.submenus.length !== 0 && (
+                        <div className='absolute opacity-0 invisible group-hover:opacity-100 group-hover:visible top-full p-6 w-52 text-zinc-700 dark:text-white text-base bg-white dark:bg-zinc-700 rounded-2xl border-t border-t-orange-300 space-y-4 tracking-normal shadow-normal transition-all child:inline-block child:transition-colors child-hover:text-orange-300'>
+                          {
+                            menu.submenus.map((submenu)=>(
+                              <NavLink key={submenu._id} to={submenu.href}>
+                                {submenu.title}
+                              </NavLink>
+                            ))
+                          }
+                        </div>
+                      )
+                    }
+                  </NavLink>
+                </li>
+              ))
+            }
+            {/* <li className='relative group'>
+              <a href="#" >فروشگاه</a>
               <div className='absolute opacity-0 invisible group-hover:opacity-100 group-hover:visible top-full p-6 w-52 text-zinc-700 dark:text-white text-base bg-white dark:bg-zinc-700 rounded-2xl border-t border-t-orange-300 space-y-4 tracking-normal shadow-normal transition-all child:inline-block child:transition-colors child-hover:text-orange-300'>
                 <a href="#">قهوه عالی و ویژه</a>
                 <a href="#">قهوه درجه یک</a>
                 <a href="#">ترکیبات ویژه</a>
                 <a href="#">ویژه در سطح جهانی</a>
-
               </div>
-            </li>
-            <li>
-              <a href="#">دیکشنری</a>
-            </li>
-            <li>
-              <a href="#">بلاگ</a>
-            </li>
-            <li>
-              <a href="#">درباره ما</a>
-            </li>
-            <li>
-              <a href="#">تماس با ما</a>
-            </li>
+            </li> */}
+
           </ul>
         </nav>
 
