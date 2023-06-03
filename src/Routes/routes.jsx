@@ -1,17 +1,21 @@
 import Index from "../Pages/Client/Index";
-import AdminPanel from "../Pages/Admin-panel/AdminPanel"
-import DashBoard from "../Pages/Admin-panel/Dashboard/Dashboard"
-import Users from "../Pages/Admin-panel/Users/Users"
-import Products from "../Pages/Admin-panel/Products/Products"
-import Menus from "../Pages/Admin-panel/Menus/Menus"
-import Articles from "../Pages/Admin-panel/Articles/Articles"
 import Login from "../Pages/Auth/Login/Login";
 import Register from "../Pages/Auth/Register/Register";
+import ArticlesClient from "../Pages/Client/Articles/ArticlesClient";
+
+import AdminPanel from "../Pages/Admin-panel/AdminPanel";
+import DashBoard from "../Pages/Admin-panel/Dashboard/Dashboard";
+import Users from "../Pages/Admin-panel/Users/Users";
+import Products from "../Pages/Admin-panel/Products/Products";
+import Menus from "../Pages/Admin-panel/Menus/Menus";
+import Articles from "../Pages/Admin-panel/Articles/Articles";
+
 
 const routes = [
     { path: "/", element: <Index /> },
     { path: "/login", element: <Login /> },
     { path: "/register", element: <Register /> },
+    { path: "/articles", element: <ArticlesClient /> },
     {
         path: "/p-admin/*",
         element: <AdminPanel />,

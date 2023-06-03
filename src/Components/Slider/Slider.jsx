@@ -1,11 +1,11 @@
 import React, { useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay , EffectFade } from "swiper";
+import { Autoplay, EffectFade } from "swiper";
 
 import "swiper/css";
 import "swiper/css/effect-fade";
 
-export default function Slider() {
+export default function Slider({ sliders }) {
   return (
     <>
       <Swiper
@@ -16,12 +16,18 @@ export default function Slider() {
           delay: 5000,
           disableOnInteraction: false,
         }}
-        modules={[Autoplay , EffectFade]}
+        modules={[Autoplay, EffectFade]}
         className="mySwiper"
       >
-        <SwiperSlide><img src="/images/headerBgDesktop.png" alt="" /></SwiperSlide>
-        <SwiperSlide><img src="/images/main4.jpg" alt="" /></SwiperSlide>
-        
+        {
+          sliders.map(slider => (
+            <SwiperSlide>
+              <img src={slider.src} alt={slider.alt} key={slider.id}/>
+            </SwiperSlide>
+          ))
+        }
+
+
       </Swiper>
     </>
   );

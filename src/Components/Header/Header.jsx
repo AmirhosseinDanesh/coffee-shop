@@ -7,7 +7,7 @@ export default function Header() {
     fetch(`${DataUrlV1}/menus`)
       .then(res => res.json())
       .then(data => setHeaderLink(data))
-  })
+  }, [])
   return (
     <header className='fixed top-9 right-0 left-0 flex items-center px-10 rounded-3xl w-[90%] h-24 mx-auto bg-black/50 backdrop-blur-[6px] z-50'>
       <div className='flex items-center w-full justify-between'>
@@ -21,10 +21,48 @@ export default function Header() {
           </div>
           {/* Menu */}
           <ul className='flex gap-x-9 h-full text-xl text-gray-300 tracking-tightest child:leading-[56px] child-hover:text-orange-300 transition-colors '>
-            <li className='font-DanaMedium text-orange-200'>
+            <li className={({ isActive })  => (isActive) ? ("font-DanaMedium text-orange-200") : ("font-DanaMedium") }>
               <NavLink to="/">صفحه اصلی</NavLink>
             </li>
-            {
+            <li className='font-DanaMedium'>
+              <ul>
+                <NavLink to="/shop" className={({ isActive })  => (isActive) ? ("relative group text-orange-200") : ("relative group") }>فروشگاه</NavLink>
+                <li className='relative group'>
+                  <a href="/" className='absolute opacity-0 invisible group-hover:opacity-100 group-hover:visible top-full p-6 w-52 text-zinc-700 dark:text-white text-base bg-white dark:bg-zinc-700 rounded-2xl border-t border-t-orange-300 space-y-4 tracking-normal shadow-normal transition-all child:inline-block child:transition-colors child-hover:text-orange-300'>سلام</a>
+                  <div className='absolute opacity-0 invisible group-hover:opacity-100 group-hover:visible top-full p-6 w-52 text-zinc-700 dark:text-white text-base bg-white dark:bg-zinc-700 rounded-2xl border-t border-t-orange-300 space-y-4 tracking-normal shadow-normal transition-all child:inline-block child:transition-colors child-hover:text-orange-300'>
+                    <a href="/">قهوه خوب</a>
+                    <a href="/">قهوه بد</a>
+                    <a href="/">قهوه متوسط</a>
+                  </div>
+                </li>
+                {/* {
+                  headerLink.map((menu) => (
+                    <li key={menu._id} className='relative group'>
+                      <NavLink to={menu.href}>
+                        {menu.title}
+                      </NavLink>
+                      {
+                        menu.submenus.length !== 0 && (
+                          <div className='absolute opacity-0 invisible group-hover:opacity-100 group-hover:visible top-full p-6 w-52 text-zinc-700 dark:text-white text-base bg-white dark:bg-zinc-700 rounded-2xl border-t border-t-orange-300 space-y-4 tracking-normal shadow-normal transition-all child:inline-block child:transition-colors child-hover:text-orange-300'>
+                            {
+                              menu.submenus.map((submenu) => (
+                                <NavLink key={submenu._id} to={submenu.href}>
+                                  {submenu.title}
+                                </NavLink>
+                              ))
+                            }
+                          </div>
+                        )
+                      }
+                    </li>
+                  ))
+                } */}
+              </ul>
+            </li>
+            <li className='font-DanaMedium'>
+              <NavLink to="/articles" className={({ isActive })  => (isActive) ? ("text-orange-200") : ("") }>مقالات</NavLink>
+            </li>
+            {/* {
               headerLink.map((menu) => (
                 <li key={menu._id} className='relative group'>
                   <NavLink  to={menu.href}>
@@ -45,7 +83,7 @@ export default function Header() {
                     }
                 </li>
               ))
-            }
+            } */}
           </ul>
         </nav>
 
