@@ -7,7 +7,7 @@ export default function App() {
   const router = useRoutes(routes)
   const location = useLocation()
 
-  if (location.pathname.startsWith('/p-admin')) {
+  if(location.pathname.startsWith('/p-admin') || location.pathname.match('/login') || location.pathname.match('/register')){
     return <>{router}</>
   }
 
