@@ -22,13 +22,14 @@ export default function Header() {
           {/* Menu */}
           <ul className='flex gap-x-9 h-full text-xl text-gray-300 tracking-tightest child:leading-[56px] child-hover:text-orange-300 transition-colors '>
             <li className='font-DanaMedium text-orange-200'>
-              <a href="#">صفحه اصلی</a>
+              <NavLink to="/">صفحه اصلی</NavLink>
             </li>
             {
               headerLink.map((menu) => (
                 <li key={menu._id} className='relative group'>
                   <NavLink  to={menu.href}>
                     {menu.title}
+                  </NavLink>
                     {
                       menu.submenus.length !== 0 && (
                         <div className='absolute opacity-0 invisible group-hover:opacity-100 group-hover:visible top-full p-6 w-52 text-zinc-700 dark:text-white text-base bg-white dark:bg-zinc-700 rounded-2xl border-t border-t-orange-300 space-y-4 tracking-normal shadow-normal transition-all child:inline-block child:transition-colors child-hover:text-orange-300'>
@@ -42,20 +43,9 @@ export default function Header() {
                         </div>
                       )
                     }
-                  </NavLink>
                 </li>
               ))
             }
-            {/* <li className='relative group'>
-              <a href="#" >فروشگاه</a>
-              <div className='absolute opacity-0 invisible group-hover:opacity-100 group-hover:visible top-full p-6 w-52 text-zinc-700 dark:text-white text-base bg-white dark:bg-zinc-700 rounded-2xl border-t border-t-orange-300 space-y-4 tracking-normal shadow-normal transition-all child:inline-block child:transition-colors child-hover:text-orange-300'>
-                <a href="#">قهوه عالی و ویژه</a>
-                <a href="#">قهوه درجه یک</a>
-                <a href="#">ترکیبات ویژه</a>
-                <a href="#">ویژه در سطح جهانی</a>
-              </div>
-            </li> */}
-
           </ul>
         </nav>
 
