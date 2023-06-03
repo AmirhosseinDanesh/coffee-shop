@@ -39,6 +39,15 @@ export default function Login() {
                                     </div>
                                 </div>
                             </div>
+                            <div className="flex items-center ml-3 gap-x-5">
+                                <div>
+                                    <NavLink to="/"  className='py-3 dark:text-white' >
+                                        <svg className="w-7 h-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" >
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                                        </svg>
+                                    </NavLink>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -50,7 +59,7 @@ export default function Login() {
                     </a>
                     <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
                         <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-                            <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white text-center">
+                            <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white texc">
                                 ورود به اکانت
                             </h1>
                             <form class="space-y-4 md:space-y-6" action="#">
