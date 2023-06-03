@@ -2,6 +2,6 @@ import React from 'react'
 
 export default function Articles() {
   return (
-    <div className='text-white'>Articles</div>
+    <div className='dark:text-white'>Articles</div>
   )
 }

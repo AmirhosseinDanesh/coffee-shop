@@ -116,6 +116,11 @@ export default function AdminPanel() {
               </NavLink>
             </li>
           </ul>
+          <div className='fixed bottom-0 font-DanaBold p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700'>
+            <NavLink to="/" target='_blank' className="p-2">
+                  بازدید از سایت
+            </NavLink>
+          </div>
         </div>
       </aside>
 
@@ -124,14 +129,6 @@ export default function AdminPanel() {
           <Outlet />
         </div>
       </div>
-
-
-
-
-
-
-
-
     </>
   )
 }

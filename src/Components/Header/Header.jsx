@@ -21,8 +21,8 @@ export default function Header() {
           </div>
           {/* Menu */}
           <ul className='flex gap-x-9 h-full text-xl text-gray-300 tracking-tightest child:leading-[56px] child-hover:text-orange-300 transition-colors '>
-            <li className={({ isActive })  => (isActive) ? ("font-DanaMedium text-orange-200") : ("font-DanaMedium") }>
-              <NavLink to="/">صفحه اصلی</NavLink>
+            <li className='font-DanaMedium' >
+              <NavLink className={({ isActive })  => (isActive) ? ("text-orange-200") : ("") } to="/">صفحه اصلی</NavLink>
             </li>
             <li className='font-DanaMedium'>
               <ul>

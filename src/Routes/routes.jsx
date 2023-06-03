@@ -2,6 +2,7 @@ import Index from "../Pages/Client/Index";
 import Login from "../Pages/Auth/Login/Login";
 import Register from "../Pages/Auth/Register/Register";
 import ArticlesClient from "../Pages/Client/Articles/ArticlesClient";
+import Shop from "../Pages/Client/Shop/Shop";
 
 import AdminPanel from "../Pages/Admin-panel/AdminPanel";
 import DashBoard from "../Pages/Admin-panel/Dashboard/Dashboard";
@@ -16,6 +17,7 @@ const routes = [
     { path: "/login", element: <Login /> },
     { path: "/register", element: <Register /> },
     { path: "/articles", element: <ArticlesClient /> },
+    { path: "/shop", element: <Shop /> },
     {
         path: "/p-admin/*",
         element: <AdminPanel />,

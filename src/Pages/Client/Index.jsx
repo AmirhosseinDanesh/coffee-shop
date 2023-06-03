@@ -5,7 +5,7 @@ export default function Index() {
   return (
     <>
       <Slider sliders={[
-        { id: 1, src: "/images/sliders/headerBgDesktop.png", alt: "قهوه ناب فرانسوی" },
+        { id: 1, src: "/images/sliders/1.png", alt: "قهوه ناب فرانسوی" }
       ]} />
     </>
   )

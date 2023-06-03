@@ -4,6 +4,6 @@ export default function Dashboard() {
 
 
   return (
-    <div className='text-white'>Dashboard</div>
+    <div className='dark:text-white'>Dashboard</div>
   )
 }
