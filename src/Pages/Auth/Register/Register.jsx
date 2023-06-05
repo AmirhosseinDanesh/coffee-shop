@@ -26,14 +26,24 @@ export default function Register() {
 
                                     if (values.name === "") {
                                         errors.name = "وارد کردن نام الزامی است"
+                                    } else if (values.name.length < 4) {
+                                        errors.name = "کاراکتر های نام کم است"
                                     }
-                                    
+
                                     if (values.username === "") {
                                         errors.username = "وارد کردن یوزرنیم الزامی است"
+                                    } else if (values.username.length < 4) {
+                                        errors.username = "کاراکتر های یوزرنیم کم است"
+                                    } else if (!/^[a-z0-9_-]{3,15}$/i.test(values.username)) {
+                                        errors.username = "یوزرنیم باید انگلیسی باشد"
                                     }
 
                                     if (values.phone === "") {
                                         errors.phone = "وارد کردن شماره تلفن الزامی است"
+                                    } else if (values.phone.length < 11) {
+                                        errors.phone = "کاراکتر های شماره تلفن کم است"
+                                    } else if (!/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/i.test(values.phone)) {
+                                        errors.phone = "شماره باید  وارد کنید"
                                     }
 
                                     if (values.email === "") {
@@ -75,7 +85,7 @@ export default function Register() {
                                             {isSubmitting ? ("لطفا صبر کنید ...") : ("ورود")}
                                         </button>
                                         <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                                            <NavLink to="/register" className=" text-gray-500 dark:text-gray-400 p-2 rounded-lg font-DanaMedium">ثبت نام</NavLink>
+                                            <NavLink to="/login" className=" text-gray-500 dark:text-gray-400 p-2 rounded-lg font-DanaMedium">ورود </NavLink>
                                         </p>
                                     </Form>
                                 )}
