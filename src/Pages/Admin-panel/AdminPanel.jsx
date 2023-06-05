@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom'
 import { NavLink } from 'react-router-dom'
 export default function AdminPanel() {
   useEffect(() => {
-    fetch()
+    document.title = 'پنل مدیریت';
   })
   return (
     <>
