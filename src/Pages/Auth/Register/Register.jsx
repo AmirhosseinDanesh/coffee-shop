@@ -1,49 +1,85 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
+import { Formik, Form, Field, ErrorMessage } from 'formik'
+
 import PanelNav from '../../../Components/PanelNav/PanelNav'
+import Input from '../../../Components/Input/Input.jsx'
+import { emailValidate } from '../../../Components/Input/Validate'
+
 export default function Register() {
     return (
         <>
             <PanelNav />
-            <section class="bg-gray-200 dark:bg-gray-900 mt-20">
-                <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-                    <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
+            <section className="bg-gray-200 dark:bg-gray-900 mt-20">
+                <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+                    <a href="#" className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
                         پنل مدیریتی
                     </a>
-                    <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-                        <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-                            <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white text-center">
+                    <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+                        <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
+                            <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white text-center">
                                 ثبت نام
                             </h1>
-                            <form class="space-y-4 md:space-y-3" action="#">
-                                <div>
-                                    <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font-DanaBold">نام</label>
-                                    <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="امیر دانش" required="" />
-                                </div>
-                                <div>
-                                    <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font-DanaBold">نام کاربری</label>
-                                    <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="amirdanesh" required="" />
-                                </div>
-                                <div>
-                                    <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font-DanaBold">ایمیل</label>
-                                    <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required="" />
-                                </div>
-                                <div>
-                                    <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font-DanaBold">شماره تلفن</label>
-                                    <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="09121234567" required="" />
-                                </div>
-                                <div>
-                                    <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font-DanaBold">رمز عبور</label>
-                                    <input type="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" />
-                                </div>
-                                <div class="flex items-center justify-between">
-                                    <a href="#" class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500 dark:text-white ">فراموشی رمز عبور</a>
-                                </div>
-                                <button type="submit" class="w-full transition-colors rounded-lg text-sm px-5 py-2.5 text-center font-DanaBold text-white bg-blue-600 "> ورود</button>
-                                <p class="text-sm font-light text-gray-500 dark:text-gray-400">
-                                    <NavLink to="/login" class="font-medium text-white bg-green-500 p-2 rounded-lg font-DanaMedium">ورود</NavLink>
-                                </p>
-                            </form>
+                            <Formik
+                                validate={(values) => {
+                                    const errors = {};
+
+                                    if (values.name === "") {
+                                        errors.name = "وارد کردن نام الزامی است"
+                                    }
+                                    
+                                    if (values.username === "") {
+                                        errors.username = "وارد کردن یوزرنیم الزامی است"
+                                    }
+
+                                    if (values.phone === "") {
+                                        errors.phone = "وارد کردن شماره تلفن الزامی است"
+                                    }
+
+                                    if (values.email === "") {
+                                        errors.email = "وارد کردن ایمیل الزامی است"
+                                    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+                                        errors.email = "ایمیل وارد شده اشتباه است"
+                                    }
+
+                                    if (values.password === "") {
+                                        errors.password = "وارد کردن رمزعبور الزامی است"
+                                    } else if (values.password.length < 4) {
+                                        errors.password = "کاراکتر های رمزعبور کم است"
+                                    }
+
+
+                                    return errors;
+                                }}
+                                initialValues={{ name: "", username: "", phone: "", email: "", password: "" }}
+                                onSubmit={(values, { setSubmitting }) => {
+                                    console.log(values)
+                                    setTimeout(() => {
+                                        setSubmitting(false)
+                                    }, 3000);
+                                }} >
+                                {({ isSubmitting }) => (
+                                    <Form className="space-y-4 md:space-y-6">
+                                        <Input label="نام" type="text" name="name" placeholder="امیر دانش" />
+                                        <Input label="نام کاربری" type="text" name="username" placeholder="Amirdanesh" />
+                                        <Input label="شماره تلغن " type="text" name="phone" placeholder="09123456789" />
+                                        <Input label="ایمیل" type="email" name="email" placeholder="name@company.com" />
+                                        <Input label="رمز عبور" type="password" name="password" placeholder="••••••••" />
+                                        <div className="flex items-center justify-between">
+                                            <a href="#" className="text-sm text-primary-600 hover:underline dark:text-primary-500 dark:text-white ">فراموشی رمز عبور</a>
+                                        </div>
+                                        <button type="submit"
+                                            className={isSubmitting ? ("input-submit bg-blue-500") : ("input-submit bg-blue-600")}
+                                            disabled={isSubmitting}
+                                        >
+                                            {isSubmitting ? ("لطفا صبر کنید ...") : ("ورود")}
+                                        </button>
+                                        <p className="text-sm font-light text-gray-500 dark:text-gray-400">
+                                            <NavLink to="/register" className=" text-gray-500 dark:text-gray-400 p-2 rounded-lg font-DanaMedium">ثبت نام</NavLink>
+                                        </p>
+                                    </Form>
+                                )}
+                            </Formik>
                         </div>
                     </div>
                 </div>

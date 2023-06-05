@@ -3,8 +3,9 @@ import PanelNav from "../../../Components/PanelNav/PanelNav.jsx"
 
 import { NavLink } from 'react-router-dom'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
-import Input from '../../../Components/Input/Input.jsx'
 
+import Input from '../../../Components/Input/Input.jsx'
+// import { emailValidate } from "../../../Components/Input/Validate.js"
 export default function Login() {
     return (
         <>
@@ -24,6 +25,7 @@ export default function Login() {
                             <Formik
                                 validate={(values) => {
                                     const errors = {};
+                                    
                                     if (values.email === "") {
                                         errors.email = "وارد کردن ایمیل الزامی است"
                                     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
@@ -49,7 +51,7 @@ export default function Login() {
                                     <Form className="space-y-4 md:space-y-6">
                                         <Input label="ایمیل" type="email" name="email" placeholder="name@company.com" />
                                         <Input label="رمز عبور" type="password" name="password" placeholder="••••••••" />
-                                        
+
                                         <div className="flex items-center justify-between">
                                             <a href="#" className="text-sm text-primary-600 hover:underline dark:text-primary-500 dark:text-white ">فراموشی رمز عبور</a>
                                         </div>
