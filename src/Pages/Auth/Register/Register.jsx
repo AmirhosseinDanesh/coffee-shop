@@ -57,17 +57,18 @@ export default function Register() {
                                     } else if (values.password.length < 4) {
                                         errors.password = "کاراکتر های رمزعبور کم است"
                                     }
-
-
                                     return errors;
                                 }}
+
                                 initialValues={{ name: "", username: "", phone: "", email: "", password: "" }}
+
                                 onSubmit={(values, { setSubmitting }) => {
                                     console.log(values)
                                     setTimeout(() => {
                                         setSubmitting(false)
                                     }, 3000);
-                                }} >
+                                }}
+                            >
                                 {({ isSubmitting }) => (
                                     <Form className="space-y-4 md:space-y-6">
                                         <Input label="نام" type="text" name="name" placeholder="امیر دانش" />
