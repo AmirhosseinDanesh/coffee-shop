@@ -1,13 +1,17 @@
-import React from 'react'
+import React ,{useContext} from 'react'
 import { NavLink } from 'react-router-dom'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
+import { registerValidate } from '../../../Components/Input/Validate'
+import {DataUrlV1} from "../../../Data/Data"
+import AuthContext from '../../../Context/authContext'
 
 import PanelNav from '../../../Components/PanelNav/PanelNav'
 import Input from '../../../Components/Input/Input.jsx'
-import { registerValidate } from '../../../Components/Input/Validate'
 
-import {DataUrlV1} from "../../../Data/Data"
+
 export default function Register() {
+    const auth = useContext(AuthContext)
+    
     return (
         <>
             <PanelNav />
@@ -40,8 +44,12 @@ export default function Register() {
                                         },
                                         body : JSON.stringify(newUserInfo)
                                     }).then(res=>res.json())
-                                        .then(data => console.log(data.accessToken))
-                                    
+                                        .then(data => {
+                                            console.log(data.accessToken)
+                                            auth.login(data.user , data.accessToken)
+                                            
+                                        })
+
                                     setTimeout(() => {
                                         setSubmitting(false)
                                     }, 3000);

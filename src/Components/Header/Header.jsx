@@ -1,8 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { NavLink } from 'react-router-dom'
 import { DataUrlV1 } from "../../Data/Data"
+
+import AuthContext from '../../Context/authContext'
+
 export default function Header() {
   const [headerLink, setHeaderLink] = useState([])
+  const auth = useContext(AuthContext)
+
   useEffect(() => {
     fetch(`${DataUrlV1}/menus`)
       .then(res => res.json())
@@ -22,11 +27,11 @@ export default function Header() {
           {/* Menu */}
           <ul className='flex gap-x-9 h-full text-xl text-gray-300 tracking-tightest child:leading-[56px] child-hover:text-orange-300 transition-colors '>
             <li className='font-DanaMedium' >
-              <NavLink className={({ isActive })  => (isActive) ? ("text-orange-200") : ("") } to="/">صفحه اصلی</NavLink>
+              <NavLink className={({ isActive }) => (isActive) ? ("text-orange-200") : ("")} to="/">صفحه اصلی</NavLink>
             </li>
             <li className='font-DanaMedium'>
               <ul>
-                <NavLink to="/shop" className={({ isActive })  => (isActive) ? ("relative group text-orange-200") : ("relative group") }>فروشگاه</NavLink>
+                <NavLink to="/shop" className={({ isActive }) => (isActive) ? ("relative group text-orange-200") : ("relative group")}>فروشگاه</NavLink>
                 <li className='relative group'>
                   <a href="/" className='absolute opacity-0 invisible group-hover:opacity-100 group-hover:visible top-full p-6 w-52 text-zinc-700 dark:text-white text-base bg-white dark:bg-zinc-700 rounded-2xl border-t border-t-orange-300 space-y-4 tracking-normal shadow-normal transition-all child:inline-block child:transition-colors child-hover:text-orange-300'>سلام</a>
                   <div className='absolute opacity-0 invisible group-hover:opacity-100 group-hover:visible top-full p-6 w-52 text-zinc-700 dark:text-white text-base bg-white dark:bg-zinc-700 rounded-2xl border-t border-t-orange-300 space-y-4 tracking-normal shadow-normal transition-all child:inline-block child:transition-colors child-hover:text-orange-300'>
@@ -60,7 +65,7 @@ export default function Header() {
               </ul>
             </li>
             <li className='font-DanaMedium'>
-              <NavLink to="/articles" className={({ isActive })  => (isActive) ? ("text-orange-200") : ("") }>مقالات</NavLink>
+              <NavLink to="/articles" className={({ isActive }) => (isActive) ? ("text-orange-200") : ("")}>مقالات</NavLink>
             </li>
             {/* {
               headerLink.map((menu) => (
@@ -183,14 +188,35 @@ export default function Header() {
           <span className='block w-px h-14 bg-white/20'></span>
 
           {/* Login */}
-          <NavLink to="/login" className='flex items-center gap-x-2.5 tracking-tightest '>
+          {/* <NavLink to="/login" className='flex items-center gap-x-2.5 tracking-tightest '>
             <svg className="w-8 h-8 rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
             </svg>
             <span className='text-xl'>
               ورود | ثبت‌نام
             </span>
-          </NavLink>
+          </NavLink> */}
+
+          {
+            auth.isLoggedIn ? (
+              <>
+                <NavLink to="/profile" className='flex items-center gap-x-2.5 tracking-tightest '>
+                  <span className='text-xl  tracking-normal'>
+                    {auth.userInfos.name}
+                  </span>
+                </NavLink>
+              </>
+            ) : (
+              <NavLink to="/login" className='flex items-center gap-x-2.5 tracking-tightest '>
+                <svg className="w-8 h-8 rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
+                </svg>
+                <span className='text-xl tracking-normal'>
+                  ورود | ثبت‌نام
+                </span>
+              </NavLink>
+            )
+          }
         </div>
       </div>
     </header>

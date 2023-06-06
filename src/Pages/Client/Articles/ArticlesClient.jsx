@@ -15,7 +15,7 @@ export default function ArticlesClient() {
   }, [])
   return (
     <>
-    <Header/>
+      <Header />
       <Slider sliders={[{ id: 1, src: "/images/sliders/3.jpg", alt: "قهوه فوری" }]} />
 
       <div className='mt-20 p-10'>
@@ -24,7 +24,8 @@ export default function ArticlesClient() {
         </div>
         <div className='flex flex-row p-4'>
           {
-            (articles.lenght ? (
+            
+            (articles.length ? (
               articles.map((art) => (
                 <Article {...art} />
               ))

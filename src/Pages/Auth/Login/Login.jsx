@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useContext } from 'react'
 import PanelNav from "../../../Components/PanelNav/PanelNav.jsx"
 
 import { NavLink } from 'react-router-dom'
@@ -6,8 +6,14 @@ import { Formik, Form, Field, ErrorMessage } from 'formik'
 
 import Input from '../../../Components/Input/Input.jsx'
 import { loginValidate } from '../../../Components/Input/Validate.js'
-
+import { DataUrlV1 } from '../../../Data/Data.js'
+import swal from "sweetalert";
+import AuthContext from '../../../Context/authContext.js'
+import {  useNavigate } from "react-router-dom";
 export default function Login() {
+    const navigate = useNavigate();
+    const [errorText, setErrorText] = useState("")
+    const auth = useContext(AuthContext)
     return (
         <>
             <PanelNav />
@@ -22,11 +28,53 @@ export default function Login() {
                             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white texc">
                                 ورود به اکانت
                             </h1>
+                            <p>
+                                {errorText}
+                            </p>
                             <Formik
                                 validate={loginValidate}
                                 initialValues={{ email: "", password: "" }}
                                 onSubmit={(values, { setSubmitting }) => {
-                                    console.log(values)
+                                    const userDataForLogin = {
+                                        identifier: values.email,
+                                        password: values.password,
+                                    }
+
+                                    fetch(`${DataUrlV1}/auth/login`, {
+                                        method: "POST",
+                                        headers: {
+                                            "Content-Type": "application/json"
+                                        },
+                                        body: JSON.stringify(userDataForLogin)
+                                    })
+                                        .then(res => {
+                                            if (!res.ok) {
+                                                return res.text()
+                                                    .then(text => {
+                                                        throw new Error(text)
+                                                    })
+                                            } else {
+                                                return res.json()
+                                            }
+                                        })
+                                        .then(data => {
+                                            // auth.login([], data.accessToken)
+                                            swal({
+                                                title: "با موفقیت وارد شدید",
+                                                icon: "success",
+                                                buttons: "ورود به پنل",
+                                            }).then(() => {
+                                                auth.login({}, data.accessToken);
+                                                navigate("/p-admin");
+                                            });
+                                        })
+                                        .catch(err => {
+                                            // setErrorText(err)
+                                            console.log(err)
+                                        })
+
+
+
                                     setTimeout(() => {
                                         setSubmitting(false)
                                     }, 3000);
