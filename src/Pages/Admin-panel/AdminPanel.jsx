@@ -1,10 +1,16 @@
-import React, { useEffect } from 'react'
-import { Outlet } from 'react-router-dom'
-import { NavLink } from 'react-router-dom'
+import React, { useEffect, useContext } from 'react'
+import { Outlet, NavLink } from 'react-router-dom'
+import AuthContext from '../../Context/authContext'
+import { useNavigate } from "react-router-dom";
+
 export default function AdminPanel() {
   useEffect(() => {
     document.title = 'پنل مدیریت';
   })
+
+  const navigate = useNavigate();
+  const auth = useContext(AuthContext)
+
   return (
     <>
       <nav className="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
@@ -57,13 +63,13 @@ export default function AdminPanel() {
                   <div className='absolute opacity-0 invisible group-hover:opacity-100 group-hover:visible top-full left-0 p-5 w-[300px] text-zinc-700 dark:text-white text-base bg-white dark:bg-zinc-700 rounded-2xl space-y-4 tracking-normal shadow-normal transition-all'>
                     <div className="flex flex-col gap-y-5" role="none">
                       <p className="text-sm text-gray-900 dark:text-white" role="none">
-                        امیر دانش
+                        {auth.userInfos.name}
                       </p>
                       <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
-                        daneshahd78@gmail.com
+                        {auth.userInfos.email}
                       </p>
                       <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
-                        09332624415
+                        {auth.userInfos.phone}
                       </p>
                       <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
                         <a href="#">تغییر رمز عبور</a>
@@ -72,7 +78,16 @@ export default function AdminPanel() {
 
                   </div>
                 </div>
-                <div>
+                <div onClick={() => {
+                  swal({
+                    title: "خارج شدید",
+                    buttons: "تایید"
+                  }).then(() => {
+                    auth.logout()
+                    navigate("/login")
+
+                  })
+                }}>
                   <svg className="w-7 h-7 dark:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" >
                     <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
                   </svg>
