@@ -4,6 +4,7 @@ import Article from '../../../Components/Article/Article'
 import { DataUrlV1 } from "../../../Data/Data"
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
+import Header from '../../../Components/Header/Header'
 
 export default function ArticlesClient() {
   const [articles, setArticles] = useState([])
@@ -14,6 +15,7 @@ export default function ArticlesClient() {
   }, [])
   return (
     <>
+    <Header/>
       <Slider sliders={[{ id: 1, src: "/images/sliders/3.jpg", alt: "قهوه فوری" }]} />
 
       <div className='mt-20 p-10'>

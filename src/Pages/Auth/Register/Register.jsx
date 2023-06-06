@@ -5,8 +5,8 @@ import { Formik, Form, Field, ErrorMessage } from 'formik'
 import PanelNav from '../../../Components/PanelNav/PanelNav'
 import Input from '../../../Components/Input/Input.jsx'
 import { registerValidate } from '../../../Components/Input/Validate'
-// import { emailValidate } from '../../../Components/Input/Validate'
 
+import {DataUrlV1} from "../../../Data/Data"
 export default function Register() {
     return (
         <>
@@ -23,9 +23,25 @@ export default function Register() {
                             </h1>
                             <Formik
                                 validate={registerValidate}
-                                initialValues={{ name: "", username: "", phone: "", email: "", password: "" }}
+                                initialValues={{ name: "", username: "", phone: "", email: "", password: ""  }}
                                 onSubmit={(values, { setSubmitting }) => {
-                                    console.log(values)
+                                    const newUserInfo = {
+                                        name : values.name ,
+                                        username : values.username ,
+                                        phone : values.phone ,
+                                        email : values.email ,
+                                        password : values.password ,
+                                        confirmPassword : values.password ,
+                                    }
+                                    fetch(`${DataUrlV1}/auth/register` , {
+                                        method: "POST" ,
+                                        headers : {
+                                            "Content-Type" : "application/json"
+                                        },
+                                        body : JSON.stringify(newUserInfo)
+                                    }).then(res=>res.json())
+                                        .then(data => console.log(data.accessToken))
+                                    
                                     setTimeout(() => {
                                         setSubmitting(false)
                                     }, 3000);

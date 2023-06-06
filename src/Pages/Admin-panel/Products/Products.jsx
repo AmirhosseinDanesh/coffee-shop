@@ -5,6 +5,8 @@ import { Formik, Form, Field, ErrorMessage } from 'formik'
 
 import { productValidate } from '../../../Components/Input/Validate.js'
 import Input from '../../../Components/Input/Input.jsx'
+import Table from '../../../Components/Table/Table.jsx'
+import Modal from '../../../Components/Modal/Modal.jsx'
 
 export default function Products() {
   return (
@@ -74,7 +76,13 @@ export default function Products() {
 
         </Formik>
       </div>
-      
+      <div>
+        <Table />
+      </div>
+      <div>
+          <Modal/>
+      </div>
+
     </>
   )
 }

@@ -34,6 +34,8 @@ export const registerValidate = (values) => {
     } else if (values.password.length < 4) {
         errors.password = "کاراکتر های رمزعبور کم است"
     }
+    
+    
     return errors;
 }
 
