@@ -54,3 +54,39 @@ export const loginValidate = (values) => {
 
     return errors;
 }
+
+
+
+export const productValidate = (values) => {
+    const errors = {};
+
+    if (values.name === "") {
+        errors.name = "وارد کردن ایمیل الزامی است"
+    }
+    if (values.shortName === "") {
+        errors.shortName = "وارد کردن ایمیل الزامی است"
+    }
+    if (values.description === "") {
+        errors.description = "وارد کردن ایمیل الزامی است"
+    }
+    if (values.price === "") {
+        errors.price = "وارد کردن ایمیل الزامی است"
+    }
+    if (values.status === "") {
+        errors.status = "وارد کردن ایمیل الزامی است"
+    }
+    if (values.categoryID === "") {
+        errors.categoryID = "وارد کردن دسته بندی الزامی است"
+    }
+    if (values.status === "") {
+        errors.status = "وارد کردن وضعیت الزامی است"
+    }
+    if (values.cover === "") {
+        errors.cover = "وارد کردن عکس الزامی است"
+    }
+
+
+    return errors;
+
+}
+

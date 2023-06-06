@@ -3,6 +3,7 @@ import Login from "../Pages/Auth/Login/Login";
 import Register from "../Pages/Auth/Register/Register";
 import ArticlesClient from "../Pages/Client/Articles/ArticlesClient";
 import Shop from "../Pages/Client/Shop/Shop";
+import NotFound from "../Pages/Client/NotFound/NotFound"
 
 import AdminPanel from "../Pages/Admin-panel/AdminPanel";
 import DashBoard from "../Pages/Admin-panel/Dashboard/Dashboard";
@@ -18,6 +19,7 @@ const routes = [
     { path: "/register", element: <Register /> },
     { path: "/articles", element: <ArticlesClient /> },
     { path: "/shop", element: <Shop /> },
+    { path: "*", element: <NotFound /> },
     {
         path: "/p-admin/*",
         element: <AdminPanel />,

@@ -3,43 +3,15 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 
+import { productValidate } from '../../../Components/Input/Validate.js'
 import Input from '../../../Components/Input/Input.jsx'
+
 export default function Products() {
   return (
     <>
       <div className=''>
         <Formik
-          validate={(values) => {
-            const errors = {};
-
-            if (values.name === "") {
-              errors.name = "وارد کردن ایمیل الزامی است"
-            }
-            if (values.shortName === "") {
-              errors.shortName = "وارد کردن ایمیل الزامی است"
-            }
-            if (values.description === "") {
-              errors.description = "وارد کردن ایمیل الزامی است"
-            }
-            if (values.price === "") {
-              errors.price = "وارد کردن ایمیل الزامی است"
-            }
-            if (values.status === "") {
-              errors.status = "وارد کردن ایمیل الزامی است"
-            }
-            if (values.categoryID === "") {
-              errors.categoryID = "وارد کردن دسته بندی الزامی است"
-            }
-            if (values.status === "") {
-              errors.status = "وارد کردن وضعیت الزامی است"
-            }
-            if (values.cover === "") {
-              errors.cover = "وارد کردن عکس الزامی است"
-            }
-
-
-            return errors;
-          }}
+          validate={productValidate}
           initialValues={{ name: "", shortName: "", description: "", price: "", status: "", categoryID: "", cover: "" }}
           onSubmit={(values, { setSubmitting }) => {
             console.log(values)
