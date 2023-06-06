@@ -5,7 +5,8 @@ import { NavLink } from 'react-router-dom'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 
 import Input from '../../../Components/Input/Input.jsx'
-// import { emailValidate } from "../../../Components/Input/Validate.js"
+import { loginValidate } from '../../../Components/Input/Validate.js'
+
 export default function Login() {
     return (
         <>
@@ -21,25 +22,8 @@ export default function Login() {
                             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white texc">
                                 ورود به اکانت
                             </h1>
-
                             <Formik
-                                validate={(values) => {
-                                    const errors = {};
-                                    
-                                    if (values.email === "") {
-                                        errors.email = "وارد کردن ایمیل الزامی است"
-                                    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-                                        errors.email = "ایمیل وارد شده اشتباه است"
-                                    }
-
-                                    if (values.password === "") {
-                                        errors.password = "وارد کردن رمزعبور الزامی است"
-                                    } else if (values.password.length < 4) {
-                                        errors.password = "کاراکتر های رمزعبور کم است"
-                                    }
-
-                                    return errors;
-                                }}
+                                validate={loginValidate}
                                 initialValues={{ email: "", password: "" }}
                                 onSubmit={(values, { setSubmitting }) => {
                                     console.log(values)
