@@ -52,25 +52,24 @@ export default function Products() {
       title: "آیا از حدف این محصول مطمعن هستید؟",
       buttons: ["خیر", "بله"]
     }).then((res) => {
+      // console.log(id)
       if (res) {
-        fetch(`${DataUrlV1}/courses/${id}` , {
-          method: "DELETE" , 
-          headers:{
-            "Authorization" : `Bearer ${LocalStorageData.token}`,
+        fetch(`${DataUrlV1}/courses/${id}`, {
+          method: "DELETE",
+          headers: {
+            "Authorization": `Bearer ${LocalStorageData.token}`,
           },
         })
-        .then(res=>res.json())
-        .then(data =>{
-          console.log("remove")
-          getProducts()
-        })
+          .then(res => res.json())
+          .then(data => {
+            getProducts()
+          })
       }
     })
   }
 
   useEffect(() => {
     getProducts()
-
     fetch(`${DataUrlV1}/category`)
       .then(res => res.json())
       .then(data => {
@@ -86,11 +85,28 @@ export default function Products() {
       <Formik
         validate={productValidate}
         initialValues={{ name: "", shortName: "", description: "", price: "", status: "", categoryID: "", cover: "" }}
-        onSubmit={(values, { setSubmitting }) => {
-          console.log(values)
-          setTimeout(() => {
-            setSubmitting(false)
-          }, 3000);
+        onSubmit={(values , { setSubmitting }) => {
+          const formData = new FormData();
+          Object.entries(values).forEach(([key, value]) => {
+            formData.append(key, value);
+          });
+          formData.append('cover', event.target.elements.cover.files[0]);
+          fetch(`${DataUrlV1}/courses/`, {
+            method: "POST",
+            headers: {
+              'Authorization': `Bearer ${LocalStorageData.token} `
+            },
+            body: formData
+          })
+            .then(res => res.json())
+            .then(data => {
+              getProducts()
+              setTimeout(() => {
+                setSubmitting(false)
+              }, 3000);
+            })
+
+
         }} >
         {({ isSubmitting }) => (
           <div className='mt-5'>
