@@ -1,12 +1,14 @@
 import React from 'react'
 
-export default function Table() {
+export default function Table({ children }) {
     return (
-
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
             <table className="w-full text-sm text-right text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
+                        <th scope="col" className="px-6 py-3 ">
+                            عکس محصول
+                        </th>
                         <th scope="col" className="px-6 py-3 ">
                             نام محصول
                         </th>
@@ -14,10 +16,7 @@ export default function Table() {
                             قیمت محصول
                         </th>
                         <th scope="col" className="px-6 py-3 ">
-                            دسته بندی
-                        </th>
-                        <th scope="col" className="px-6 py-3 ">
-                            وضعیت
+                            مدرس
                         </th>
                         <th scope="col" className="px-6 py-3 ">
                             ویرایش
@@ -25,25 +24,28 @@ export default function Table() {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                    {children}
+                    {/* <tr  className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                         <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            قهوه ترک
+                            عکس
+                            <img src="" alt="" />
                         </th>
-                        <td className="px-6 py-4">
-                            2,100,000
+                        <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            اول
+                        </th>
+                        <td className="px-2 py-2">
+                            دوم
                         </td>
-                        <td className="px-6 py-4">
-                            عربیکا
+                        <td className="px-2 py-2">
+                            سوم
                         </td>
-                        <td className="px-6 py-4">
-                            تمام شده
+                        <td className="px-2 py-2 flex">
+                            <button className=" dark:text-white bg-blue-700 hover:bg-blue-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg ">ویرایش</button>
+                            <button className=" dark:text-white bg-red-700 hover:bg-red-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg ">حذف</button>
+                            <button className=" dark:text-white bg-red-700 hover:bg-red-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg ">جزئیات</button>
                         </td>
-                        <td className="px-6 py-4">
-                            <button className=" dark:text-white bg-blue-700 hover:bg-blue-900 text-white font-bold py-2 px-4 mx-1 rounded-lg ">ویرایش</button>
-                            <button className=" dark:text-white bg-red-700 hover:bg-red-900 text-white font-bold py-2 px-4 mx-1 rounded-lg ">حذف</button>
-                        </td>
-                    </tr>
-                    
+                    </tr> */}
+
                 </tbody>
             </table>
         </div>
