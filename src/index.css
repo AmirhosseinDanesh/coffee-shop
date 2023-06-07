@@ -50,3 +50,11 @@
 .input-submit {
   @apply w-full transition-colors rounded-lg text-sm px-5 py-2.5 text-center font-DanaBold text-white  ;
 }
+
+.swal-title{
+  font-size: 1rem;
+}
+.swal-foote{
+  display: flex;
+  justify-content: center;
+}

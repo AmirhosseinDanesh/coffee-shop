@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useRoutes } from "react-router-dom"
 import routes from './Routes/routes.jsx'
 import AuthContext from './Context/authContext.js'
@@ -36,7 +36,8 @@ export default function App() {
           setIsLoggedIn(true)
           setUserInfos(data)
         })
-
+    } else {
+      setIsLoggedIn(false)
     }
   }, [])
 

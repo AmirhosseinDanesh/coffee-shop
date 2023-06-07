@@ -1,23 +1,24 @@
 import React, { useState, useContext } from 'react'
 import PanelNav from "../../../Components/PanelNav/PanelNav.jsx"
+import Input from '../../../Components/Input/Input.jsx'
+import Toast from "../../../Components/Toast/Toast.jsx"
 
 import { NavLink } from 'react-router-dom'
-import { Formik, Form, Field, ErrorMessage } from 'formik'
+import { useNavigate } from "react-router-dom";
+import { Formik, Form } from 'formik'
 
-import Input from '../../../Components/Input/Input.jsx'
 import { loginValidate } from '../../../Components/Input/Validate.js'
-import { DataUrlV1 } from '../../../Data/Data.js'
-import swal from "sweetalert";
 import AuthContext from '../../../Context/authContext.js'
-import {  useNavigate } from "react-router-dom";
+import { DataUrlV1 } from '../../../Data/Data.js'
+
 export default function Login() {
     const navigate = useNavigate();
     const [errorText, setErrorText] = useState("")
     const auth = useContext(AuthContext)
+    const [isShowToast, setIsShowToast] = useState(false)
     return (
         <>
             <PanelNav />
-
             <section className="bg-gray-200 dark:bg-gray-900">
                 <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
                     <a href="#" className="flex items-center mb-6 text-2xl text-gray-900 dark:text-white">
@@ -58,27 +59,20 @@ export default function Login() {
                                             }
                                         })
                                         .then(data => {
-                                            // auth.login([], data.accessToken)
-                                            swal({
-                                                title: "با موفقیت وارد شدید",
-                                                icon: "success",
-                                                buttons: "ورود به پنل",
-                                            }).then(() => {
-                                                auth.login({}, data.accessToken);
+                                            auth.login([], data.accessToken)
+
+                                            setIsShowToast(true)
+                                            setTimeout(() => {
                                                 navigate("/p-admin");
-                                            });
+                                            }, 3000);
+
                                         })
                                         .catch(err => {
                                             // setErrorText(err)
                                             console.log(err)
                                         })
-
-
-
-                                    setTimeout(() => {
-                                        setSubmitting(false)
-                                    }, 3000);
-                                }} >
+                                }
+                                }>
                                 {({ isSubmitting }) => (
                                     <Form className="space-y-4 md:space-y-6">
                                         <Input label="ایمیل" type="email" name="email" placeholder="name@company.com" />
@@ -103,6 +97,16 @@ export default function Login() {
                     </div>
                 </div>
             </section>
+            {
+                isShowToast && <Toast
+                    title="با موفقیت وارد شدید"
+                    bgColor="bg-blue-100"
+                    darkBgColor="bg-blue-800"
+                    svg={<svg aria-hidden="true" className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path></svg>
+                    }
+                />
+            }
+
         </>
     )
 }
