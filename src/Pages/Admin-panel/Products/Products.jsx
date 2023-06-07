@@ -8,6 +8,7 @@ import Input from '../../../Components/Input/Input.jsx'
 import Table from '../../../Components/Table/Table.jsx'
 import Modal from '../../../Components/Modal/Modal.jsx'
 import Toast from "../../../Components/Toast/Toast.jsx"
+import swal from 'sweetalert'
 
 export default function Products() {
   const [products, setProducts] = useState([])
@@ -18,7 +19,7 @@ export default function Products() {
   const [categories, setCategories] = useState([])
   const closeModal = () => setIsShowModal(false)
   const LocalStorageData = JSON.parse(localStorage.getItem("user"))
-  
+
   const getProducts = () => {
     fetch(`${DataUrlV1}/courses`)
       .then(res => res.json())
@@ -26,7 +27,7 @@ export default function Products() {
         setProducts(data)
       })
   }
-  
+
   const editProduct = (id, productNewData) => {
     fetch(`${DataUrlV1}/courses/${id} `, {
       method: "PUT",
@@ -44,6 +45,27 @@ export default function Products() {
           setIsShowEditToast(false)
         }, 2000);
       })
+  }
+
+  const removeProducts = (id) => {
+    swal({
+      title: "آیا از حدف این محصول مطمعن هستید؟",
+      buttons: ["خیر", "بله"]
+    }).then((res) => {
+      if (res) {
+        fetch(`${DataUrlV1}/courses/${id}` , {
+          method: "DELETE" , 
+          headers:{
+            "Authorization" : `Bearer ${LocalStorageData.token}`,
+          },
+        })
+        .then(res=>res.json())
+        .then(data =>{
+          console.log("remove")
+          getProducts()
+        })
+      }
+    })
   }
 
   useEffect(() => {
@@ -150,7 +172,10 @@ export default function Products() {
                   setSelectProductcover(product.cover)
                   setIsShowModal(true)
                 }}>ویرایش</button>
-                <button className=" dark:text-white bg-red-700 hover:bg-red-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg">حذف</button>
+                <button className=" dark:text-white bg-red-700 hover:bg-red-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => {
+                  setSelectProduct(product)
+                  removeProducts(selectProduct._id)
+                }}>حذف</button>
                 <button className=" dark:text-white bg-red-700 hover:bg-red-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => { console.log("edit") }}>جزئیات</button>
               </td>
             </tr>
@@ -244,8 +269,9 @@ export default function Products() {
           </>
         }
       />}
+
       {
-        isShowEditToast && <Toast title="محصول با موفقیت ویرایش شد"/>
+        isShowEditToast && <Toast title="محصول با موفقیت ویرایش شد" />
       }
 
     </>
