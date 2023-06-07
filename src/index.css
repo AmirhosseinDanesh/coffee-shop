@@ -54,7 +54,7 @@
 .swal-title{
   font-size: 1rem;
 }
-.swal-foote{
+.swal-footer{
   display: flex;
   justify-content: center;
 }

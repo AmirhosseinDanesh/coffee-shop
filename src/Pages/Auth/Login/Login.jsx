@@ -63,8 +63,8 @@ export default function Login() {
 
                                             setIsShowToast(true)
                                             setTimeout(() => {
-                                                navigate("/p-admin");
-                                            }, 3000);
+                                                navigate("/p-admin/dashboard");
+                                            }, 1500);
 
                                         })
                                         .catch(err => {

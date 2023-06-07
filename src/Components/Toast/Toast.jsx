@@ -4,7 +4,7 @@ export default function Toast({ title, bgColor, darkBgColor, svg }) {
     const [closeToast, setCloseToast] = useState(true)
     return (
         <div className={(closeToast) ? ("") : ("hidden")}>
-            <div className="fixed bottom-0 left-0 flex items-center w-full max-w-xs m-2 p-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
+            <div className="fixed bottom-0 left-0 flex items-center w-full max-w-xs p-4 m-2 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
                 <div className={`inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-gray-500  rounded-lg dark:text-white dark:${darkBgColor}  ${bgColor}`}>
                     {svg}
                 </div>
