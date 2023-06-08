@@ -183,8 +183,27 @@ export default function Products() {
 
       </Formik >
       {/* Product List */}
-      <Table Table
-        children={
+      <Table
+        childrenTH={
+          <tr>
+            <th scope="col" className="px-6 py-3 ">
+              عکس محصول
+            </th>
+            <th scope="col" className="px-6 py-3 ">
+              نام محصول
+            </th>
+            <th scope="col" className="px-6 py-3 ">
+              قیمت محصول
+            </th>
+            <th scope="col" className="px-6 py-3 ">
+              مدرس
+            </th>
+            <th scope="col" className="px-6 py-3 ">
+              ویرایش
+            </th>
+          </tr>
+        }
+        childrenTD={
           products.map((product) => (
             <tr key={product._id} className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
               <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -213,8 +232,9 @@ export default function Products() {
               </td>
             </tr>
           ))
-        } >
-      </Table >
+        }
+      />
+
       {/* Modal for editing Products */}
       {
         isShowModal && <Modal title="محصول" onHide={closeModal}
