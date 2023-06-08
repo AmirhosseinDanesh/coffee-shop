@@ -48,7 +48,6 @@ export default function Products() {
   }
 
   const removeProducts = (id) => {
-    console.log(id)
     swal({
       title: "آیا از حدف این محصول مطمعن هستید؟",
       buttons: ["خیر", "بله"]
@@ -85,7 +84,7 @@ export default function Products() {
       <Formik
         validate={productValidate}
         initialValues={{ name: "", shortName: "", description: "", price: "", status: "", categoryID: "", cover: "" }}
-        onSubmit={(values ,  { setSubmitting , resetForm } ) => {
+        onSubmit={(values, { setSubmitting, resetForm }) => {
           const formData = new FormData();
           Object.entries(values).forEach(([key, value]) => {
             formData.append(key, value);
@@ -208,36 +207,38 @@ export default function Products() {
                 validate={productEditValidate}
                 initialValues={{ name: `${selectProduct.name}`, shortName: `${selectProduct.shortName}`, description: `${selectProduct.description}`, price: `${selectProduct.price}`, status: `${selectProduct.status}`, categoryID: `${selectProduct.categoryID._id}`, cover: '' }}
                 onSubmit={(values, { setSubmitting }) => {
-                  const formData = new FormData()
-                  if (values.cover === '') {
-                    values.cover = selectProductCover;
-                  } else {
-                    Object.entries(values).forEach(([key, value]) => {
-                      formData.append(key, value);
-                    });
-                    formData.append('cover', event.target.elements.cover.files[0]);
+
+
+                  const formData = new FormData();
+                  formData.append('name', values.name);
+                  formData.append('shortName', values.shortName);
+                  formData.append('description', values.description);
+                  formData.append('price', values.price);
+                  formData.append('status', values.status);
+                  formData.append('categoryID', values.categoryID);
+                  if (selectProductCover) {
+                    formData.append('cover', selectProductCover);
                   }
+
                   fetch(`${DataUrlV1}/courses/${selectProduct._id}`, {
                     method: "PUT",
                     headers: {
-                      'Authorization': `Bearer ${LocalStorageData.token} `
+                      'Authorization': `Bearer ${LocalStorageData.token}`
                     },
-                    body: formData,
+                    body: formData
                   })
                     .then(res => {
-                      console.log(res)
+                      res.json()
                     })
-
-
-                  // .then(data => {
-                  //   getProducts()
-                  //   setIsShowEditToast(true)
-                  //   setIsShowModal(false)
-                  //   setTimeout(() => {
-                  //     setIsShowEditToast(false)
-                  //     setSubmitting(false)
-                  //   }, 2000);
-                  // })
+                    .then(data => {
+                      getProducts()
+                      setIsShowEditToast(true)
+                      setIsShowModal(false)
+                      setTimeout(() => {
+                        setIsShowEditToast(false)
+                        setSubmitting(false)
+                      }, 2000);
+                    })
 
                 }} >
                 {({ isSubmitting }) => (
@@ -274,8 +275,9 @@ export default function Products() {
                       </div>
                       <div>
                         <label className="input-label">عکس محصول</label>
-                        <Field type="file" name="cover" className="input"></Field>
-
+                        <Field type="file" name="cover" className="input" onChange={(event) => {
+                          setSelectProductcover(event.target.files[0]);
+                        }} />
                         <ErrorMessage name="cover">
                           {(msg) => <span className='text-xs text-red-600'>{msg}</span>}
                         </ErrorMessage>
