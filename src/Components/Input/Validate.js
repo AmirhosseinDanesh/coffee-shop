@@ -34,8 +34,8 @@ export const registerValidate = (values) => {
     } else if (values.password.length < 4) {
         errors.password = "کاراکتر های رمزعبور کم است"
     }
-    
-    
+
+
     return errors;
 }
 
@@ -73,7 +73,11 @@ export const productValidate = (values) => {
     }
     if (values.price === "") {
         errors.price = "وارد کردن ایمیل الزامی است"
+    } else if (!/^\d+$/i.test(values.price)) {
+        errors.price = "قیمت وارد شده باید عدد باشد"
     }
+
+
     if (values.status === "") {
         errors.status = "وارد کردن ایمیل الزامی است"
     }
@@ -105,6 +109,8 @@ export const productEditValidate = (values) => {
     }
     if (values.price === "") {
         errors.price = "وارد کردن ایمیل الزامی است"
+    } else if (!/^\d+$/i.test(values.price)) {
+        errors.price = "قیمت وارد شده باید عدد باشد"
     }
     if (values.status === "") {
         errors.status = "وارد کردن ایمیل الزامی است"
