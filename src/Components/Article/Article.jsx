@@ -1,7 +1,6 @@
 import React from 'react'
 
 export default function Article({...art}) {
-    console.log(art)
     return (
         <>
             <div className="max-w-sm basis-1/4  bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">

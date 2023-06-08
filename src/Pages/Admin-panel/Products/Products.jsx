@@ -218,17 +218,19 @@ export default function Products() {
               <td className="px-2 py-2">
                 {product.creator}
               </td>
-              <td className="px-2 py-2 mt-6 flex">
-                <button className=" dark:text-white bg-blue-700 hover:bg-blue-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => {
-                  setSelectProduct(product)
-                  setSelectProductcover(product.cover)
-                  setIsShowModal(true)
-                }}>ویرایش</button>
-                <button className=" dark:text-white bg-red-700 hover:bg-red-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => {
-                  setSelectProduct(product)
-                  removeProducts(product._id)
-                }}>حذف</button>
-                <button className=" dark:text-white bg-red-700 hover:bg-red-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => { console.log("edit") }}>جزئیات</button>
+              <td className="px-2 py-2">
+                <div className='flex'>
+                  <button className=" dark:text-white bg-blue-700 hover:bg-blue-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => {
+                    setSelectProduct(product)
+                    setSelectProductcover(product.cover)
+                    setIsShowModal(true)
+                  }}>ویرایش</button>
+                  <button className=" dark:text-white bg-red-700 hover:bg-red-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => {
+                    removeProducts(product._id)
+                  }}>حذف</button>
+                  <button className=" dark:text-white bg-red-700 hover:bg-red-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => { console.log("edit") }}>جزئیات</button>
+
+                </div>
               </td>
             </tr>
           ))
@@ -237,7 +239,7 @@ export default function Products() {
 
       {/* Modal for editing Products */}
       {
-        isShowModal && <Modal title="محصول" onHide={closeModal}
+        isShowModal && <Modal title="ویرایش محصول" onHide={closeModal}
           children={
             <>
               <div className="p-6 space-y-6">

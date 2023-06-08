@@ -57,8 +57,6 @@ export const loginValidate = (values) => {
     return errors;
 }
 
-
-
 export const productValidate = (values) => {
     const errors = {};
 
@@ -95,6 +93,7 @@ export const productValidate = (values) => {
     return errors;
 
 }
+
 export const productEditValidate = (values) => {
     const errors = {};
 
@@ -120,6 +119,61 @@ export const productEditValidate = (values) => {
     }
     if (values.status === "") {
         errors.status = "وارد کردن وضعیت الزامی است"
+    }
+    // if (values.cover === "") {
+    //     errors.cover = "وارد کردن عکس الزامی است"
+    // }
+
+
+    return errors;
+
+}
+
+export const articleValidate = (values) => {
+    const errors = {};
+
+    if (values.title === "") {
+        errors.title = "وارد کردن موضوع الزامی است"
+    }
+    if (values.description === "") {
+        errors.description = "وارد کردن توضیحات الزامی است"
+    }
+    if (values.body === "") {
+        errors.body = "وارد کردن متن مقاله الزامی است"
+    }
+    if (values.shortName === "") {
+        errors.shortName = "وارد کردن لینک الزامی است"
+    } 
+    
+    if (values.categoryID === "") {
+        errors.categoryID = "وارد کردن دسته بندی الزامی است"
+    }
+    if (values.cover === "") {
+        errors.cover = "وارد کردن عکس الزامی است"
+    }
+
+
+    return errors;
+
+}
+export const articleEditValidate = (values) => {
+    const errors = {};
+
+    if (values.title === "") {
+        errors.title = "وارد کردن موضوع الزامی است"
+    }
+    if (values.description === "") {
+        errors.description = "وارد کردن توضیحات الزامی است"
+    }
+    if (values.body === "") {
+        errors.body = "وارد کردن متن مقاله الزامی است"
+    }
+    if (values.shortName === "") {
+        errors.shortName = "وارد کردن لینک الزامی است"
+    } 
+    
+    if (values.categoryID === "") {
+        errors.categoryID = "وارد کردن دسته بندی الزامی است"
     }
     // if (values.cover === "") {
     //     errors.cover = "وارد کردن عکس الزامی است"
