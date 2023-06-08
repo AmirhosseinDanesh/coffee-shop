@@ -49,23 +49,23 @@ export default function Products() {
 
   const removeProducts = (id) => {
     console.log(id)
-    // swal({
-    //   title: "آیا از حدف این محصول مطمعن هستید؟",
-    //   buttons: ["خیر", "بله"]
-    // }).then((res) => {
-    //   if (res) {
-    //     fetch(`${DataUrlV1}/courses/${id}`, {
-    //       method: "DELETE",
-    //       headers: {
-    //         "Authorization": `Bearer ${LocalStorageData.token}`,
-    //       },
-    //     })
-    //       .then(res => res.json())
-    //       .then(data => {
-    //         getProducts()
-    //       })
-    //   }
-    // })
+    swal({
+      title: "آیا از حدف این محصول مطمعن هستید؟",
+      buttons: ["خیر", "بله"]
+    }).then((res) => {
+      if (res) {
+        fetch(`${DataUrlV1}/courses/${id}`, {
+          method: "DELETE",
+          headers: {
+            "Authorization": `Bearer ${LocalStorageData.token}`,
+          },
+        })
+          .then(res => res.json())
+          .then(data => {
+            getProducts()
+          })
+      }
+    })
   }
 
   useEffect(() => {
@@ -191,7 +191,7 @@ export default function Products() {
                 }}>ویرایش</button>
                 <button className=" dark:text-white bg-red-700 hover:bg-red-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => {
                   setSelectProduct(product)
-                  removeProducts(selectProduct._id)
+                  removeProducts(product._id)
                 }}>حذف</button>
                 <button className=" dark:text-white bg-red-700 hover:bg-red-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => { console.log("edit") }}>جزئیات</button>
               </td>
