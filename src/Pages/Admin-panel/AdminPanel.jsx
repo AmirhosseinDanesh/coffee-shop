@@ -1,13 +1,53 @@
-import React, { useEffect, useContext } from 'react'
-import { Outlet, NavLink } from 'react-router-dom'
+import React, { useEffect, useContext, useState } from 'react'
 import AuthContext from '../../Context/authContext'
+import { Outlet, NavLink } from 'react-router-dom'
 import { useNavigate } from "react-router-dom";
+import { DataUrlV1 } from '../../Data/Data';
 import swal from 'sweetalert';
+import Toast from '../../Components/Toast/Toast';
 export default function AdminPanel() {
+  const [adminData, setAdminData] = useState([])
+  const [adminNotification, setAdminNotification] = useState([])
+  const [isShowToast, setIsShowToast] = useState(false)
+  const [toastMessage, setToastMessage] = useState("")
   const navigate = useNavigate();
   const auth = useContext(AuthContext)
+
+  const localStorageData = JSON.parse(localStorage.getItem("user"))
+
+  const seeNotifiction = (id) => {
+    fetch(`${DataUrlV1}/notifications/see/${id}`, {
+      method: "PUT",
+      headers: {
+        "Authorization": `Bearer ${localStorageData.token}`
+      }
+    })
+      .then(res => res.json())
+      .then(data => {
+        getNotifiction()
+        setIsShowToast(true)
+        setToastMessage("پیام با موفقیت خوانده شد")
+        setTimeout(() => {
+          setIsShowToast(false)
+        }, 2000);
+      })
+  }
+
+  const getNotifiction = () => {
+    fetch(`${DataUrlV1}/auth/me`, {
+      headers: {
+        "Authorization": `Bearer ${localStorageData.token}`
+      }
+    })
+      .then(res => res.json())
+      .then(data => {
+        setAdminData(data)
+        setAdminNotification(data.notifications)
+      })
+  }
   useEffect(() => {
     document.title = 'پنل مدیریت';
+    getNotifiction()
   }, [])
 
 
@@ -36,7 +76,29 @@ export default function AdminPanel() {
                         <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
                       </svg>
                     </div>
-                    <div className='absolute opacity-0 invisible group-hover:opacity-100 group-hover:visible top-full left-0 p-5  w-[400px] text-zinc-700 dark:text-white text-base bg-white dark:bg-zinc-700 rounded-2xl border-2 border-gray-900 dark:border-gray-100 space-y-4 tracking-normal shadow-normal transition-all'>
+                    <div className='absolute opacity-0 invisible group-hover:opacity-100 group-hover:visible top-full left-0 p-5  w-[350px] text-zinc-700 dark:text-white text-base bg-white dark:bg-zinc-700 rounded-2xl border-2 border-gray-900 dark:border-gray-100 space-y-4 tracking-normal shadow-normal transition-all'>
+                      <div className='flex flex-col justify-between  divide-y divide-gray-50/25'>
+                        {
+                          (adminNotification.length) ?
+                            (
+                              adminNotification.map((not) => (
+                                <div key={not._id} className='py-5 flex justify-between items-center text-sm'>
+                                  <span className=''>{not.msg}</span>
+                                  <button onClick={() => {
+                                    seeNotifiction(not._id)
+                                  }}>خواندن</button>
+                                </div>
+                              ))
+                            )
+                            :
+                            (
+                              <div className='py-5 flex justify-between items-center text-sm'>
+                                <span className=''>هیچ پیامی برای خواندن ندارید</span>
+                              </div>
+                            )
+                        }
+
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -63,13 +125,13 @@ export default function AdminPanel() {
                   <div className='absolute opacity-0 invisible group-hover:opacity-100 group-hover:visible top-full left-0 p-5 w-[300px] text-zinc-700 dark:text-white text-base bg-white dark:bg-zinc-700 rounded-2xl space-y-4 tracking-normal shadow-normal transition-all'>
                     <div className="flex flex-col gap-y-5" role="none">
                       <p className="text-sm text-gray-900 dark:text-white" role="none">
-                        {auth.userInfos.name}
+                        {adminData.name}
                       </p>
                       <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
-                        {auth.userInfos.email}
+                        {adminData.email}
                       </p>
                       <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
-                        {auth.userInfos.phone}
+                        {adminData.phone}
                       </p>
                       <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
                         <a href="#">تغییر رمز عبور</a>
@@ -158,6 +220,8 @@ export default function AdminPanel() {
           <Outlet />
         </div>
       </div>
+
+      {isShowToast && <Toast title={toastMessage} />}
     </>
   )
 }
