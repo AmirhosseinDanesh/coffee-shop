@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react'
 import PanelNav from "../../../Components/PanelNav/PanelNav.jsx"
 import Input from '../../../Components/Input/Input.jsx'
 import Toast from "../../../Components/Toast/Toast.jsx"
-
+import ErrorToast from '../../../Components/Toast/ErrorToast.jsx'
 import { NavLink } from 'react-router-dom'
 import { useNavigate } from "react-router-dom";
 import { Formik, Form } from 'formik'
@@ -16,6 +16,8 @@ export default function Login() {
     const [errorText, setErrorText] = useState("")
     const auth = useContext(AuthContext)
     const [isShowToast, setIsShowToast] = useState(false)
+    const [isShowErrToast, setIsShowErrToast] = useState(false)
+    const [toastMessage, setToastMessage] = useState("")
     return (
         <>
             <PanelNav />
@@ -52,7 +54,26 @@ export default function Login() {
                                             if (!res.ok) {
                                                 return res.text()
                                                     .then(text => {
-                                                        throw new Error(text)
+                                                        if (JSON.parse(text) == "there is no user with this email or username") {
+                                                            console.log("Email")
+                                                            setIsShowErrToast(true)
+                                                            setToastMessage("همچین ایمیل یا نام کاربری وجود ندارد")
+                                                            setTimeout(() => {
+                                                                setSubmitting(false)
+                                                                // setIsShowErrToast(false)
+                                                            }, 2000);
+                                                        }
+
+                                                        else if (JSON.parse(text) == "password is not correct") {
+                                                            console.log("password")
+                                                            setIsShowErrToast(true)
+                                                            setToastMessage("رمزعبور اشتباه است")
+                                                            setTimeout(() => {
+                                                                setIsShowErrToast(false)
+                                                                setSubmitting(false)
+                                                            }, 2000);
+                                                        }
+
                                                     })
                                             } else {
                                                 return res.json()
@@ -64,6 +85,7 @@ export default function Login() {
                                             setIsShowToast(true)
                                             setTimeout(() => {
                                                 navigate("/p-admin/dashboard");
+                                                setSubmitting(false)
                                             }, 1500);
 
                                         })
@@ -99,6 +121,9 @@ export default function Login() {
             </section>
             {
                 isShowToast && <Toast title="با موفقیت وارد شدید" />
+            }
+            {
+                isShowErrToast && <ErrorToast title={toastMessage} />
             }
 
         </>

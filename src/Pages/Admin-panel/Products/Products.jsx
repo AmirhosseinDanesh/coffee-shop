@@ -14,10 +14,10 @@ export default function Products() {
   const LocalStorageData = JSON.parse(localStorage.getItem("user"))
   const [products, setProducts] = useState([])
   const [selectProductCover, setSelectProductcover] = useState("")
-  const [isShowModal, setIsShowModal] = useState(false)
-  const [isShowToast, setIsShowToast] = useState(false)
   const [selectProduct, setSelectProduct] = useState([])
   const [categories, setCategories] = useState([])
+  const [isShowModal, setIsShowModal] = useState(false)
+  const [isShowToast, setIsShowToast] = useState(false)
   const [toastMessage, setToastMessage] = useState("")
 
   const closeModal = () => setIsShowModal(false)
