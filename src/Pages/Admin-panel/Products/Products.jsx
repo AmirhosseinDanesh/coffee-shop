@@ -28,14 +28,14 @@ export default function Products() {
       })
   }
 
-  const editProduct = (id, productNewData) => {
+  const editProduct = (id, formData) => {
     fetch(`${DataUrlV1}/courses/${id} `, {
       method: "PUT",
       headers: {
         'Content-type': 'application/json',
         'Authorization': `Bearer ${LocalStorageData.token} `
       },
-      body: JSON.stringify(productNewData)
+      body: JSON.stringify(formData)
     }).then(res => res.json())
       .then(data => {
         getProducts()
@@ -48,24 +48,24 @@ export default function Products() {
   }
 
   const removeProducts = (id) => {
-    swal({
-      title: "آیا از حدف این محصول مطمعن هستید؟",
-      buttons: ["خیر", "بله"]
-    }).then((res) => {
-      // console.log(id)
-      if (res) {
-        fetch(`${DataUrlV1}/courses/${id}`, {
-          method: "DELETE",
-          headers: {
-            "Authorization": `Bearer ${LocalStorageData.token}`,
-          },
-        })
-          .then(res => res.json())
-          .then(data => {
-            getProducts()
-          })
-      }
-    })
+    console.log(id)
+    // swal({
+    //   title: "آیا از حدف این محصول مطمعن هستید؟",
+    //   buttons: ["خیر", "بله"]
+    // }).then((res) => {
+    //   if (res) {
+    //     fetch(`${DataUrlV1}/courses/${id}`, {
+    //       method: "DELETE",
+    //       headers: {
+    //         "Authorization": `Bearer ${LocalStorageData.token}`,
+    //       },
+    //     })
+    //       .then(res => res.json())
+    //       .then(data => {
+    //         getProducts()
+    //       })
+    //   }
+    // })
   }
 
   useEffect(() => {
@@ -85,7 +85,7 @@ export default function Products() {
       <Formik
         validate={productValidate}
         initialValues={{ name: "", shortName: "", description: "", price: "", status: "", categoryID: "", cover: "" }}
-        onSubmit={(values , { setSubmitting }) => {
+        onSubmit={(values ,  { setSubmitting , resetForm } ) => {
           const formData = new FormData();
           Object.entries(values).forEach(([key, value]) => {
             formData.append(key, value);
@@ -102,8 +102,9 @@ export default function Products() {
             .then(data => {
               getProducts()
               setTimeout(() => {
+                resetForm()
                 setSubmitting(false)
-              }, 3000);
+              }, 2000);
             })
 
 
@@ -207,19 +208,36 @@ export default function Products() {
                 validate={productEditValidate}
                 initialValues={{ name: `${selectProduct.name}`, shortName: `${selectProduct.shortName}`, description: `${selectProduct.description}`, price: `${selectProduct.price}`, status: `${selectProduct.status}`, categoryID: `${selectProduct.categoryID._id}`, cover: '' }}
                 onSubmit={(values, { setSubmitting }) => {
+                  const formData = new FormData()
                   if (values.cover === '') {
                     values.cover = selectProductCover;
                   } else {
-                    const formData = new FormData();
                     Object.entries(values).forEach(([key, value]) => {
                       formData.append(key, value);
                     });
                     formData.append('cover', event.target.elements.cover.files[0]);
                   }
+                  fetch(`${DataUrlV1}/courses/${selectProduct._id}`, {
+                    method: "PUT",
+                    headers: {
+                      'Authorization': `Bearer ${LocalStorageData.token} `
+                    },
+                    body: formData,
+                  })
+                    .then(res => {
+                      console.log(res)
+                    })
 
-                  editProduct(selectProduct._id, values)
 
-
+                  // .then(data => {
+                  //   getProducts()
+                  //   setIsShowEditToast(true)
+                  //   setIsShowModal(false)
+                  //   setTimeout(() => {
+                  //     setIsShowEditToast(false)
+                  //     setSubmitting(false)
+                  //   }, 2000);
+                  // })
 
                 }} >
                 {({ isSubmitting }) => (
