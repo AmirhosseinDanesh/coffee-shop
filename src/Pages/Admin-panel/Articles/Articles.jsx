@@ -325,8 +325,8 @@ export default function Articles() {
       }
       
 
-      }
       {/* Toast */}
+      
       {
         isShowToast && <Toast title={toastMessage} />
       }
