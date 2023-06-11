@@ -37,7 +37,6 @@ export default function Articles() {
     fetch(`${DataUrlV1}/articles`)
       .then(res => res.json())
       .then(data => {
-        console.log(data)
         setArticles(data)
       })
   }

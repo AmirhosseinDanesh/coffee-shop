@@ -24,7 +24,7 @@ export default function ArticlesInfo() {
                     <h1>{articleData.title}</h1>
                 </div>
                 <div className='mt-16 flex justify-center'>
-                    <img src={`${DataUrl}/courses/covers/${articleData.cover}`} alt="" />
+                    <img className='rounded-xl' src={`${DataUrl}/courses/covers/${articleData.cover}`} alt="" />
                 </div>
                 <div className='text-xl mt-10 md:px-10 text-gray-700 dark:text-white'>
                     {articleData.description}

@@ -22,7 +22,7 @@ export default function ArticlesClient() {
         <div className='font-DanaBold text-3xl text-center border-b-2 pb-8 mb-10 dark:text-gray-300'>
           آخرین مقالات
         </div>
-        <div className='flex flex-wrap p-4 justify-center md:justify-between'>
+        <div className='flex flex-wrap p-4 justify-center md:justify-around gap-x-1'>
           {
 
             (articles.length ? (
