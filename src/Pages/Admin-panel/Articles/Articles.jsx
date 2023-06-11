@@ -166,7 +166,7 @@ export default function Articles() {
                 <label className="input-label">متن مقاله</label>
                 <Field className="input h-20" as="textarea" label="متن مقاله" type="text" name="body" placeholder="اولین موضوعی که باید در مورد ..." />
               </div>
-              <div className='col-start-1 col-end-3'>
+              <div className='col-start-1 col-end-2'>
                 <label className="input-label">ثبت</label>
                 <button type="submit"
                   className={isSubmitting ? ("input-submit bg-blue-500") : ("input-submit bg-blue-600")}

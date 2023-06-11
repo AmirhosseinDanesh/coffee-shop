@@ -1,16 +1,20 @@
 import React from 'react'
 import i18n from 'i18next'
 import { Formik, Form, Field } from 'formik'
-import Input from '../../../Components/Input/Input'
-import { NavLink } from 'react-router-dom'
+import { useTranslation } from 'react-i18next';
 export default function Setting() {
+    const { t } = useTranslation()
     return (
         <>
-
             <Formik
                 initialValues={{ lang: "" }}
                 onSubmit={(values, { setSubmitting }) => {
                     i18n.changeLanguage(values.lang)
+                    if (values.lang == "en") {
+                        localStorage.setItem("lang", "en")
+                    } else {
+                        localStorage.setItem("lang", "fa")
+                    }
                 }
                 }>
                 {({ isSubmitting }) => (
@@ -20,18 +24,10 @@ export default function Setting() {
                                 <div>
 
                                     <Field as="select" name="lang" className="input">
-                                        <option value="-1">زبان داشبورد را انتخاب کنید</option>
-                                        <option value="fa">فارسی</option>
-                                        <option value="en">انگلیسی</option>
+                                        <option value="-1">{t("chooseLang")}</option>
+                                        <option value="fa">{t("persian")}</option>
+                                        <option value="en">{t("english")}</option>
                                     </Field>
-                                    {/* <label className="input-label">موضوع مقاله</label>
-                                    <select className='input' onChange={(e) => {
-                                        i18n.changeLanguage(e.target.value)
-                                    }} value={i18n.language} >
-                                        <option value="-1">زبان داشبورد را انتخاب کنید</option>
-                                        <option value="fa">فارسی</option>
-                                        <option value="en">انگلیسی</option>
-                                    </select> */}
                                 </div>
                                 <button type="submit" className="w-16 h-10 p-2.5 rounded-lg text-sm text-center font-DanaMedium text-white bg-blue-700">
                                     ثبت
@@ -42,19 +38,6 @@ export default function Setting() {
                     </Form>
                 )}
             </Formik>
-
-            {/* <div className='space-y-1 md:space-y-1 grid gap-2 mb-6 grid-cols-1 md:grid-cols-4 mt-5'>
-                <div>
-                    <label className="input-label">موضوع مقاله</label>
-                    <select className='input' onChange={(e)=>{
-                        i18n.changeLanguage(e.target.value)
-                    }} value={i18n.language} >
-                        <option value="-1">زبان داشبورد را انتخاب کنید</option>
-                        <option value="fa">فارسی</option>
-                        <option value="en">انگلیسی</option>
-                    </select>
-                </div>
-            </div> */}
         </>
     )
 }

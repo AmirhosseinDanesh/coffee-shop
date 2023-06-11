@@ -121,10 +121,6 @@ export default function Products() {
                 setIsShowToast(false)
               }, 2000);
             })
-
-
-
-
         }} >
         {({ isSubmitting }) => (
           <div className='mt-5'>
@@ -183,59 +179,67 @@ export default function Products() {
 
       </Formik >
       {/* Product List */}
-      <Table
-        childrenTH={
-          <tr>
-            <th scope="col" className="px-6 py-3 ">
-              عکس محصول
-            </th>
-            <th scope="col" className="px-6 py-3 ">
-              نام محصول
-            </th>
-            <th scope="col" className="px-6 py-3 ">
-              قیمت محصول
-            </th>
-            <th scope="col" className="px-6 py-3 ">
-              مدرس
-            </th>
-            <th scope="col" className="px-6 py-3 ">
-              ویرایش
-            </th>
-          </tr>
-        }
-        childrenTD={
-          products.map((product) => (
-            <tr key={product._id} className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-              <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                <img src={`${DataUrl}/courses/covers/${product.cover}`} alt="" className='w-[120px]' />
-              </th>
-              <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                {product.name}
-              </th>
-              <td className="px-2 py-2">
-                {product.price.toLocaleString()}
-              </td>
-              <td className="px-2 py-2">
-                {product.creator}
-              </td>
-              <td className="px-2 py-2">
-                <div className='flex'>
-                  <button className=" dark:text-white bg-blue-700 hover:bg-blue-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => {
-                    setSelectProduct(product)
-                    setSelectProductcover(product.cover)
-                    setIsShowModal(true)
-                  }}>ویرایش</button>
-                  <button className=" dark:text-white bg-red-700 hover:bg-red-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => {
-                    removeProducts(product._id)
-                  }}>حذف</button>
-                  <button className=" dark:text-white bg-red-700 hover:bg-red-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => { console.log("edit") }}>جزئیات</button>
+      {
+        (products.length) ? (
+          <Table
+            childrenTH={
+              <tr>
+                <th scope="col" className="px-6 py-3 ">
+                  عکس محصول
+                </th>
+                <th scope="col" className="px-6 py-3 ">
+                  نام محصول
+                </th>
+                <th scope="col" className="px-6 py-3 ">
+                  قیمت محصول
+                </th>
+                <th scope="col" className="px-6 py-3 ">
+                  مدرس
+                </th>
+                <th scope="col" className="px-6 py-3 ">
+                  ویرایش
+                </th>
+              </tr>
+            }
+            childrenTD={
+              products.map((product) => (
+                <tr key={product._id} className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                  <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <img src={`${DataUrl}/courses/covers/${product.cover}`} alt="" className='w-[120px]' />
+                  </th>
+                  <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {product.name}
+                  </th>
+                  <td className="px-2 py-2">
+                    {product.price.toLocaleString()}
+                  </td>
+                  <td className="px-2 py-2">
+                    {product.creator}
+                  </td>
+                  <td className="px-2 py-2">
+                    <div className='flex'>
+                      <button className=" dark:text-white bg-blue-700 hover:bg-blue-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => {
+                        setSelectProduct(product)
+                        setSelectProductcover(product.cover)
+                        setIsShowModal(true)
+                      }}>ویرایش</button>
+                      <button className=" dark:text-white bg-red-700 hover:bg-red-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => {
+                        removeProducts(product._id)
+                      }}>حذف</button>
+                      <button className=" dark:text-white bg-red-700 hover:bg-red-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => { console.log("edit") }}>جزئیات</button>
 
-                </div>
-              </td>
-            </tr>
-          ))
-        }
-      />
+                    </div>
+                  </td>
+                </tr>
+              ))
+            }
+          />
+        ) : (
+          <div className='bg-red-700 p-3 rounded-xl text-center text-white'>
+            محصولی موجود نیست از طریق فرم بالا میتوانید اولین محصول خود را اضافه کنید.
+          </div >
+        )
+      }
 
       {/* Modal for editing Products */}
       {
