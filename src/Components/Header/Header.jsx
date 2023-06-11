@@ -70,13 +70,10 @@ export default function Header() {
                 <NavLink to="/articles" className={({ isActive }) => (isActive) ? ("text-orange-200") : ("")}>مقالات</NavLink>
               </li>
               <li className='font-DanaMedium'>
-                <NavLink to="/articles" className={({ isActive }) => (isActive) ? ("text-orange-200") : ("")}>مقالات</NavLink>
+                <NavLink to="/about-us" className={({ isActive }) => (isActive) ? ("text-orange-200") : ("")}>درباره ما</NavLink>
               </li>
               <li className='font-DanaMedium'>
-                <NavLink to="/articles" className={({ isActive }) => (isActive) ? ("text-orange-200") : ("")}>مقالات</NavLink>
-              </li>
-              <li className='font-DanaMedium'>
-                <NavLink to="/articles" className={({ isActive }) => (isActive) ? ("text-orange-200") : ("")}>مقالات</NavLink>
+                <NavLink to="/contact-us" className={({ isActive }) => (isActive) ? ("text-orange-200") : ("")}>تماس باما</NavLink>
               </li>
               {/* {
               headerLink.map((menu) => (
