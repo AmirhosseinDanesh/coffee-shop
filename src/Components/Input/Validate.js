@@ -152,6 +152,10 @@ export const articleValidate = (values) => {
         errors.cover = "وارد کردن عکس الزامی است"
     }
 
+    if (values.status === "") {
+        errors.status = "وارد کردن وضعیت الزامی است"
+    }
+
 
     return errors;
 

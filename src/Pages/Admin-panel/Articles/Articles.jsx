@@ -86,46 +86,70 @@ export default function Articles() {
       {/* add new Articles */}
       <Formik
         validate={articleValidate}
-        initialValues={{ title: "", description: "", body: "", shortName: "", categoryID: "", cover: "" }}
+        initialValues={{ title: "", description: "", body: "", shortName: "", categoryID: "", cover: "" , status:"" }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
-
           const formData = new FormData();
-
           Object.entries(values).forEach(([key, value]) => {
             formData.append(key, value);
           });
-
           formData.append('cover', event.target.elements.cover.files[0]);
           // formData.append('body', articleBody);
 
-          fetch(`${DataUrlV1}/articles/`, {
-            method: "POST",
-            headers: {
-              'Authorization': `Bearer ${LocalStorageData.token} `
-            },
-            body: formData
-          })
-            .then(res => {
-              if (!res.ok) {
-                setIsShowErrToast(true)
-                setToastMessage("مقاله اضافه نشد")
-                setSubmitting(false)
-              } else {
-                console.log("ok")
-                res.json()
-                  .then(data => {
-                    getArticles()
-                    setIsShowToast(true)
-                    setToastMessage("مقاله با موفقیت اضافه شد")
-                    setTimeout(() => {
-                      resetForm()
-                      setSubmitting(false)
-                    }, 2000);
-                  })
-              }
+
+          if (values.status == "draft") {
+            fetch(`${DataUrlV1}/articles/draft`, {
+              method: "POST",
+              headers: {
+                'Authorization': `Bearer ${LocalStorageData.token} `
+              },
+              body: formData
             })
-
-
+              .then(res => {
+                if (!res.ok) {
+                  setIsShowErrToast(true)
+                  setToastMessage("مقاله اضافه نشد")
+                  setSubmitting(false)
+                } else {
+                  console.log("ok")
+                  res.json()
+                    .then(data => {
+                      getArticles()
+                      setIsShowToast(true)
+                      setToastMessage("مقاله با موفقیت پیش نویس شد")
+                      setTimeout(() => {
+                        resetForm()
+                        setSubmitting(false)
+                      }, 2000);
+                    })
+                }
+              })
+          } else if (values.status == "upload") {
+            fetch(`${DataUrlV1}/articles/`, {
+              method: "POST",
+              headers: {
+                'Authorization': `Bearer ${LocalStorageData.token} `
+              },
+              body: formData
+            })
+              .then(res => {
+                if (!res.ok) {
+                  setIsShowErrToast(true)
+                  setToastMessage("مقاله اضافه نشد")
+                  setSubmitting(false)
+                } else {
+                  res.json()
+                    .then(data => {
+                      getArticles()
+                      setIsShowToast(true)
+                      setToastMessage("مقاله با موفقیت آپلود شد")
+                      setTimeout(() => {
+                        resetForm()
+                        setSubmitting(false)
+                      }, 2000);
+                    })
+                }
+              })
+          }
         }} >
 
         {({ isSubmitting }) => (
@@ -158,6 +182,17 @@ export default function Articles() {
                   {(msg) => <span className='text-xs text-red-600'>{msg}</span>}
                 </ErrorMessage>
               </div>
+              <div>
+                <label className="input-label">وضعیت مقاله</label>
+                <Field as="select" name="status" className="input">
+                  <option value="-1">وضعیت  را انتخاب کنید</option>
+                  <option value="upload">انتشار در لحظه</option>
+                  <option value="draft">پیش نویس</option>
+                </Field>
+                <ErrorMessage name="status">
+                  {(msg) => <span className='text-xs text-red-600'>{msg}</span>}
+                </ErrorMessage>
+              </div>
               <div className='col-start-1 col-end-3 h-32'>
                 {/* <Editor
                   value={articleBody}
@@ -166,6 +201,7 @@ export default function Articles() {
                 <label className="input-label">متن مقاله</label>
                 <Field className="input h-20" as="textarea" label="متن مقاله" type="text" name="body" placeholder="اولین موضوعی که باید در مورد ..." />
               </div>
+
               <div className='col-start-1 col-end-2'>
                 <label className="input-label">ثبت</label>
                 <button type="submit"
@@ -352,7 +388,7 @@ export default function Articles() {
         isShowDetailModal && <Modal title="متن مقاله" onHide={closeModal}
           children={
             <div className='p-5 mt-3 text-gray-900 dark:text-gray-200'>
-              <p dangerouslySetInnerHTML={{__html : DOMPurify.sanitize(selectArticles.body)}}>
+              <p dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(selectArticles.body) }}>
               </p>
             </div>
           }

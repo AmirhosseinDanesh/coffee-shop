@@ -26,7 +26,7 @@ export default function ArticlesClient() {
           {
 
             (articles.length ? (
-              articles.map((art) => (
+              articles.filter(article=>article.publish == 1).map((art) => (
                 <Article key={art._id} {...art} />
               ))
             ) : (
