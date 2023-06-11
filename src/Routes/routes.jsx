@@ -11,6 +11,7 @@ import Users from "../Pages/Admin-panel/Users/Users";
 import Products from "../Pages/Admin-panel/Products/Products";
 import Menus from "../Pages/Admin-panel/Menus/Menus";
 import Articles from "../Pages/Admin-panel/Articles/Articles";
+import ArticlesInfo from "../Pages/Client/Articles/ArticlesInfo";
 
 
 const routes = [
@@ -18,6 +19,7 @@ const routes = [
     { path: "/login", element: <Login /> },
     { path: "/register", element: <Register /> },
     { path: "/articles", element: <ArticlesClient /> },
+    { path: "/articles/:articleName", element: <ArticlesInfo /> },
     { path: "/shop", element: <Shop /> },
     { path: "*", element: <NotFound /> },
     {

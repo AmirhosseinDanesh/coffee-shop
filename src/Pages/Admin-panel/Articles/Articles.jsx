@@ -5,6 +5,8 @@ import Input from '../../../Components/Input/Input.jsx'
 import Toast from "../../../Components/Toast/Toast.jsx"
 import Modal from '../../../Components/Modal/Modal.jsx'
 import swal from 'sweetalert'
+import Editor from '../../../Components/Editor/Editor'
+import ErrorToast from "../../../Components/Toast/ErrorToast"
 
 import { articleValidate, articleEditValidate } from '../../../Components/Input/Validate.js'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
@@ -14,11 +16,13 @@ export default function Articles() {
   const LocalStorageData = JSON.parse(localStorage.getItem("user"))
   const [categories, setCategories] = useState([])
 
+  const [isShowErrToast, setIsShowErrToast] = useState(false)
   const [isShowToast, setIsShowToast] = useState(false)
   const [toastMessage, setToastMessage] = useState("")
   const [isShowModal, setIsShowModal] = useState(false)
   const [isShowDetailModal, setIsShowDetailModal] = useState(false)
   const [articles, setArticles] = useState([])
+  const [articleBody, setArticleBody] = useState("")
   const [selectArticlesCover, setSelectArticlescover] = useState("")
   const [selectArticles, setSelectArticles] = useState([])
 
@@ -31,7 +35,6 @@ export default function Articles() {
     fetch(`${DataUrlV1}/articles`)
       .then(res => res.json())
       .then(data => {
-        console.log(data)
         setArticles(data)
       })
   }
@@ -52,7 +55,7 @@ export default function Articles() {
           .then(data => {
             getArticles()
             setIsShowToast(true)
-            setToastMessage("مقاله با موفقیت ادد شد")
+            setToastMessage("مقاله با موفقیت حذف شد")
             setTimeout(() => {
               setIsShowToast(false)
             }, 2000);
@@ -67,9 +70,15 @@ export default function Articles() {
       .then(res => res.json())
       .then(data => {
         setCategories(data)
-
       })
-  }, [])
+
+    if (isShowToast || isShowErrToast) {
+      setTimeout(() => {
+        setIsShowToast(false);
+        setIsShowErrToast(false);
+      }, 2000);
+    }
+  }, [isShowToast, isShowErrToast])
   return (
     <>
       {/* add new Articles */}
@@ -85,6 +94,7 @@ export default function Articles() {
           });
 
           formData.append('cover', event.target.elements.cover.files[0]);
+          formData.append('body', articleBody);
 
           fetch(`${DataUrlV1}/articles/`, {
             method: "POST",
@@ -93,17 +103,26 @@ export default function Articles() {
             },
             body: formData
           })
-            .then(res => res.json())
-            .then(data => {
-              getArticles()
-              setIsShowToast(true)
-              setToastMessage("مقاله با موفقیت اضافه شد")
-              setTimeout(() => {
-                resetForm()
+            .then(res => {
+              if (!res.ok) {
+                setIsShowErrToast(true)
+                setToastMessage("مقاله اضافه نشد")
                 setSubmitting(false)
-                setIsShowToast(false)
-              }, 2000);
+              } else {
+                console.log("ok")
+                res.json()
+                  .then(data => {
+                    getArticles()
+                    setIsShowToast(true)
+                    setToastMessage("مقاله با موفقیت اضافه شد")
+                    setTimeout(() => {
+                      resetForm()
+                      setSubmitting(false)
+                    }, 2000);
+                  })
+              }
             })
+
 
         }} >
 
@@ -115,7 +134,6 @@ export default function Articles() {
             <Form className="space-y-1 md:space-y-1 grid gap-2 mb-6 md:grid-cols-2 mt-5">
               <Input label="موضوع مقاله" type="text" name="title" placeholder="ری اکت یا ویو ؟" />
               <Input label="توضیحات مقاله" type="text" name="description" placeholder="بررسی دو فریم ورک محبوب جاوا اسکریپت" />
-              <Input label="متن مقاله" type="text" name="body" placeholder="اولین موضوعی که باید در مورد ..." />
               <Input label="لینک مقاله" type="text" name="shortName" placeholder="react-or-vue" />
               <div>
                 <label className="input-label">دسته بندی</label>
@@ -138,7 +156,15 @@ export default function Articles() {
                   {(msg) => <span className='text-xs text-red-600'>{msg}</span>}
                 </ErrorMessage>
               </div>
-              <div className=''>
+              <div className='col-start-1 col-end-3 h-32'>
+                <Editor
+                  value={articleBody}
+                  setValue={setArticleBody}
+                />
+                {/* <label className="input-label">متن مقاله</label>
+                <Field className="input h-20" as="textarea" label="متن مقاله" type="text" name="body" placeholder="اولین موضوعی که باید در مورد ..." /> */}
+              </div>
+              <div className='col-start-1 col-end-3'>
                 <label className="input-label">ثبت</label>
                 <button type="submit"
                   className={isSubmitting ? ("input-submit bg-blue-500") : ("input-submit bg-blue-600")}
@@ -323,12 +349,15 @@ export default function Articles() {
           }
         />
       }
-      
+
 
       {/* Toast */}
-      
+
       {
         isShowToast && <Toast title={toastMessage} />
+      }
+      {
+        isShowErrToast && <ErrorToast title={toastMessage} />
       }
     </>
   )

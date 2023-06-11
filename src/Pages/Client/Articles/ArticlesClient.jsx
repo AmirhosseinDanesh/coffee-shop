@@ -18,19 +18,19 @@ export default function ArticlesClient() {
       <Header />
       <Slider sliders={[{ id: 1, src: "/images/sliders/3.jpg", alt: "قهوه فوری" }]} />
 
-      <div className='mt-20 p-10'>
-        <div className='font-DanaBold text-3xl text-center border-t-2 pt-5 dark:text-gray-300'>
+      <div className='mt-10 md:p-10'>
+        <div className='font-DanaBold text-3xl text-center border-b-2 pb-8 mb-10 dark:text-gray-300'>
           آخرین مقالات
         </div>
-        <div className='flex flex-row p-4'>
+        <div className='flex flex-wrap p-4 justify-center md:justify-between'>
           {
-            
+
             (articles.length ? (
               articles.map((art) => (
-                <Article {...art} />
+                <Article key={art._id} {...art} />
               ))
             ) : (
-              <div className='flex w-full flex-row justify-around p-4'>
+              <>
                 <div className="max-w-sm basis-1/4 border rounded-lg shadow">
                   <Skeleton animation="wave" height={200} />
                   <div className="p-5">
@@ -82,7 +82,7 @@ export default function ArticlesClient() {
                     </span>
                   </div>
                 </div>
-              </div>
+              </>
             )
             )
 
