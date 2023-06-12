@@ -64,7 +64,7 @@ export default function Menus() {
       {/* New Menus Field */}
       <Formik
         // validate={MenusValue}
-        initialValues={{ href: "", title: "" , parent:"" }}
+        initialValues={{ href: "", title: "" , parent:undefined }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
           console.log(values)
           fetch(`${DataUrlV1}/menus/`, {
@@ -93,9 +93,8 @@ export default function Menus() {
               اضافه کردن منو جدید
             </span>
             <Form className="space-y-1 md:space-y-1 grid gap-2 mb-6 md:grid-cols-2 mt-5">
-              <Input label="نام منو" type="text" name="title" placeholder="منو اول" />
-              <Input label="لینک منو" type="text" name="href" placeholder="Menus1" />
-
+              <Input label="نام منو" type="text" name="title" placeholder="عربیکا" />
+              <Input label="لینک منو" type="text" name="href" placeholder="arabika" />
               <div>
                 <label className='input-label'>دسته بندی منوها</label>
                 <Field as="select" name="parent" className="input">

@@ -8,6 +8,7 @@ import Input from '../../../Components/Input/Input.jsx'
 
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import { DataUrlV1 } from "../../../Data/Data"
+import { registerValidate } from '../../../Components/Input/Validate.js'
 
 
 export default function Users() {
@@ -107,6 +108,56 @@ export default function Users() {
 
   return (
     <>
+      <Formik
+        validate={registerValidate}
+        initialValues={{ name: "", username: "", phone: "", email: "", password: "" , confirmPassword: "" }}
+        onSubmit={(values, { setSubmitting, resetForm }) => {
+          values.confirmPassword = values.password
+          fetch(`${DataUrlV1}/auth/register`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(values)
+          })
+            .then(res => res.json())
+            .then(data => {
+              getUsers()
+              setIsShowToast(true)
+              setToastMessage("کاربر با موفقیت اضافه شد")
+              setTimeout(() => {
+                resetForm()
+                setSubmitting(false)
+                setIsShowToast(false)
+              }, 2000);
+            })
+        }} >
+        {({ isSubmitting }) => (
+          <div className='mt-5'>
+            <span href="#" className="mb-6 text-xl text-gray-900 dark:text-white">
+              اضافه کردن کاربر جدید
+            </span>
+            <Form className="space-y-1 md:space-y-1 grid gap-2 mb-6 md:grid-cols-2 mt-5">
+              <Input label="نام کاربر" type="text" name="name" placeholder="امیر دانش" />
+              <Input label="یوزرنیم کاربر" type="text" name="username" placeholder="amirDanesh" />
+              <Input label="تلفن کاربر" type="text" name="phone" placeholder="091236456789" />
+              <Input label="ایمیل کاربر" type="text" name="email" placeholder="Daneshahd78@gmail.com" />
+              <Input label="رمزعبور کاربر" type="text" name="password" placeholder="*********" />
+              <div className=''>
+                <label className="input-label">ثبت</label>
+                <button type="submit"
+                  className={isSubmitting ? ("input-submit bg-blue-500") : ("input-submit bg-blue-600")}
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? ("لطفا صبر کنید ...") : ("اضافه کردن")}
+                </button>
+              </div>
+            </Form>
+          </div>
+        )}
+
+      </Formik >
+
       {
         (users.length) ? (
           <Table
@@ -170,7 +221,7 @@ export default function Users() {
               <div className="p-6 space-y-6">
                 <Formik
                   // validate={productEditValidate}
-                  initialValues={{ name: `${selectUsers.name}`, email: `${selectUsers.email}`, phone: `${selectUsers.phone}`, username: `${selectUsers.username}` }}
+                  initialValues={{ name: `${ selectUsers.name }`, email: `${ selectUsers.email }`, phone: `${ selectUsers.phone }`, username: `${ selectUsers.username }` }}
                   onSubmit={(values, { setSubmitting }) => {
                     const formData = new FormData();
                     formData.append('name', values.name);
@@ -178,10 +229,10 @@ export default function Users() {
                     formData.append('phone', values.phone);
                     formData.append('username', values.username);
 
-                    fetch(`${DataUrlV1}/users/${selectUsers._id}`, {
+                    fetch(`${ DataUrlV1 } / users / ${ selectUsers._id }`, {
                       method: "PUT",
                       headers: {
-                        'Authorization': `Bearer ${LocalStorageData.token}`
+                        'Authorization': `Bearer ${ LocalStorageData.token }`
                       },
                       body: formData
                     })

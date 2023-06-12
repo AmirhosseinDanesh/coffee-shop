@@ -16,7 +16,6 @@ export default function Register() {
     useEffect(() => {
         if (isShowErrToast) {
             setTimeout(() => {
-
                 setIsShowErrToast(false);
             }, 2000);
         }
