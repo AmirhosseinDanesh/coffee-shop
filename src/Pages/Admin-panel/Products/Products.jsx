@@ -183,19 +183,19 @@ export default function Products() {
           <Table
             childrenTH={
               <tr>
-                <th scope="col" className="px-6 py-3 ">
+                <th scope="col" className="px-2 py-3">
                   عکس محصول
                 </th>
-                <th scope="col" className="px-6 py-3 ">
+                <th scope="col" className="px-2 py-3">
                   نام محصول
                 </th>
-                <th scope="col" className="px-6 py-3 ">
+                <th scope="col" className="px-2 py-3">
                   قیمت محصول
                 </th>
-                <th scope="col" className="px-6 py-3 ">
+                <th scope="col" className="px-2 py-3">
                   مدرس
                 </th>
-                <th scope="col" className="px-6 py-3 ">
+                <th scope="col" className="px-2 py-3">
                   ویرایش
                 </th>
               </tr>
@@ -203,10 +203,10 @@ export default function Products() {
             childrenTD={
               products.map((product) => (
                 <tr key={product._id} className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                  <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  <th scope="row" className="px-3 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     <img src={`${DataUrl}/courses/covers/${product.cover}`} alt="" className='w-[120px]' />
                   </th>
-                  <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  <th scope="row" className="px-3 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     {product.name}
                   </th>
                   <td className="px-2 py-2">

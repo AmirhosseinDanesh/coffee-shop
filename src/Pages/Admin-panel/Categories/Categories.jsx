@@ -115,13 +115,13 @@ export default function Categories() {
                     <Table
                         childrenTH={
                             <tr>
-                                <th scope="col" className="px-6 py-3 ">
+                                <th scope="col" className="px-2 py-3">
                                     نام دسته بندی
                                 </th>
-                                <th scope="col" className="px-6 py-3 ">
+                                <th scope="col" className="px-2 py-3">
                                     لینک دسته بندی
                                 </th>
-                                <th scope="col" className="px-6 py-3 ">
+                                <th scope="col" className="px-2 py-3">
                                     ویرایش دسته بندی
                                 </th>
 
@@ -130,7 +130,7 @@ export default function Categories() {
                         childrenTD={
                             category.map((cat) => (
                                 <tr key={cat._id} className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                                    <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <th scope="row" className="px-2 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {cat.title}
                                     </th>
                                     <td className="px-2 py-2">

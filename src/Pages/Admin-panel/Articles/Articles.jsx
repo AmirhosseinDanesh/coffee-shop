@@ -221,19 +221,19 @@ export default function Articles() {
           <Table
             childrenTH={
               <tr>
-                <th scope="col" className="px-6 py-3 ">
+                <th scope="col" className="px-3 py-3">
                   عکس مقاله
                 </th>
-                <th scope="col" className="px-6 py-3 ">
+                <th scope="col" className="px-3 py-3">
                   موضوع مقاله
                 </th>
-                <th scope="col" className="px-6 py-3 ">
+                <th scope="col" className="px-3 py-3">
                   توضیح کوتاه
                 </th>
-                <th scope="col" className="px-6 py-3 ">
+                <th scope="col" className="px-3 py-3">
                   وضعیت
                 </th>
-                <th scope="col" className="px-6 py-3 ">
+                <th scope="col" className="px-3 py-3">
                   ویرایش
                 </th>
               </tr>

@@ -112,16 +112,16 @@ export default function Users() {
           <Table
             childrenTH={
               <tr>
-                <th scope="col" className="px-6 py-3 ">
+                <th scope="col" className="px-2 py-3">
                   نام
                 </th>
-                <th scope="col" className="px-6 py-3 ">
+                <th scope="col" className="px-2 py-3">
                   ایمیل
                 </th>
-                <th scope="col" className="px-6 py-3 ">
+                <th scope="col" className="px-2 py-3">
                   تلفن
                 </th>
-                <th scope="col" className="px-6 py-3 ">
+                <th scope="col" className="px-2 py-3">
                   ویرایش
                 </th>
               </tr>
@@ -129,7 +129,7 @@ export default function Users() {
             childrenTD={
               users.map((user) => (
                 <tr key={user._id} className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                  <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  <th scope="row" className="px-2 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     {user.name}
                   </th>
                   <td className="px-2 py-2">
