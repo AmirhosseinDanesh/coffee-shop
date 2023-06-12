@@ -13,7 +13,7 @@ export default function AdminPanel() {
   const [toastMessage, setToastMessage] = useState("")
   const navigate = useNavigate();
   const auth = useContext(AuthContext)
-  const {t} = useTranslation()
+  const { t } = useTranslation()
   const localStorageData = JSON.parse(localStorage.getItem("user"))
 
   const seeNotifiction = (id) => {
@@ -192,6 +192,16 @@ export default function AdminPanel() {
               </NavLink>
             </li>
             <li>
+              <NavLink to="categories" className={({ isActive }) => (isActive ? "flex items-center p-2 rounded-lg dark:text-white hover:bg-gray-700 dark:hover:bg-gray-700 bg-gray-700 text-white dark:bg-gray-500 " : "flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700  ")}>
+                <svg className="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 6h.008v.008H6V6z" />
+                </svg>
+
+                <span className="flex-1 font-DanaMedium mr-2 whitespace-nowrap">{t("categories")}</span>
+              </NavLink>
+            </li>
+            <li>
               <NavLink to="menus" className={({ isActive }) => (isActive ? "flex items-center p-2 rounded-lg dark:text-white hover:bg-gray-700 dark:hover:bg-gray-700 bg-gray-700 text-white dark:bg-gray-500 " : "flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700  ")}>
                 <svg className="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" >
                   <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5" />
@@ -218,7 +228,7 @@ export default function AdminPanel() {
           </ul>
           <div className='fixed bottom-0 font-DanaBold p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700'>
             <NavLink to="/" target='_blank' className="p-2">
-             {t("seeSite")}
+              {t("seeSite")}
             </NavLink>
           </div>
         </div>

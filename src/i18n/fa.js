@@ -6,6 +6,7 @@ const fa = {
     navMenus: "منوها",
     navArticles: "مقالات",
     setting: "تنظیمات",
+    categories: "دسته بندی ها",
     
     allSell : "کل فروش",
     profit : "سود فروش",

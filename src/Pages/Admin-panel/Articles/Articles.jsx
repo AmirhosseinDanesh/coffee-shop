@@ -93,7 +93,7 @@ export default function Articles() {
             formData.append(key, value);
           });
           formData.append('cover', event.target.elements.cover.files[0]);
-          // formData.append('body', articleBody);
+          formData.append('body', articleBody);
 
 
           if (values.status == "draft") {
@@ -110,7 +110,7 @@ export default function Articles() {
                   setToastMessage("مقاله اضافه نشد")
                   setSubmitting(false)
                 } else {
-                  console.log("ok")
+                  
                   res.json()
                     .then(data => {
                       getArticles()
@@ -119,6 +119,7 @@ export default function Articles() {
                       setTimeout(() => {
                         resetForm()
                         setSubmitting(false)
+                        
                       }, 2000);
                     })
                 }
@@ -145,6 +146,7 @@ export default function Articles() {
                       setTimeout(() => {
                         resetForm()
                         setSubmitting(false)
+                        setArticleBody("")
                       }, 2000);
                     })
                 }
@@ -193,17 +195,11 @@ export default function Articles() {
                   {(msg) => <span className='text-xs text-red-600'>{msg}</span>}
                 </ErrorMessage>
               </div>
-              <div className='col-start-1 col-end-3 h-32'>
-                {/* <Editor
+              <div className='col-start-1 col-end-3 '>
+                <Editor
                   value={articleBody}
                   setValue={setArticleBody}
-                /> */}
-                {
-                  console.log(articleBody)
-
-                }
-                <label className="input-label">متن مقاله</label>
-                <Field className="input h-20" as="textarea" label="متن مقاله" type="text" name="body" placeholder="اولین موضوعی که باید در مورد ..." />
+                />
               </div>
 
               <div className='col-start-1 col-end-2'>
@@ -405,6 +401,7 @@ export default function Articles() {
       {
         isShowToast && <Toast title={toastMessage} />
       }
+      
       {
         isShowErrToast && <ErrorToast title={toastMessage} />
       }

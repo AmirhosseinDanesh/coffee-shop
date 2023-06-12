@@ -6,6 +6,8 @@ const en = {
     navMenus : "Menus",
     navArticles : "Articles",
     setting : "Setting",
+    categories: "Categories",
+
     
     allSell : "All Sell",
     profit : "Sales profit",

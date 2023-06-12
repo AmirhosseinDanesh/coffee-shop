@@ -143,8 +143,8 @@ export const articleValidate = (values) => {
     // }
     if (values.shortName === "") {
         errors.shortName = "وارد کردن لینک الزامی است"
-    } 
-    
+    }
+
     if (values.categoryID === "") {
         errors.categoryID = "وارد کردن دسته بندی الزامی است"
     }
@@ -160,6 +160,7 @@ export const articleValidate = (values) => {
     return errors;
 
 }
+
 export const articleEditValidate = (values) => {
     const errors = {};
 
@@ -174,8 +175,8 @@ export const articleEditValidate = (values) => {
     }
     if (values.shortName === "") {
         errors.shortName = "وارد کردن لینک الزامی است"
-    } 
-    
+    }
+
     if (values.categoryID === "") {
         errors.categoryID = "وارد کردن دسته بندی الزامی است"
     }
@@ -186,5 +187,24 @@ export const articleEditValidate = (values) => {
 
     return errors;
 
+}
+
+export const categoryValue = (values) => {
+    const errors = {};
+    if (values.name === "") {
+        errors.name = "وارد کردن نام الزامی است"
+    } else if (values.name.length < 4) {
+        errors.name = "کاراکتر های نام کم است"
+    }
+    
+    if (values.title === "") {
+        errors.title = "وارد کردن نام الزامی است"
+    } else if (values.title.length < 2) {
+        errors.title = "کاراکتر های نام کم است"
+    }
+
+
+
+    return errors;
 }
 

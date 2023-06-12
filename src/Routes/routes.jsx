@@ -13,6 +13,7 @@ import Menus from "../Pages/Admin-panel/Menus/Menus";
 import Articles from "../Pages/Admin-panel/Articles/Articles";
 import ArticlesInfo from "../Pages/Client/Articles/ArticlesInfo";
 import Setting from "../Pages/Admin-panel/Setting/Setting";
+import Categories from "../Pages/Admin-panel/Categories/Categories";
 
 
 const routes = [
@@ -32,6 +33,7 @@ const routes = [
             {path : "products" , element : <Products/>},
             {path : "menus" , element : <Menus/>},
             {path : "articles" , element : <Articles/>},
+            {path : "categories" , element : <Categories/>},
             {path : "setting" , element : <Setting/>},
         ]
     }
