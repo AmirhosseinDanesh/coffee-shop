@@ -122,8 +122,8 @@ export default function Products() {
             })
         }} >
         {({ isSubmitting }) => (
-          <div className='mt-5'>
-            <span href="#" className="mb-6 text-xl text-gray-900 dark:text-white">
+          <div className='mt-5 text-sm md:text-lg'>
+            <span href="#" className="mb-6 text-gray-900 dark:text-white">
               اضافه کردن محصول جدید
             </span>
             <Form className="space-y-1 md:space-y-1 grid gap-2 mb-6 md:grid-cols-2 mt-5">

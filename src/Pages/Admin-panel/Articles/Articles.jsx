@@ -155,8 +155,8 @@ export default function Articles() {
         }} >
 
         {({ isSubmitting }) => (
-          <div className='mt-5'>
-            <span href="#" className="mb-6 text-xl text-gray-900 dark:text-white">
+          <div className='mt-5 text-sm md:text-lg'>
+            <span href="#" className="mb-6 text-gray-900 dark:text-white">
               اضافه کردن مقاله جدید
             </span>
             <Form className="space-y-1 md:space-y-1 grid gap-2 mb-6 md:grid-cols-2 mt-5">
@@ -195,7 +195,7 @@ export default function Articles() {
                   {(msg) => <span className='text-xs text-red-600'>{msg}</span>}
                 </ErrorMessage>
               </div>
-              <div className='col-start-1 md:col-end-3 w-[98]'>
+              <div className='col-start-1 md:col-end-3 w-[99%]'>
                 <Editor
                   value={articleBody}
                   setValue={setArticleBody}

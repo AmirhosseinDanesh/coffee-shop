@@ -58,33 +58,26 @@ export default function AdminPanel() {
       <nav className="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
         <div className="px-3 py-3 lg:px-5 lg:pl-3">
           <div className="flex items-center justify-between">
-            <div className="flex items-center justify-start gap-x-4">
-              <button type="button" className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" onClick={() => {
-                // sidebar ? (setSidebar(false)) : (setSidebar(true))
-                if (sidebar) {
-                  setSidebar(false)
-                } else {
-                  setSidebar(true)
-                  // setTimeout(() => {
-                  //   setSidebar(false)
-                  // }, 2000);
-                }
+            <div className="flex items-center justify-start gap-x-1">
+              <button type="button" className="inline-flex items-center p-1 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" onClick={() => {
+                sidebar ? (setSidebar(false)) : (setSidebar(true))
+
               }}>
                 <span className="sr-only">Open sidebar</span>
                 {
                   sidebar ? (
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                    <svg className="w-6 h-6 md:w-7 md:h-7 " xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" >
                       <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M12 17.25h8.25" />
                     </svg>
                   ) : (
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                    <svg className="w-6 h-6 md:w-7 md:h-7 " xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" >
                       <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5" />
                     </svg>
                   )
                 }
               </button>
               <h1 className="flex">
-                <span className="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">{t("dashboardTitle")}</span>
+                <span className="self-center text-sm md:text-lg sm:text-2xl whitespace-nowrap dark:text-white">{t("dashboardTitle")}</span>
               </h1>
             </div>
             <div className="flex items-center">
@@ -92,11 +85,11 @@ export default function AdminPanel() {
                 <div>
                   <div className='relative group'>
                     <div className='py-3 '>
-                      <svg className="w-7 h-7 dark:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" >
+                      <svg className="w-6 h-6 md:w-7 md:h-7 dark:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" >
                         <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
                       </svg>
                     </div>
-                    <div className='absolute opacity-0 invisible group-hover:opacity-100 group-hover:visible top-full left-0 p-5  w-[350px] text-zinc-700 dark:text-white text-base bg-white dark:bg-zinc-700 rounded-2xl border-2 border-gray-900 dark:border-gray-100 space-y-4 tracking-normal shadow-normal transition-all'>
+                    <div className='absolute opacity-0 invisible group-hover:opacity-100 group-hover:visible top-full -left-24 md:left-0 p-3 w-[200px]  md:w-[350px] text-zinc-700 dark:text-white text-base bg-white dark:bg-zinc-700 rounded-2xl border-2 border-gray-900 dark:border-gray-100 space-y-4 tracking-normal shadow-normal transition-all'>
                       <div className='flex flex-col justify-between  divide-y divide-gray-50/25'>
                         {
                           (adminNotification.length) ?
@@ -132,17 +125,20 @@ export default function AdminPanel() {
                       localStorage.setItem("theme", "dark")
                     }
                   }} >
-                    <svg className='w-7 h-7 inline-block dark:hidden' xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                    <svg className='w-6 h-6 md:w-7 md:h-7  inline-block dark:hidden' xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
                     </svg>
-                    <svg className='w-7 h-7 hidden dark:inline-block text-white' xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                    <svg className='w-6 h-6 md:w-7 md:h-7  hidden dark:inline-block text-white' xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
                     </svg>
                   </div>
                 </div>
                 <div className='relative group'>
-                  <img src="/images/profile.png" className='w-[30px] rounded-full' alt="" />
-                  <div className='absolute opacity-0 invisible group-hover:opacity-100 group-hover:visible top-full left-0 p-5 w-[300px] text-zinc-700 dark:text-white text-base bg-white dark:bg-zinc-700 rounded-2xl space-y-4 tracking-normal shadow-normal transition-all'>
+                  <svg className="w-6 h-6 md:w-7 md:h-7 dark:text-white " xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+
+                  <div className='absolute opacity-0 invisible group-hover:opacity-100 group-hover:visible top-full left-0 p-5 md:w-[300px] text-zinc-700 dark:text-white text-base bg-white dark:bg-zinc-700 rounded-2xl space-y-4 tracking-normal shadow-normal transition-all'>
                     <div className="flex flex-col gap-y-5" role="none">
                       <p className="text-sm text-gray-900 dark:text-white" role="none">
                         {adminData.name}
@@ -172,7 +168,7 @@ export default function AdminPanel() {
                   })
 
                 }}>
-                  <svg className="w-7 h-7 dark:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" >
+                  <svg className="w-6 h-6 md:w-7 md:h-7  dark:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" >
                     <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
                   </svg>
                 </div>
@@ -184,9 +180,9 @@ export default function AdminPanel() {
       </nav>
 
       <aside id="logo-sidebar"
-        className={sidebar ? ("fixed top-0 z-40 w-64 h-screen pt-20  transition-transform bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700")
+        className={sidebar ? ("fixed duration-500 top-0 z-40 w-64 h-screen pt-20  transition-transform bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700")
           : (
-            "fixed top-0 z-40 w-64 h-screen pt-20  translate-x-full transition-transform bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700")}
+            "fixed duration-500 top-0 z-40 w-64 h-screen pt-20  translate-x-full transition-transform bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700")}
         onMouseLeave={() => {
           setSidebar(false)
         }}>
