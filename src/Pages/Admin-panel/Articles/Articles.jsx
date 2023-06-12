@@ -195,14 +195,14 @@ export default function Articles() {
                   {(msg) => <span className='text-xs text-red-600'>{msg}</span>}
                 </ErrorMessage>
               </div>
-              <div className='col-start-1 col-end-3 '>
+              <div className='col-start-1 md:col-end-3 w-[98]'>
                 <Editor
                   value={articleBody}
                   setValue={setArticleBody}
                 />
               </div>
 
-              <div className='col-start-1 col-end-2'>
+              <div className='col-start-1 md:col-end-3 '>
                 <label className="input-label">ثبت</label>
                 <button type="submit"
                   className={isSubmitting ? ("input-submit bg-blue-500") : ("input-submit bg-blue-600")}
@@ -247,7 +247,7 @@ export default function Articles() {
                   <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     {art.title}
                   </th>
-                  <td className="px-2 py-2 break-normal">
+                  <td className="px-2 py-5 break-normal line-clamp-3">
                     {art.description}
                   </td>
                   <td className="px-2 py-2">

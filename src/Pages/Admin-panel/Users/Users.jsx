@@ -96,6 +96,49 @@ export default function Users() {
     })
   }
 
+  const adminUser = (id) => {
+    swal({
+      title: "آیا از ادمین کردن این کاربر مطمعن هستید؟",
+      buttons: ["خیر", "بله"]
+    }).then((res) => {
+      if (res) {
+        // const formData = new FormData();
+        // formData.append("id" , id);
+        // formData.append("role" , "USER");
+
+
+        const adminUser = {
+          role: "ADMIN",
+          id,
+        }
+
+        fetch(`${DataUrlV1}/users/role/`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${LocalStorageData.token}`,
+          },
+          body: JSON.stringify(adminUser)
+        })
+          .then(res => {
+            console.log(res)
+            // if (!res.ok) {
+            //   setIsShowErrToast(true)
+            //   setToastMessage("کاربر بن نشد مشکلی پیش آمده!")
+            // } else {
+            //   res.json()
+            //     .then(data => {
+            //       getUsers()
+            //       setIsShowToast(true)
+            //       setToastMessage("کاربر با موفقیت بن شد")
+            //     })
+            // }
+          })
+
+      }
+    })
+  }
+
   useEffect(() => {
     getUsers()
     if (isShowToast || isShowErrToast) {
@@ -110,7 +153,7 @@ export default function Users() {
     <>
       <Formik
         validate={registerValidate}
-        initialValues={{ name: "", username: "", phone: "", email: "", password: "" , confirmPassword: "" }}
+        initialValues={{ name: "", username: "", phone: "", email: "", password: "", confirmPassword: "" }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
           values.confirmPassword = values.password
           fetch(`${DataUrlV1}/auth/register`, {
@@ -192,16 +235,24 @@ export default function Users() {
                   <td className="px-2 py-2 mt-6 flex">
                     <button className=" dark:text-white bg-blue-700 hover:bg-blue-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => {
                       setSelectUsers(user)
-                      // setSelectUserscover(product.cover)
                       setIsShowModal(true)
                     }}>ویرایش</button>
                     <button className=" dark:text-white bg-red-700 hover:bg-red-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => {
-                      // setSelectUsers(product)
                       removeUser(user._id)
                     }}>حذف</button>
                     <button className=" dark:text-white bg-red-700 hover:bg-red-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => {
                       banUser(user._id)
                     }}>بن</button>
+                    {
+                      (user.role === "ADMIN") ? (
+                        <>
+                        </>
+                      ) : (
+                        <button className=" dark:text-white bg-green-700 hover:bg-green-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => {
+                          adminUser(user._id)
+                        }}>ادمین کردن</button>
+                      )
+                    }
                   </td>
                 </tr>
               ))
@@ -221,26 +272,24 @@ export default function Users() {
               <div className="p-6 space-y-6">
                 <Formik
                   // validate={productEditValidate}
-                  initialValues={{ name: `${ selectUsers.name }`, email: `${ selectUsers.email }`, phone: `${ selectUsers.phone }`, username: `${ selectUsers.username }` }}
+                  initialValues={{ name: `${selectUsers.name}`, email: `${selectUsers.email}`, phone: `${selectUsers.phone}`, username: `${selectUsers.username}` }}
                   onSubmit={(values, { setSubmitting }) => {
-                    const formData = new FormData();
-                    formData.append('name', values.name);
-                    formData.append('email', values.email);
-                    formData.append('phone', values.phone);
-                    formData.append('username', values.username);
-
-                    fetch(`${ DataUrlV1 } / users / ${ selectUsers._id }`, {
+                    console.log(values)
+                    fetch(`${DataUrlV1}/users/${selectUsers._id}`, {
                       method: "PUT",
                       headers: {
-                        'Authorization': `Bearer ${ LocalStorageData.token }`
+                        "Content-Type": "application/json",
+                        'Authorization': `Bearer ${LocalStorageData.token}`
                       },
-                      body: formData
+                      body: JSON.stringify(values)
                     })
-                      .then(res => res.json())
+                      .then(res => {
+                        res.json()
+                      })
                       .then(data => {
                         getUsers()
                         setIsShowToast(true)
-                        setToastMessage("محصول با موفقیت ویرایش شد")
+                        setToastMessage("کاربر با موفقیت ویرایش شد")
                         setIsShowModal(false)
                         setTimeout(() => {
                           setIsShowToast(false)
