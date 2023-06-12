@@ -102,7 +102,7 @@ export default function Menus() {
                   {
                     menus.map((menu) => (
                       !Boolean(menu.parent) && (
-                        <option value={menu._id}>{menu.title}</option>
+                        <option key={menu._id} value={menu._id}>{menu.title}</option>
                       )
                     ))
                   }
@@ -192,8 +192,8 @@ export default function Menus() {
             <>
               <div className="p-6 space-y-6">
                 <Formik
-                  validate={MenusValue}
-                  initialValues={{ title: `${selectMenus.title}`, name: `${selectMenus.name}`, }}
+                  // validate={MenusValue}
+                  initialValues={{ title: `${selectMenus.title}`, href: `${selectMenus.href}`, }}
                   onSubmit={(values, { setSubmitting }) => {
                     fetch(`${DataUrlV1}/Menus/${selectMenus._id}`, {
                       method: "PUT",
@@ -203,25 +203,28 @@ export default function Menus() {
                       },
                       body: JSON.stringify(values)
                     })
-                      .then(res => res.json())
-
-                      .then(data => {
-                        getMenus()
-                        setIsShowToast(true)
-                        setToastMessage("منو با موفقیت ویرایش شد")
-                        setIsShowModal(false)
-                        setTimeout(() => {
-                          setIsShowToast(false)
-                          setSubmitting(false)
-                        }, 2000);
+                      .then(res => {
+                        console.log(res)
+                        // res.json()
                       })
+
+                      // .then(data => {
+                      //   getMenus()
+                      //   setIsShowToast(true)
+                      //   setToastMessage("منو با موفقیت ویرایش شد")
+                      //   setIsShowModal(false)
+                      //   setTimeout(() => {
+                      //     setIsShowToast(false)
+                      //     setSubmitting(false)
+                      //   }, 2000);
+                      // })
 
                   }} >
                   {({ isSubmitting }) => (
                     <div className='mt-5'>
                       <Form className="space-y-1 md:space-y-1 grid gap-2 mb-6 md:grid-cols-2 mt-5">
                         <Input label="نام منو" type="text" name="title" placeholder="منو اول" />
-                        <Input label="لینک منو" type="text" name="name" placeholder="Menus1" />
+                        <Input label="لینک منو" type="text" name="href" placeholder="Menus1" />
                         <div className=''>
                           <label className="input-label">تغییر وضعیت</label>
                           <button type="submit"

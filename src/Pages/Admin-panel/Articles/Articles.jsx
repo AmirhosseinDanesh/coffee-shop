@@ -247,7 +247,7 @@ export default function Articles() {
                   <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     {art.title}
                   </th>
-                  <td className="px-2 py-5 break-normal line-clamp-3">
+                  <td className="px-2 py-5 break-normal line-clamp-2 ">
                     {art.description}
                   </td>
                   <td className="px-2 py-2">
