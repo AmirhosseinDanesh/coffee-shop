@@ -1,17 +1,26 @@
-import React ,{useContext} from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import { registerValidate } from '../../../Components/Input/Validate'
-import {DataUrlV1} from "../../../Data/Data"
+import { DataUrlV1 } from "../../../Data/Data"
 import AuthContext from '../../../Context/authContext'
-
+import ErrorToast from '../../../Components/Toast/ErrorToast'
 import PanelNav from '../../../Components/PanelNav/PanelNav'
 import Input from '../../../Components/Input/Input.jsx'
 
 
 export default function Register() {
     const auth = useContext(AuthContext)
-    
+    const [isShowErrToast, setIsShowErrToast] = useState(false)
+    const [toastMessage, setToastMessage] = useState("")
+    useEffect(() => {
+        if (isShowErrToast) {
+            setTimeout(() => {
+
+                setIsShowErrToast(false);
+            }, 2000);
+        }
+    }, [isShowErrToast])
     return (
         <>
             <PanelNav />
@@ -27,28 +36,34 @@ export default function Register() {
                             </h1>
                             <Formik
                                 validate={registerValidate}
-                                initialValues={{ name: "", username: "", phone: "", email: "", password: ""  }}
+                                initialValues={{ name: "", username: "", phone: "", email: "", password: "" }}
                                 onSubmit={(values, { setSubmitting }) => {
                                     const newUserInfo = {
-                                        name : values.name ,
-                                        username : values.username ,
-                                        phone : values.phone ,
-                                        email : values.email ,
-                                        password : values.password ,
-                                        confirmPassword : values.password ,
+                                        name: values.name,
+                                        username: values.username,
+                                        phone: values.phone,
+                                        email: values.email,
+                                        password: values.password,
+                                        confirmPassword: values.password,
                                     }
-                                    fetch(`${DataUrlV1}/auth/register` , {
-                                        method: "POST" ,
-                                        headers : {
-                                            "Content-Type" : "application/json"
+                                    fetch(`${DataUrlV1}/auth/register`, {
+                                        method: "POST",
+                                        headers: {
+                                            "Content-Type": "application/json"
                                         },
-                                        body : JSON.stringify(newUserInfo)
-                                    }).then(res=>res.json())
-                                        .then(data => {
-                                            console.log(data.accessToken)
-                                            auth.login(data.user , data.accessToken)
-                                            
-                                        })
+                                        body: JSON.stringify(newUserInfo)
+                                    }).then(res => {
+                                        if (!res.ok) {
+                                            setIsShowErrToast(true)
+                                            setToastMessage("این شماره تلفن بن شده است")
+                                        } else {
+                                            res.json()
+                                                .then(data => {
+                                                    auth.login(data.user, data.accessToken)
+                                                })
+                                        }
+                                    })
+
 
                                     setTimeout(() => {
                                         setSubmitting(false)
@@ -69,7 +84,7 @@ export default function Register() {
                                             className={isSubmitting ? ("input-submit bg-blue-500") : ("input-submit bg-blue-600")}
                                             disabled={isSubmitting}
                                         >
-                                            {isSubmitting ? ("لطفا صبر کنید ...") : ("ورود")}
+                                            {isSubmitting ? ("لطفا صبر کنید ...") : ("ثبت نام")}
                                         </button>
                                         <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                                             <NavLink to="/login" className=" text-gray-500 dark:text-gray-400 p-2 rounded-lg font-DanaMedium">ورود </NavLink>
@@ -81,7 +96,9 @@ export default function Register() {
                     </div>
                 </div>
             </section>
+            {
+                isShowErrToast && <ErrorToast title={toastMessage} />
+            }
         </>
-
     )
 }

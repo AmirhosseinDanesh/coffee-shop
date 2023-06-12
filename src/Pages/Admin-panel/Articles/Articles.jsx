@@ -86,7 +86,7 @@ export default function Articles() {
       {/* add new Articles */}
       <Formik
         validate={articleValidate}
-        initialValues={{ title: "", description: "", body: "", shortName: "", categoryID: "", cover: "" , status:"" }}
+        initialValues={{ title: "", description: "", body: "", shortName: "", categoryID: "", cover: "", status: "" }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
           const formData = new FormData();
           Object.entries(values).forEach(([key, value]) => {
@@ -198,6 +198,10 @@ export default function Articles() {
                   value={articleBody}
                   setValue={setArticleBody}
                 /> */}
+                {
+                  console.log(articleBody)
+
+                }
                 <label className="input-label">متن مقاله</label>
                 <Field className="input h-20" as="textarea" label="متن مقاله" type="text" name="body" placeholder="اولین موضوعی که باید در مورد ..." />
               </div>
