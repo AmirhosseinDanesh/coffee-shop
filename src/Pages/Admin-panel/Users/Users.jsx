@@ -102,16 +102,10 @@ export default function Users() {
       buttons: ["خیر", "بله"]
     }).then((res) => {
       if (res) {
-        // const formData = new FormData();
-        // formData.append("id" , id);
-        // formData.append("role" , "USER");
-
-
         const adminUser = {
           role: "ADMIN",
           id,
         }
-
         fetch(`${DataUrlV1}/users/role/`, {
           method: "PUT",
           headers: {
@@ -121,18 +115,17 @@ export default function Users() {
           body: JSON.stringify(adminUser)
         })
           .then(res => {
-            console.log(res)
-            // if (!res.ok) {
-            //   setIsShowErrToast(true)
-            //   setToastMessage("کاربر بن نشد مشکلی پیش آمده!")
-            // } else {
-            //   res.json()
-            //     .then(data => {
-            //       getUsers()
-            //       setIsShowToast(true)
-            //       setToastMessage("کاربر با موفقیت بن شد")
-            //     })
-            // }
+            if (!res.ok) {
+              setIsShowErrToast(true)
+              setToastMessage("کاربر ادمین نشد مشکلی پیش آمده!")
+            } else {
+              res.json()
+                .then(data => {
+                  getUsers()
+                  setIsShowToast(true)
+                  setToastMessage("کاربر با موفقیت ادمین شد")
+                })
+            }
           })
 
       }

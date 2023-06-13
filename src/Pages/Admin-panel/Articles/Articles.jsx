@@ -27,6 +27,7 @@ export default function Articles() {
   const [articleBody, setArticleBody] = useState("")
   const [selectArticlesCover, setSelectArticlescover] = useState("")
   const [selectArticles, setSelectArticles] = useState([])
+  const [selectEditArticles, setSelectEditArticles] = useState([])
 
   const closeModal = () => {
     setIsShowModal(false)
@@ -110,7 +111,7 @@ export default function Articles() {
                   setToastMessage("مقاله اضافه نشد")
                   setSubmitting(false)
                 } else {
-                  
+
                   res.json()
                     .then(data => {
                       getArticles()
@@ -119,7 +120,7 @@ export default function Articles() {
                       setTimeout(() => {
                         resetForm()
                         setSubmitting(false)
-                        
+
                       }, 2000);
                     })
                 }
@@ -306,7 +307,7 @@ export default function Articles() {
                     const formData = new FormData();
                     formData.append('title', values.title);
                     formData.append('description', values.description);
-                    formData.append('body', values.body);
+                    formData.append('body', selectEditArticles);
                     formData.append('shortName', values.shortName);
                     formData.append('categoryID', values.categoryID);
                     if (selectArticlesCover) {
@@ -364,6 +365,12 @@ export default function Articles() {
                             {(msg) => <span className='text-xs text-red-600'>{msg}</span>}
                           </ErrorMessage>
                         </div>
+                        <div className='col-start-1 col-end-3'>
+                          <Editor
+                            value={selectArticles.body[1]}
+                            setValue={setSelectEditArticles}
+                          />
+                        </div>
                         <div className=''>
                           <label className="input-label">تغییر وضعیت</label>
                           <button type="submit"
@@ -401,7 +408,7 @@ export default function Articles() {
       {
         isShowToast && <Toast title={toastMessage} />
       }
-      
+
       {
         isShowErrToast && <ErrorToast title={toastMessage} />
       }
