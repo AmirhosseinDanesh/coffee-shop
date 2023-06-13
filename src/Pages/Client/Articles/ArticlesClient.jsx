@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Slider from '../../../Components/Slider/Slider'
-import Article from '../../../Components/Article/Article'
+import ArticleCart from '../../../Components/ArticleCart/ArticleCart'
 import { DataUrlV1 } from "../../../Data/Data"
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
@@ -27,7 +27,7 @@ export default function ArticlesClient() {
 
             (articles.length ? (
               articles.filter(article=>article.publish == 1).map((art) => (
-                <Article key={art._id} {...art} />
+                <ArticleCart key={art._id} {...art} />
               ))
             ) : (
               <>

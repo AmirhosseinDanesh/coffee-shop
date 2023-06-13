@@ -225,7 +225,7 @@ export default function Users() {
                   <td className="px-2 py-2">
                     {user.phone}
                   </td>
-                  <td className="px-2 py-2 mt-6 flex">
+                  <td className="px-2 py-2 flex">
                     <button className=" dark:text-white bg-blue-700 hover:bg-blue-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => {
                       setSelectUsers(user)
                       setIsShowModal(true)

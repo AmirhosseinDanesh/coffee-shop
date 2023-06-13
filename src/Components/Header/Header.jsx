@@ -41,37 +41,21 @@ export default function Header() {
               </li>
               <li className='font-DanaMedium'>
                 <ul>
-                  <NavLink to="/shop" className={({ isActive }) => (isActive) ? ("relative group text-orange-200") : ("relative group")}>فروشگاه</NavLink>
-                  <li className='relative group'>
-                    <a href="/" className='absolute opacity-0 invisible group-hover:opacity-100 group-hover:visible top-full p-6 w-52 text-zinc-700 dark:text-white text-base bg-white dark:bg-zinc-700 rounded-2xl border-t border-t-orange-300 space-y-4 tracking-normal shadow-normal transition-all child:inline-block child:transition-colors child-hover:text-orange-300'>سلام</a>
-                    <div className='absolute opacity-0 invisible group-hover:opacity-100 group-hover:visible top-full p-6 w-52 text-zinc-700 dark:text-white text-base bg-white dark:bg-zinc-700 rounded-2xl border-t border-t-orange-300 space-y-4 tracking-normal shadow-normal transition-all child:inline-block child:transition-colors child-hover:text-orange-300'>
-                      <a href="/">قهوه خوب</a>
-                      <a href="/">قهوه بد</a>
-                      <a href="/">قهوه متوسط</a>
-                    </div>
-                  </li>
-                  {/* {
-                  headerLink.map((menu) => (
-                    <li key={menu._id} className='relative group'>
-                      <NavLink to={menu.href}>
-                        {menu.title}
-                      </NavLink>
+                  <div className='relative group'>
+                    <NavLink to="/shop" className={({ isActive }) => (isActive) ? (" text-orange-200") : ("")}>فروشگاه</NavLink>
+                    <div className='absolute opacity-0 invisible group-hover:opacity-100 group-hover:visible top-full flex flex-col p-6 w-52 text-zinc-700 dark:text-white text-base bg-white dark:bg-zinc-700 rounded-2xl border-t border-t-orange-300 space-y-4 tracking-normal shadow-normal transition-all  child:transition-colors child-hover:text-orange-300'>
                       {
-                        menu.submenus.length !== 0 && (
-                          <div className='absolute opacity-0 invisible group-hover:opacity-100 group-hover:visible top-full p-6 w-52 text-zinc-700 dark:text-white text-base bg-white dark:bg-zinc-700 rounded-2xl border-t border-t-orange-300 space-y-4 tracking-normal shadow-normal transition-all child:inline-block child:transition-colors child-hover:text-orange-300'>
-                            {
-                              menu.submenus.map((submenu) => (
-                                <NavLink key={submenu._id} to={submenu.href}>
-                                  {submenu.title}
-                                </NavLink>
-                              ))
-                            }
+                        headerLink.map(menu => (
+                          <div key={menu._id} className='flex justify-between items-center '>
+                            <NavLink to={`/category/${menu.href}`}>
+                              {menu.title}
+                            </NavLink>
+
                           </div>
-                        )
+                        ))
                       }
-                    </li>
-                  ))
-                } */}
+                    </div>
+                  </div>
                 </ul>
               </li>
               <li className='font-DanaMedium'>
@@ -83,28 +67,6 @@ export default function Header() {
               <li className='font-DanaMedium'>
                 <NavLink to="/contact-us" className={({ isActive }) => (isActive) ? ("text-orange-200") : ("")}>تماس باما</NavLink>
               </li>
-              {/* {
-              headerLink.map((menu) => (
-                <li key={menu._id} className='relative group'>
-                  <NavLink  to={menu.href}>
-                    {menu.title}
-                  </NavLink>
-                    {
-                      menu.submenus.length !== 0 && (
-                        <div className='absolute opacity-0 invisible group-hover:opacity-100 group-hover:visible top-full p-6 w-52 text-zinc-700 dark:text-white text-base bg-white dark:bg-zinc-700 rounded-2xl border-t border-t-orange-300 space-y-4 tracking-normal shadow-normal transition-all child:inline-block child:transition-colors child-hover:text-orange-300'>
-                          {
-                            menu.submenus.map((submenu)=>(
-                              <NavLink key={submenu._id} to={submenu.href}>
-                                {submenu.title}
-                              </NavLink>
-                            ))
-                          }
-                        </div>
-                      )
-                    }
-                </li>
-              ))
-            } */}
             </ul>
           </nav>
 
@@ -426,12 +388,12 @@ export default function Header() {
           <div className='fixed top-0 left-0 w-64 min-h-screen bg-white dark:bg-zinc-700 pt-3 px-4 z-20'>
             {/* LOGO */}
             <div className='flex items-center justify-between pb-5 mb-6 border-b border-b-gray-100 dark:border-b-white/10'>
-                  <div className='p-1 rounded-lg hover:bg-zinc-800/50 ' onClick={() => {
-                    setHeaderLeftNavbar(false)
-                  }}>
-                    <svg className="w-5 h-5 text-zinc-600 dark:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
+              <div className='p-1 rounded-lg hover:bg-zinc-800/50 ' onClick={() => {
+                setHeaderLeftNavbar(false)
+              }}>
+                <svg className="w-5 h-5 text-zinc-600 dark:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
               </div>
               <div className='text-orange-300 text-lg h-10 flex items-center'>
                 سبد خرید
