@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { DataUrl } from '../../Data/Data'
 
@@ -26,8 +26,14 @@ export default function ProductCart({ ...pro }) {
                 </NavLink>
                 <div className="p-4 flex flex-col justify-between items-center">
 
-                    <h5 className="mb-5 text-xl font-DanaBold tracking-tight text-gray-900 dark:text-white">{pro.name}</h5>
+                    {
+                        (pro.categoryID) ?
+                            (<span className='mb-4 text-xs dark:text-gray-200  rounded-2xl p-2 bg-sky-700'>{pro.categoryID.title}</span>)
+                            :
+                            (console.log("False"))
+                    }
 
+                    <h5 className="mb-5 text-xl font-DanaBold tracking-tight text-gray-900 dark:text-white">{pro.name}</h5>
                     <p className="mb-5 text-gray-700 dark:text-gray-400 line-clamp-2">{pro.description}</p>
                     <div className='mb-5 font-DanaBold text-gray-950 dark:text-gray-200 w-full flex justify-between'>
                         <span className=''>
@@ -41,7 +47,7 @@ export default function ProductCart({ ...pro }) {
                         <div className='flex'>
                             {stars}
                         </div>
-                        <div className="flex items-center px-3 py-2 text-sm text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none dark:bg-blue-600 dark:hover:bg-blue-700" onClick={()=>{
+                        <div className="flex items-center px-3 py-2 text-sm text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none dark:bg-blue-600 dark:hover:bg-blue-700" onClick={() => {
                             console.log(pro._id)
                         }}>
                             اضافه کردن به سبد خرید
