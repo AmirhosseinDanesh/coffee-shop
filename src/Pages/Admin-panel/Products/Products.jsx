@@ -26,6 +26,7 @@ export default function Products() {
     fetch(`${DataUrlV1}/courses`)
       .then(res => res.json())
       .then(data => {
+        console.log(data)
         setProducts(data)
       })
   }
@@ -193,7 +194,7 @@ export default function Products() {
                   قیمت محصول
                 </th>
                 <th scope="col" className="px-2 py-3">
-                  مدرس
+                  دسته بندی
                 </th>
                 <th scope="col" className="px-2 py-3">
                   ویرایش
@@ -213,7 +214,7 @@ export default function Products() {
                     {product.price.toLocaleString()}
                   </td>
                   <td className="px-2 py-2">
-                    {product.creator}
+                    {product.categoryID.title}
                   </td>
                   <td className="px-2 py-2">
                     <div className='flex'>

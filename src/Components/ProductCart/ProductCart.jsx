@@ -3,10 +3,11 @@ import { NavLink } from 'react-router-dom'
 import { DataUrl } from '../../Data/Data'
 
 export default function ProductCart({ ...pro }) {
+    console.log(pro)
     const stars = [];
     for (let i = 0; i < pro.courseAverageScore; i++) {
         stars.push(
-            <svg key={i} className="w-5 h-5 text-yellow-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" >
+            <svg key={i} className="w-4 h-4 text-yellow-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" >
                 <path fillRule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clipRule="evenodd" />
             </svg>
         );
@@ -14,7 +15,7 @@ export default function ProductCart({ ...pro }) {
 
     return (
         <>
-            <div className="max-w-sm basis-full md:basis-1/2 lg:basis-1/3 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 mb-10">
+            <div className="max-w-sm hover:shadow-xl basis-full md:basis-1/2 lg:basis-1/3 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 mb-10">
                 <NavLink className="flex justify-center" to={`/courses/${pro.shortName}`}>
                     {
                         (pro.cover) ? (
@@ -28,24 +29,25 @@ export default function ProductCart({ ...pro }) {
 
                     {
                         (pro.categoryID) ?
-                            (<span className='mb-4 text-xs dark:text-gray-200  rounded-2xl p-2 bg-sky-700'>{pro.categoryID.title}</span>)
+                            (<NavLink to={`/category/${pro.categoryID.name}`} className='mb-4 text-xs  text-gray-200  rounded-2xl p-2 bg-sky-700'>{pro.categoryID.title}</NavLink>)
                             :
                             (console.log("False"))
                     }
 
                     <h5 className="mb-5 text-xl font-DanaBold tracking-tight text-gray-900 dark:text-white">{pro.name}</h5>
                     <p className="mb-5 text-gray-700 dark:text-gray-400 line-clamp-2">{pro.description}</p>
-                    <div className='mb-5 font-DanaBold text-gray-950 dark:text-gray-200 w-full flex justify-between'>
+                    <div className='mb-5 font-DanaBold  w-full flex justify-between'>
                         <span className=''>
-                            {pro.price.toLocaleString()}
+
                         </span>
-                        <span className=''>
-                            {pro.creator}
+                        <span className='flex'>
+                            {stars}
                         </span>
                     </div>
-                    <div className='flex w-full justify-between items-center'>
-                        <div className='flex'>
-                            {stars}
+                    <div className='flex w-full justify-between items-center text-gray-950 dark:text-gray-200'>
+                        <div className='flex text-xl items-center justify-between gap-x-1'>
+                            {pro.price.toLocaleString()}
+                            <span className='text-sm '>تومان</span>
                         </div>
                         <div className="flex items-center px-3 py-2 text-sm text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none dark:bg-blue-600 dark:hover:bg-blue-700" onClick={() => {
                             console.log(pro._id)

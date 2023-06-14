@@ -43,18 +43,25 @@ export default function Header() {
                 <ul>
                   <div className='relative group'>
                     <NavLink to="/shop" className={({ isActive }) => (isActive) ? (" text-orange-200") : ("")}>فروشگاه</NavLink>
-                    <div className='absolute opacity-0 invisible group-hover:opacity-100 group-hover:visible top-full flex flex-col p-6 w-52 text-zinc-700 dark:text-white text-base bg-white dark:bg-zinc-700 rounded-2xl border-t border-t-orange-300 space-y-4 tracking-normal shadow-normal transition-all  child:transition-colors child-hover:text-orange-300'>
-                      {
-                        headerLink.map(menu => (
-                          <div key={menu._id} className='flex justify-between items-center '>
-                            <NavLink to={`/category/${menu.href}`}>
-                              {menu.title}
-                            </NavLink>
+                    {
+                      (headerLink.length) ? (
+                        <div className='absolute opacity-0 invisible group-hover:opacity-100 group-hover:visible top-full flex flex-col p-6 w-52 text-zinc-700 dark:text-white text-base bg-white dark:bg-zinc-700 rounded-2xl border-t border-t-orange-300 space-y-4 tracking-normal shadow-normal transition-all  child:transition-colors child-hover:text-orange-300'>
+                          {
+                            headerLink.map(menu => (
+                              <div key={menu._id} className='flex justify-between items-center '>
+                                <NavLink to={`/category/${menu.href}`}>
+                                  {menu.title}
+                                </NavLink>
 
-                          </div>
-                        ))
-                      }
-                    </div>
+                              </div>
+                            ))
+                          }
+                        </div>
+                      ) : (
+                        <>
+                        </>
+                      )
+                    }
                   </div>
                 </ul>
               </li>
@@ -95,7 +102,7 @@ export default function Header() {
                   </div>
                   <div className='pb-1 border-b border-b-gray-300 dark:border-b-white/10 divide-y divide-gray-100 dark:divide-white/10 child:py-5'>
                     <div className='flex gap-x-2.5'>
-                      <img src="images/products/p1.png" alt="p1" className='w-[120px] h-[120px]' />
+                      <img src="/images/products/p1.png" alt="p1" className='w-[120px] h-[120px]' />
                       <div className='flex flex-col justify-between'>
                         <h4 className='font-DanaMedium text-zinc-700 dark:text-white text-base line-clamp-2'>قهوه اسپرسو بن مانو مدل پریسکا 250 گرمی</h4>
                         <div>
@@ -112,7 +119,7 @@ export default function Header() {
                       </div>
                     </div>
                     <div className='flex gap-x-2.5'>
-                      <img src="images/products/p1.png" alt="p1" className='w-[120px] h-[120px]' />
+                      <img src="/images/products/p1.png" alt="p1" className='w-[120px] h-[120px]' />
                       <div className='flex flex-col justify-between'>
                         <h4 className='font-DanaMedium text-zinc-700 dark:text-white text-base line-clamp-2'>قهوه اسپرسو بن مانو مدل پریسکا 250 گرمی</h4>
                         <div>
@@ -177,7 +184,7 @@ export default function Header() {
                   </NavLink>
 
                   <NavLink to="/profile" className='flex xl:hidden items-center gap-x-2.5 tracking-tightest'>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7 border rounded-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7 border rounded-full p-[2px]">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
                     </svg>
 
@@ -413,7 +420,7 @@ export default function Header() {
               </div>
               <div className='pb-1 border-b border-b-gray-300 dark:border-b-white/10 divide-y divide-gray-100 dark:divide-white/10 child:py-5'>
                 <div className='flex gap-x-2.5'>
-                  <img src="images/products/p1.png" alt="p1" className='w-[75px] h-[75px]' />
+                  <img src="/images/products/p1.png" alt="p1" className='w-[75px] h-[75px]' />
                   <div className='flex flex-col justify-between'>
                     <h4 className='font-DanaMedium text-zinc-700 dark:text-white text-xs line-clamp-2 leading-6	'>قهوه اسپرسو بن مانو مدل پریسکا 250 گرمی</h4>
                     <div className='flex flex-col gap-y-2 mt-2'>
@@ -430,7 +437,7 @@ export default function Header() {
                   </div>
                 </div>
                 <div className='flex gap-x-2.5'>
-                  <img src="images/products/p1.png" alt="p1" className='w-[75px] h-[75px]' />
+                  <img src="/images/products/p1.png" alt="p1" className='w-[75px] h-[75px]' />
                   <div className='flex flex-col justify-between'>
                     <h4 className='font-DanaMedium text-zinc-700 dark:text-white text-xs line-clamp-2 leading-6	'>قهوه اسپرسو بن مانو مدل پریسکا 250 گرمی</h4>
                     <div className='flex flex-col gap-y-2 mt-2'>

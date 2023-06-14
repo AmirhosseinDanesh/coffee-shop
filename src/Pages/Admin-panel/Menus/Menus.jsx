@@ -64,7 +64,7 @@ export default function Menus() {
       {/* New Menus Field */}
       <Formik
         // validate={MenusValue}
-        initialValues={{ href: "", title: "" , parent:undefined }}
+        initialValues={{ href: "", title: "", parent: undefined }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
           console.log(values)
           fetch(`${DataUrlV1}/menus/`, {
@@ -100,11 +100,16 @@ export default function Menus() {
                 <Field as="select" name="parent" className="input">
                   <option value="-1">دسته بندی را انتخاب کنید</option>
                   {
-                    menus.map((menu) => (
-                      !Boolean(menu.parent) && (
-                        <option key={menu._id} value={menu._id}>{menu.title}</option>
-                      )
-                    ))
+                    (menus.length) ? (
+                      menus.map((menu) => (
+                        !Boolean(menu.parent) && (
+                          <option key={menu._id} value={menu._id}>{menu.title}</option>
+                        )
+                      ))
+                    ) : (
+                      <option value="-1">دسته بندی وجود ندارد</option>
+                    )
+
                   }
                 </Field>
                 <ErrorMessage name="categoryID">
@@ -208,16 +213,16 @@ export default function Menus() {
                         // res.json()
                       })
 
-                      // .then(data => {
-                      //   getMenus()
-                      //   setIsShowToast(true)
-                      //   setToastMessage("منو با موفقیت ویرایش شد")
-                      //   setIsShowModal(false)
-                      //   setTimeout(() => {
-                      //     setIsShowToast(false)
-                      //     setSubmitting(false)
-                      //   }, 2000);
-                      // })
+                    // .then(data => {
+                    //   getMenus()
+                    //   setIsShowToast(true)
+                    //   setToastMessage("منو با موفقیت ویرایش شد")
+                    //   setIsShowModal(false)
+                    //   setTimeout(() => {
+                    //     setIsShowToast(false)
+                    //     setSubmitting(false)
+                    //   }, 2000);
+                    // })
 
                   }} >
                   {({ isSubmitting }) => (
