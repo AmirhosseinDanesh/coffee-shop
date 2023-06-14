@@ -15,7 +15,7 @@ export default function ProductCart({ ...pro }) {
     return (
         <>
             <div className="max-w-sm basis-full md:basis-1/2 lg:basis-1/3 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 mb-10">
-                <NavLink className="flex justify-center" to={pro.shortName}>
+                <NavLink className="flex justify-center" to={`/courses/${pro.shortName}`}>
                     {
                         (pro.cover) ? (
                             <img className="rounded-t-lg w-[382px] h-[382px]" src={`${DataUrl}/courses/covers/${pro.cover}`} alt="" />

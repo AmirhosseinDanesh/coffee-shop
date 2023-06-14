@@ -47,7 +47,7 @@ export default function Products() {
           .then(data => {
             getProducts()
             setIsShowToast(true)
-            setToastMessage("محصول با موفقیت ادد شد")
+            setToastMessage("محصول با موفقیت حدف شد")
             setTimeout(() => {
               setIsShowToast(false)
             }, 2000);

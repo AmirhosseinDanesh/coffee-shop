@@ -5,6 +5,7 @@ import ArticlesClient from "../Pages/Client/Articles/ArticlesClient";
 import Shop from "../Pages/Client/Shop/Shop";
 import NotFound from "../Pages/Client/NotFound/NotFound"
 import CategoryInfo from "../Pages/Client/Category/CategoryInfo";
+import ProductDetail from "../Pages/Client/ProductDetail/ProductDetail"
 
 import AdminPanel from "../Pages/Admin-panel/AdminPanel";
 import DashBoard from "../Pages/Admin-panel/Dashboard/Dashboard";
@@ -24,6 +25,7 @@ const routes = [
     { path: "/articles", element: <ArticlesClient /> },
     { path: "/articles/:articleName", element: <ArticlesInfo /> },
     { path: "/category/:categoryName", element: <CategoryInfo /> },
+    { path: "/courses/:shortName", element: <ProductDetail /> },
     { path: "/shop", element: <Shop /> },
     { path: "*", element: <NotFound /> },
     {
