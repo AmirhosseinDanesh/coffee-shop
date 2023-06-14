@@ -39,7 +39,7 @@ export default function ProductDetail() {
           <div className='flex'>
             {...stars}
           </div>
-          <p className='text-sm leading-6 font-DanaMedium'>{productDetail.description}</p>
+          <p className='text-sm leading-6  font-DanaMedium'>{productDetail.description}</p>
           <div>
             <button className='input-submit bg-blue-600' onClick={() => {
               console.log("first")

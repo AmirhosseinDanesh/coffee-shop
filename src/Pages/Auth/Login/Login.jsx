@@ -84,7 +84,7 @@ export default function Login() {
 
                                             setIsShowToast(true)
                                             setTimeout(() => {
-                                                navigate("/p-admin/dashboard");
+                                                navigate("/");
                                                 setSubmitting(false)
                                             }, 1500);
 

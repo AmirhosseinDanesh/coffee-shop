@@ -36,7 +36,7 @@ export default function ArticlesInfo() {
                 <div className='mt-16 flex justify-center'>
                     <img className='rounded-xl' src={`${DataUrl}/courses/covers/${articleData.cover}`} alt="" />
                 </div>
-                <div className='text-xl mt-10 md:px-10 text-gray-700 dark:text-white'>
+                <div className='text-lg mt-10 md:px-10 text-gray-700 dark:text-white tracking-tight	'>
                     {articleData.description}
                 </div>
                 <div className=' mt-10 md:px-10 text-gray-700 dark:text-white' dangerouslySetInnerHTML={{
