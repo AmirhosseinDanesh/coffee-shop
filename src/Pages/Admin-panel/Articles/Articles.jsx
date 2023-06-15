@@ -367,9 +367,12 @@ export default function Articles() {
                         </div>
                         <div className='col-start-1 col-end-3'>
                           <Editor
-                            value={selectArticles.body[1]}
+                            value={(typeof (selectArticles.body) == "string") ? (selectArticles.body) : (selectArticles.body[1])}
                             setValue={setSelectEditArticles}
                           />
+                          {
+                            console.log(typeof (selectArticles.body))
+                          }
                         </div>
                         <div className=''>
                           <label className="input-label">تغییر وضعیت</label>
