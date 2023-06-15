@@ -3,7 +3,6 @@ import { NavLink } from 'react-router-dom'
 import { DataUrl } from '../../Data/Data'
 import DOMPurify from 'dompurify'
 export default function ProductCart({ ...pro }) {
-    console.log(pro)
     const stars = [];
     for (let i = 0; i < pro.courseAverageScore; i++) {
         stars.push(
@@ -31,7 +30,7 @@ export default function ProductCart({ ...pro }) {
                         (pro.categoryID) ?
                             (<NavLink to={`/category/${pro.categoryID.name}`} className='mb-4 text-xs  text-gray-200  rounded-2xl p-2 bg-sky-700'>{pro.categoryID.title}</NavLink>)
                             :
-                            (console.log("False"))
+                            ("")
                     }
 
                     <h5 className="mb-5 text-xl font-DanaBold tracking-tight text-gray-900 dark:text-white">{pro.name}</h5>
