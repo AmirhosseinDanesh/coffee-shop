@@ -7,6 +7,7 @@ const en = {
     navArticles : "Articles",
     setting : "Setting",
     categories: "Categories",
+    offs: "offs",
 
     
     allSell : "All Sell",

@@ -208,3 +208,30 @@ export const categoryValue = (values) => {
     return errors;
 }
 
+export const offsValue = (values) => {
+    const errors = {};
+    if (values.code === "") {
+        errors.code = "وارد کردن نام الزامی است"
+    } else if (values.code.length < 4) {
+        errors.code = "کاراکتر های نام کم است"
+    }
+    
+    if (values.percent === "") {
+        errors.percent = "وارد کردن نام الزامی است"
+    } else if (values.percent.length < 2) {
+        errors.percent = "کاراکتر های نام کم است"
+    }
+
+    if (values.course === "") {
+        errors.course = "وارد کردن محصول الزامی است"
+    }
+    if (values.max === "") {
+        errors.max = "وارد کردن ایمیل الزامی است"
+    } else if (!/^\d+$/i.test(values.max)) {
+        errors.max = "قیمت وارد شده باید عدد باشد"
+    }
+
+
+    return errors;
+}
+

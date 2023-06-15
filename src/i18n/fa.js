@@ -7,6 +7,7 @@ const fa = {
     navArticles: "مقالات",
     setting: "تنظیمات",
     categories: "دسته بندی محصولات",
+    offs: "کد تخفیف",
     
     allSell : "کل فروش",
     profit : "سود فروش",
