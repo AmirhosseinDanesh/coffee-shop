@@ -93,7 +93,7 @@ export default function Products() {
       {/* New Product Field */}
       <Formik
         validate={productValidate}
-        initialValues={{ name: "", shortName: "", description: "", price: "", status: "", categoryID: "", cover: "" }}
+        initialValues={{ name: "", shortName: "", description: "", price: "", status: "start", categoryID: "", cover: "" }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
 
           const formData = new FormData();
@@ -145,17 +145,6 @@ export default function Products() {
                   }
                 </Field>
                 <ErrorMessage name="categoryID">
-                  {(msg) => <span className='text-xs text-red-600'>{msg}</span>}
-                </ErrorMessage>
-              </div>
-              <div>
-                <label className="input-label">وضعیت</label>
-                <Field as="select" name="status" className="input">
-                  <option value="-1">وضعیت را انتخاب کنید</option>
-                  <option value="start">start</option>
-                  <option value="presell">presell</option>
-                </Field>
-                <ErrorMessage name="status">
                   {(msg) => <span className='text-xs text-red-600'>{msg}</span>}
                 </ErrorMessage>
               </div>
@@ -257,14 +246,14 @@ export default function Products() {
               <div className="p-6 space-y-6">
                 <Formik
                   validate={productEditValidate}
-                  initialValues={{ name: `${selectProduct.name}`, shortName: `${selectProduct.shortName}`, description: selectProduct.description, price: `${selectProduct.price}`, status: `${selectProduct.status}`, categoryID: `${selectProduct.categoryID._id}`, cover: '' }}
+                  initialValues={{ name: `${selectProduct.name}`, shortName: `${selectProduct.shortName}`, description: selectProduct.description, price: `${selectProduct.price}`, status: "start", categoryID: `${selectProduct.categoryID._id}`, cover: '' }}
                   onSubmit={(values, { setSubmitting }) => {
                     const formData = new FormData();
                     formData.append('name', values.name);
                     formData.append('shortName', values.shortName);
                     formData.append('description',selectEditProduct );
                     formData.append('price', values.price);
-                    formData.append('status', values.status);
+                    formData.append('status', "start");
                     formData.append('categoryID', values.categoryID);
                     if (selectProductCover) {
                       formData.append('cover', selectProductCover);
@@ -307,17 +296,6 @@ export default function Products() {
                             }
                           </Field>
                           <ErrorMessage name="categoryID">
-                            {(msg) => <span className='text-xs text-red-600'>{msg}</span>}
-                          </ErrorMessage>
-                        </div>
-                        <div>
-                          <label className="input-label">وضعیت</label>
-                          <Field as="select" name="status" className="input">
-                            <option value="-1">وضعیت را انتخاب کنید</option>
-                            <option value="start">start</option>
-                            <option value="presell">presell</option>
-                          </Field>
-                          <ErrorMessage name="status">
                             {(msg) => <span className='text-xs text-red-600'>{msg}</span>}
                           </ErrorMessage>
                         </div>

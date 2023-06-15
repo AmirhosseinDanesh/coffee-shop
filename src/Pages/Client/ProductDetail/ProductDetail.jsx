@@ -32,7 +32,6 @@ export default function ProductDetail() {
             <h2 className='text-2xl font-MorabbaMedium'>{productDetail.name}</h2>
             <span className='text-2xl'>{
               (productDetail.price) ? (productDetail.price.toLocaleString()) : ("")
-              
             }
             <span className='text-base mr-2'>تومان</span>
             </span>

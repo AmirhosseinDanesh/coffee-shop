@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { DataUrl } from '../../Data/Data'
-
+import DOMPurify from 'dompurify'
 export default function ProductCart({ ...pro }) {
     console.log(pro)
     const stars = [];
@@ -35,10 +35,9 @@ export default function ProductCart({ ...pro }) {
                     }
 
                     <h5 className="mb-5 text-xl font-DanaBold tracking-tight text-gray-900 dark:text-white">{pro.name}</h5>
-                    <p className="mb-5 text-gray-700 dark:text-gray-400 line-clamp-2">{pro.description}</p>
+                    <p className="mb-5 text-gray-700 dark:text-gray-400 line-clamp-2" dangerouslySetInnerHTML={{__html:DOMPurify.sanitize(pro.description)}}></p>
                     <div className='mb-5 font-DanaBold  w-full flex justify-between'>
                         <span className=''>
-
                         </span>
                         <span className='flex'>
                             {stars}
