@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Header from '../../../Components/Header/Header'
 import { useParams } from 'react-router-dom'
 import { DataUrl, DataUrlV1 } from '../../../Data/Data'
+import DOMPurify from 'dompurify'
 export default function ProductDetail() {
   const [productDetail, setProductDetail] = useState([])
   const { shortName } = useParams()
@@ -39,7 +40,9 @@ export default function ProductDetail() {
           <div className='flex'>
             {...stars}
           </div>
-          <p className='text-sm leading-6  font-DanaMedium'>{productDetail.description}</p>
+          <p className='text-sm leading-6  font-DanaMedium' dangerouslySetInnerHTML={{__html:DOMPurify.sanitize(productDetail.description)}}>
+
+          </p>
           <div>
             <button className='input-submit bg-blue-600' onClick={() => {
               console.log("first")
