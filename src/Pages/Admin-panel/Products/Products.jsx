@@ -15,7 +15,7 @@ export default function Products() {
   const [products, setProducts] = useState([])
   const [selectProductCover, setSelectProductcover] = useState("")
   const [selectProduct, setSelectProduct] = useState([])
-  const [selectEditProduct, setSelectEditArticles] = useState([])
+  const [selectEditProduct, setSelectEditArticles] = useState("")
   const [categories, setCategories] = useState([])
   const [isShowModal, setIsShowModal] = useState(false)
   const [isShowToast, setIsShowToast] = useState(false)
@@ -27,7 +27,6 @@ export default function Products() {
     fetch(`${DataUrlV1}/courses`)
       .then(res => res.json())
       .then(data => {
-        console.log(data)
         setProducts(data)
       })
   }
@@ -121,6 +120,7 @@ export default function Products() {
                 resetForm()
                 setSubmitting(false)
                 setIsShowToast(false)
+                setArticleBody("")
               }, 2000);
             })
         }} >
@@ -257,20 +257,37 @@ export default function Products() {
               <div className="p-6 space-y-6">
                 <Formik
                   validate={productEditValidate}
-                  initialValues={{ name: `${selectProduct.name}`, shortName: `${selectProduct.shortName}`, description: `${selectProduct.description}`, price: `${selectProduct.price}`, status: `${selectProduct.status}`, categoryID: `${selectProduct.categoryID._id}`, cover: '' }}
+                  initialValues={{ name: `${selectProduct.name}`, shortName: `${selectProduct.shortName}`, description: selectProduct.description, price: `${selectProduct.price}`, status: `${selectProduct.status}`, categoryID: `${selectProduct.categoryID._id}`, cover: '' }}
                   onSubmit={(values, { setSubmitting }) => {
                     const formData = new FormData();
                     formData.append('name', values.name);
                     formData.append('shortName', values.shortName);
-                    formData.append('description', values.description);
+                    formData.append('description',selectEditProduct );
                     formData.append('price', values.price);
                     formData.append('status', values.status);
                     formData.append('categoryID', values.categoryID);
                     if (selectProductCover) {
                       formData.append('cover', selectProductCover);
                     }
-
-                    editProduct(selectProduct._id, formData)
+                    fetch(`${DataUrlV1}/courses/${selectProduct._id}`, {
+                      method: "PUT",
+                      headers: {
+                        'Authorization': `Bearer ${LocalStorageData.token}`
+                      },
+                      body: formData
+                    })
+                      .then(res => res.json())
+                      .then(data => {
+                        getProducts()
+                        setIsShowToast(true)
+                        setToastMessage("محصول با موفقیت ویرایش شد")
+                        setIsShowModal(false)
+                        setTimeout(() => {
+                          setIsShowToast(false)
+                          setSubmitting(false)
+                        }, 2000);
+                      })
+                    // editProduct(selectProduct._id, formData)
 
                   }} >
                   {({ isSubmitting }) => (
@@ -324,13 +341,11 @@ export default function Products() {
                         </div>
                         <div className='col-start-1 col-end-3'>
                           <Editor
-                            value={selectProduct.description}
+                            value={(typeof (selectProduct.description) == "string") ? (selectProduct.description) : (selectProduct.description[0])}
                             setValue={setSelectEditArticles}
                           />
                         </div>
-                        {
-                          console.log(selectProduct.description)
-                        }
+
                       </Form>
                     </div>
                   )}
