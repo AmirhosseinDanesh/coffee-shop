@@ -17,6 +17,7 @@ import ArticlesInfo from "../Pages/Client/Articles/ArticlesInfo";
 import Setting from "../Pages/Admin-panel/Setting/Setting";
 import Categories from "../Pages/Admin-panel/Categories/Categories";
 import Offs from "../Pages/Admin-panel/Offs/Offs"
+import Comments from "../Pages/Admin-panel/Comments/Comments";
 
 const routes = [
     { path: "/", element: <Index /> },
@@ -39,6 +40,7 @@ const routes = [
             {path : "articles" , element : <Articles/>},
             {path : "categories" , element : <Categories/>},
             {path : "setting" , element : <Setting/>},
+            {path : "comments" , element : <Comments/>},
             {path : "offs" , element : <Offs/>},
         ]
     }

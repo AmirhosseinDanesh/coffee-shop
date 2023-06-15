@@ -298,7 +298,7 @@ export default function Users() {
                         <Input label="تلفن کاربر" type="text" name="phone" />
                         <Input label="یوزرنیم کاربر" type="text" name="username" />
 
-                        <div className=''>
+                        <div className='col-start-1 col-end-3'>
                           <label className="input-label">تغییر وضعیت</label>
                           <button type="submit"
                             className={isSubmitting ? ("input-submit bg-blue-500") : ("input-submit bg-blue-600")}

@@ -161,7 +161,7 @@ export default function Products() {
                   setValue={setArticleBody}
                 />
               </div>
-              <div className=''>
+              <div className='col-start-1 col-end-3'>
                 <label className="input-label">ثبت</label>
                 <button type="submit"
                   className={isSubmitting ? ("input-submit bg-blue-500") : ("input-submit bg-blue-600")}
@@ -307,8 +307,14 @@ export default function Products() {
                           <ErrorMessage name="cover">
                             {(msg) => <span className='text-xs text-red-600'>{msg}</span>}
                           </ErrorMessage>
+                        </div>          
+                        <div className='col-start-1 col-end-3'>
+                          <Editor
+                            value={(typeof (selectProduct.description) == "string") ? (selectProduct.description) : (selectProduct.description[0])}
+                            setValue={setSelectEditArticles}
+                          />
                         </div>
-                        <div className=''>
+                        <div className='col-start-1 col-end-3'>
                           <label className="input-label">تغییر وضعیت</label>
                           <button type="submit"
                             className={isSubmitting ? ("input-submit bg-blue-500") : ("input-submit bg-blue-600")}
@@ -316,12 +322,6 @@ export default function Products() {
                           >
                             {isSubmitting ? ("لطفا صبر کنید ...") : ("ویرایش کردن")}
                           </button>
-                        </div>
-                        <div className='col-start-1 col-end-3'>
-                          <Editor
-                            value={(typeof (selectProduct.description) == "string") ? (selectProduct.description) : (selectProduct.description[0])}
-                            setValue={setSelectEditArticles}
-                          />
                         </div>
 
                       </Form>

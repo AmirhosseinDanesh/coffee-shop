@@ -230,7 +230,7 @@ export default function Menus() {
                       <Form className="space-y-1 md:space-y-1 grid gap-2 mb-6 md:grid-cols-2 mt-5">
                         <Input label="نام منو" type="text" name="title" placeholder="منو اول" />
                         <Input label="لینک منو" type="text" name="href" placeholder="Menus1" />
-                        <div className=''>
+                        <div className='col-start-1 col-end-3'>
                           <label className="input-label">تغییر وضعیت</label>
                           <button type="submit"
                             className={isSubmitting ? ("input-submit bg-blue-500") : ("input-submit bg-blue-600")}

@@ -95,7 +95,7 @@ export default function Categories() {
                             <Input label="نام دسته بندی" type="text" name="title" placeholder="دسته بندی اول" />
                             <Input label="لینک دسته بندی" type="text" name="name" placeholder="Category1" />
 
-                            <div className=''>
+                            <div className='col-start-1 col-end-3'>
                                 <label className="input-label">ثبت</label>
                                 <button type="submit"
                                     className={isSubmitting ? ("input-submit bg-blue-500") : ("input-submit bg-blue-600")}
@@ -196,7 +196,7 @@ export default function Categories() {
                                             <Form className="space-y-1 md:space-y-1 grid gap-2 mb-6 md:grid-cols-2 mt-5">
                                                 <Input label="نام دسته بندی" type="text" name="title" placeholder="دسته بندی اول" />
                                                 <Input label="لینک دسته بندی" type="text" name="name" placeholder="Category1" />
-                                                <div className=''>
+                                                <div className='col-start-1 col-end-3'>
                                                     <label className="input-label">تغییر وضعیت</label>
                                                     <button type="submit"
                                                         className={isSubmitting ? ("input-submit bg-blue-500") : ("input-submit bg-blue-600")}

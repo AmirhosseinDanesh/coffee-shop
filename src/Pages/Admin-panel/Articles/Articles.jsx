@@ -374,7 +374,7 @@ export default function Articles() {
                             console.log(typeof (selectArticles.body))
                           }
                         </div>
-                        <div className=''>
+                        <div className='col-start-1 col-end-3'>
                           <label className="input-label">تغییر وضعیت</label>
                           <button type="submit"
                             className={isSubmitting ? ("input-submit bg-blue-500") : ("input-submit bg-blue-600")}
