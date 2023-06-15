@@ -25,6 +25,27 @@ export default function Comments() {
             })
     }
 
+    const rejectComment = (id) => {
+        swal({
+            title: "آیا از تایید این کاممنت مطمعن هستید؟",
+            buttons: ["خیر", "بله"]
+        }).then((res) => {
+            if (res) {
+                fetch(`${DataUrlV1}/comments/reject/${id}`, {
+                    method: "PUT",
+                    headers: {
+                        "Authorization": `Bearer ${LocalStorageData.token}`,
+                    },
+                }).then(res => res.json())
+                    .then(data => {
+                        getComments()
+                        setIsShowToast(true)
+                        setToastMessage("کامنت با موفقیت رد شد")
+                    })
+
+            }
+        })
+    }
     const removeComment = (id) => {
         swal({
             title: "آیا از بن این کاربر مطمعن هستید؟",
@@ -121,7 +142,7 @@ export default function Comments() {
     const showAnswerContent = (text) => {
         swal({
             title: text.creator.name + " : " + text.body,
-            content :text.creator.name
+            content: text.creator.name
         })
     }
 
@@ -205,9 +226,17 @@ export default function Comments() {
                                             <button className={(com.answerContent) ? ("dark:text-white bg-green-700 hover:bg-red-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg") : ("dark:text-white bg-red-700 hover:bg-red-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg")} onClick={() => {
                                                 answerComment(com._id)
                                             }}>پاسخ</button>
-                                            <button className={com.answer === 1 ? ("dark:text-white bg-green-700 hover:bg-red-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg") : ("dark:text-white bg-red-700 hover:bg-red-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg")} onClick={() => {
-                                                acceptComment(com._id)
-                                            }}>تایید</button>
+                                            {
+                                                (com.answer === 1) ? (
+                                                    <button className=" dark:text-white bg-red-700 hover:bg-red-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => {
+                                                        rejectComment(com._id)
+                                                    }}>رد </button>         
+                                                ) : (
+                                                    <button className="dark:text-white bg-green-700 hover:bg-red-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => {
+                                                        acceptComment(com._id)
+                                                    }}>تایید </button>
+                                                )
+                                            }
                                             <button className=" dark:text-white bg-red-700 hover:bg-red-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => { console.log("edit") }}>ویرایش</button>
                                             <button className=" dark:text-white bg-red-700 hover:bg-red-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => {
                                                 removeComment(com._id)
