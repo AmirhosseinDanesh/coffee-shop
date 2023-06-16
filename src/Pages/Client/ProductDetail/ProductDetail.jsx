@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import Header from '../../../Components/Header/Header'
-import { useParams } from 'react-router-dom'
+import { NavLink, useParams } from 'react-router-dom'
 import { DataUrl, DataUrlV1 } from '../../../Data/Data'
 import { toast } from 'react-toastify';
 import AuthContext from '../../../Context/authContext'
@@ -29,21 +29,37 @@ export default function ProductDetail() {
     fetch(`${DataUrlV1}/courses/${shortName}`)
       .then(res => res.json())
       .then(data => {
-        // console.log(data)
+        console.log("/category/" + data.categoryID.name)
         setProductDetail(data)
       })
   }, [])
   return (
     <>
       <Header />
+
       <div className='md:mt-40 p-10 flex flex-col-reverse md:flex-row justify-around items-center'>
         <div className='basis-auto md:basis-1/2 text-gray-950 dark:text-white flex flex-col gap-y-5 mt-16 md:mt-0'>
+          <h3 className="flex gap-x-2 text-gray-600 dark:text-gray-400 font-DanaBold" >
+            {
+              (productDetail.categoryID) ? (
+                <>
+                  <NavLink className="underline hover:text-gray-900 hover:dark:text-white " to="/">خانه</NavLink>
+                  <span className=''>/</span>
+                  <NavLink className="underline hover:text-gray-900 hover:dark:text-white " to={productDetail.categoryID.name}>{productDetail.categoryID.title}</NavLink>
+                </>
+              ) : (
+                <>
+                </>
+              )
+            }
+
+          </h3>
           <div className='flex justify-between items-center '>
             <h2 className='text-2xl font-MorabbaMedium'>{productDetail.name}</h2>
             <span className='text-2xl'>{
               (productDetail.price) ? (productDetail.price.toLocaleString()) : ("")
             }
-              <span className='text-base ml-2'>تومان</span>
+              <span className='text-base mr-2'>تومان</span>
             </span>
           </div>
           <div className='flex'>
@@ -63,7 +79,7 @@ export default function ProductDetail() {
         <div className='basis-auto md:basis-1/3 mt-10'>
           <img className='w-full rounded-lg' src={`${DataUrl}/courses/covers/${productDetail.cover}`} alt="" />
         </div>
-      </div>
+      </div >
 
       <section className="bg-white dark:bg-gray-900 py-8 lg:py-16">
         <div className=" mx-auto px-4 divide-y divide-gray-800 dark:divide-white/50">
@@ -96,7 +112,7 @@ export default function ProductDetail() {
                             resetForm()
                             setSubmitting(false)
                             swal({
-                              title:"کامنت با موفقیت ثبت شد ، پس از تایید شدن نمایش داده می شود."
+                              title: "کامنت با موفقیت ثبت شد ، پس از تایید شدن نمایش داده می شود."
                             })
                           }, 1000);
                         })

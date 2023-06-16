@@ -13,6 +13,7 @@ export default function ArticlesInfo() {
         fetch(`${DataUrlV1}/articles/${articleName.articleName}`)
             .then(res => res.json())
             .then(data => {
+                console.log(data)
                 setArticleData(data)
                 setArticleCategoty(data.categoryID.title)
                 setArticleLink(data.categoryID.name)
@@ -26,13 +27,11 @@ export default function ArticlesInfo() {
                     <h1>{articleData.title}</h1>
 
                 </div>
-                <span>
-                    <NavLink to={`/${articleLink}`} >
-                        <h1 className='text-center text-base mt-8 px-10 text-blue-700 dark:text-white'>
-                            {articleCategoty}
-                        </h1>
-                    </NavLink>
-                </span>
+                <h3 className='flex mt-6 justify-center gap-x-2 text-gray-600 dark:text-gray-400 font-DanaBold '>
+                    <NavLink className="underline hover:text-gray-900 hover:dark:text-white " to="/">خانه</NavLink>
+                    <span className=''>/</span>
+                    <NavLink className="underline hover:text-gray-900 hover:dark:text-white " to="/articles">مقالات</NavLink>
+                </h3>
                 <div className='mt-16 flex justify-center'>
                     <img className='rounded-xl' src={`${DataUrl}/courses/covers/${articleData.cover}`} alt="" />
                 </div>

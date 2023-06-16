@@ -29,7 +29,7 @@ const routes = [
     { path: "/articles", element: <ArticlesClient /> },
     { path: "/articles/:articleName", element: <ArticlesInfo /> },
     { path: "/category/:categoryName", element: <CategoryInfo /> },
-    { path: "/courses/:shortName", element: <ProductDetail /> },
+    { path: "/products/:shortName", element: <ProductDetail /> },
     { path: "/shop", element: <Shop /> },
     { path: "/contact-us", element: <ContactUs /> },
     { path: "/About-us", element: <AboutUs /> },
