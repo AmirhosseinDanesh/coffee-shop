@@ -8,6 +8,8 @@ const en = {
     setting : "Setting",
     categories: "Categories",
     comments: "Comments",
+    contact: "Contact",
+
     offs: "offs",
 
     

@@ -6,6 +6,7 @@ import Shop from "../Pages/Client/Shop/Shop";
 import NotFound from "../Pages/Client/NotFound/NotFound"
 import CategoryInfo from "../Pages/Client/Category/CategoryInfo";
 import ProductDetail from "../Pages/Client/ProductDetail/ProductDetail"
+import Contacts from "../Pages/Admin-panel/Contacts/Contacts"
 
 import AdminPanel from "../Pages/Admin-panel/AdminPanel";
 import DashBoard from "../Pages/Admin-panel/Dashboard/Dashboard";
@@ -18,7 +19,7 @@ import Setting from "../Pages/Admin-panel/Setting/Setting";
 import Categories from "../Pages/Admin-panel/Categories/Categories";
 import Offs from "../Pages/Admin-panel/Offs/Offs"
 import Comments from "../Pages/Admin-panel/Comments/Comments";
-import Contact from "../Pages/Client/Contact/Contact";
+import ContactUs from "../Pages/Client/ContactUs/ContactUs";
 
 const routes = [
     { path: "/", element: <Index /> },
@@ -29,7 +30,7 @@ const routes = [
     { path: "/category/:categoryName", element: <CategoryInfo /> },
     { path: "/courses/:shortName", element: <ProductDetail /> },
     { path: "/shop", element: <Shop /> },
-    { path: "/contact-us", element: <Contact /> },
+    { path: "/contact-us", element: <ContactUs /> },
     { path: "*", element: <NotFound /> },
     {
         path: "/p-admin/*",
@@ -43,6 +44,7 @@ const routes = [
             {path : "categories" , element : <Categories/>},
             {path : "setting" , element : <Setting/>},
             {path : "comments" , element : <Comments/>},
+            {path : "contacts" , element : <Contacts/>},
             {path : "offs" , element : <Offs/>},
         ]
     }

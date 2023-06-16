@@ -8,6 +8,7 @@ const fa = {
     setting: "تنظیمات",
     categories: "دسته بندی محصولات",
     comments: "کامنت ها",
+    contact: "پیام ها",
     offs: "کد تخفیف",
     
     allSell : "کل فروش",

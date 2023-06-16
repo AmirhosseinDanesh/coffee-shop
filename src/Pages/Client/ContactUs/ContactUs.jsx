@@ -1,12 +1,11 @@
 import React from 'react'
 import Header from '../../../Components/Header/Header'
-import Slider from '../../../Components/Slider/Slider'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import { contactUsValue } from "../../../Components/Input/Validate"
 import Input from '../../../Components/Input/Input'
 import { DataUrlV1 } from '../../../Data/Data'
 import swal from 'sweetalert'
-export default function Contact() {
+export default function ContactUs() {
     return (
         <>
             <Header />
