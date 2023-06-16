@@ -18,6 +18,7 @@ import Setting from "../Pages/Admin-panel/Setting/Setting";
 import Categories from "../Pages/Admin-panel/Categories/Categories";
 import Offs from "../Pages/Admin-panel/Offs/Offs"
 import Comments from "../Pages/Admin-panel/Comments/Comments";
+import Contact from "../Pages/Client/Contact/Contact";
 
 const routes = [
     { path: "/", element: <Index /> },
@@ -28,6 +29,7 @@ const routes = [
     { path: "/category/:categoryName", element: <CategoryInfo /> },
     { path: "/courses/:shortName", element: <ProductDetail /> },
     { path: "/shop", element: <Shop /> },
+    { path: "/contact-us", element: <Contact /> },
     { path: "*", element: <NotFound /> },
     {
         path: "/p-admin/*",

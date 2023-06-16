@@ -196,7 +196,7 @@ export const categoryValue = (values) => {
     } else if (values.name.length < 4) {
         errors.name = "کاراکتر های نام کم است"
     }
-    
+
     if (values.title === "") {
         errors.title = "وارد کردن نام الزامی است"
     } else if (values.title.length < 2) {
@@ -215,7 +215,7 @@ export const offsValue = (values) => {
     } else if (values.code.length < 4) {
         errors.code = "کاراکتر های نام کم است"
     }
-    
+
     if (values.percent === "") {
         errors.percent = "وارد کردن نام الزامی است"
     } else if (values.percent.length < 2) {
@@ -229,6 +229,26 @@ export const offsValue = (values) => {
         errors.max = "وارد کردن ایمیل الزامی است"
     } else if (!/^\d+$/i.test(values.max)) {
         errors.max = "قیمت وارد شده باید عدد باشد"
+    }
+
+
+    return errors;
+}
+
+export const contactUsValue = (values) => {
+    const errors = {};
+
+    if (values.name === "") {
+        errors.name = "وارد کردن نام الزامی است."
+    }
+    if (values.email === "") {
+        errors.email = "وارد کردن ایمیل الزامی است."
+    }
+    if (values.phone === "") {
+        errors.phone = "وارد کردن تلفن الزامی است."
+    }
+    if (values.body === "") {
+        errors.body = "وارد کردن متن الزامی است."
     }
 
 

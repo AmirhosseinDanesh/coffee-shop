@@ -220,33 +220,33 @@ export default function Comments() {
                                     </td>
                                     <td className="px-2 py-2">
                                         <div className='flex'>
-                                            <button className=" dark:text-white bg-blue-700 hover:bg-blue-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => {
+                                            <button className=" dark:text-white bg-blue-700 hover:bg-blue-900 text-white font-DanaMedium text-xs py-2 px-4 mx-1 rounded-lg" onClick={() => {
                                                 showCommentbody(com.body)
                                             }}>مشاهده</button>
-                                            <button className={(com.answerContent) ? ("dark:text-white bg-green-700 hover:bg-red-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg") : ("dark:text-white bg-red-700 hover:bg-red-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg")} onClick={() => {
+                                            <button className={(com.answerContent) ? ("dark:text-white bg-green-700 hover:bg-red-900 text-white font-DanaMedium text-xs py-2 px-4 mx-1 rounded-lg") : ("dark:text-white bg-red-700 hover:bg-red-900 text-white font-DanaMedium text-xs py-2 px-4 mx-1 rounded-lg")} onClick={() => {
                                                 answerComment(com._id)
                                             }}>پاسخ</button>
                                             {
                                                 (com.answer === 1) ? (
-                                                    <button className=" dark:text-white bg-red-700 hover:bg-red-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => {
+                                                    <button className=" dark:text-white bg-red-700 hover:bg-red-900 text-white font-DanaMedium text-xs py-2 px-4 mx-1 rounded-lg" onClick={() => {
                                                         rejectComment(com._id)
                                                     }}>رد </button>         
                                                 ) : (
-                                                    <button className="dark:text-white bg-green-700 hover:bg-red-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => {
+                                                    <button className="dark:text-white bg-green-700 hover:bg-red-900 text-white font-DanaMedium text-xs py-2 px-4 mx-1 rounded-lg" onClick={() => {
                                                         acceptComment(com._id)
                                                     }}>تایید </button>
                                                 )
                                             }
-                                            <button className=" dark:text-white bg-red-700 hover:bg-red-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => { console.log("edit") }}>ویرایش</button>
-                                            <button className=" dark:text-white bg-red-700 hover:bg-red-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => {
+                                            <button className=" dark:text-white bg-red-700 hover:bg-red-900 text-white font-DanaMedium text-xs py-2 px-4 mx-1 rounded-lg" onClick={() => { console.log("edit") }}>ویرایش</button>
+                                            <button className=" dark:text-white bg-red-700 hover:bg-red-900 text-white font-DanaMedium text-xs py-2 px-4 mx-1 rounded-lg" onClick={() => {
                                                 removeComment(com._id)
                                             }}>حذف</button>
-                                            <button className=" dark:text-white bg-red-700 hover:bg-red-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => {
+                                            <button className=" dark:text-white bg-red-700 hover:bg-red-900 text-white font-DanaMedium text-xs py-2 px-4 mx-1 rounded-lg" onClick={() => {
                                                 banUser(com.creator._id)
                                             }}>بن</button>
                                             {
                                                 (com.answerContent) ? (
-                                                    <button className=" dark:text-white bg-red-700 hover:bg-red-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => {
+                                                    <button className=" dark:text-white bg-red-700 hover:bg-red-900 text-white font-DanaMedium text-xs py-2 px-4 mx-1 rounded-lg" onClick={() => {
                                                         showAnswerContent(com.answerContent)
                                                     }}>مشاهده پاسخ</button>
                                                 ) : (
