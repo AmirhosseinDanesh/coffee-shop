@@ -58,3 +58,10 @@
   display: flex;
   justify-content: center;
 }
+
+
+.Toastify__toast-body{
+  font-family: "Dana";
+  font-size: 0.8rem;
+  direction: rtl;
+}

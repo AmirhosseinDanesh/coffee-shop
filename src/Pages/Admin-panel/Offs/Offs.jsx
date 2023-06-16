@@ -6,6 +6,7 @@ import Modal from '../../../Components/Modal/Modal.jsx'
 
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import { offsValue } from '../../../Components/Input/Validate.js'
+import { toast } from 'react-toastify';
 
 import Toast from "../../../Components/Toast/Toast.jsx"
 
@@ -15,8 +16,6 @@ export default function Offs() {
   const LocalStorageData = JSON.parse(localStorage.getItem("user"))
   const [courses, setCourses] = useState([])
   const [offs, setOffs] = useState({})
-  const [isShowToast, setIsShowToast] = useState(false)
-  const [toastMessage, setToastMessage] = useState("")
   const [selectOff, setSelectOff] = useState({})
   const [isShowModal, setIsShowModal] = useState(false)
   const closeModal = () => setIsShowModal(false)
@@ -39,7 +38,7 @@ export default function Offs() {
   }
   const removeOffs = (id) => {
     swal({
-      title: "آیا از حدف این محصول مطمعن هستید؟",
+      title: "آیا از حدف این کد مطمعن هستید؟",
       buttons: ["خیر", "بله"]
     }).then((res) => {
       if (res) {
@@ -52,11 +51,7 @@ export default function Offs() {
           .then(res => res.json())
           .then(data => {
             getOffs()
-            setIsShowToast(true)
-            setToastMessage("محصول با موفقیت حدف شد")
-            setTimeout(() => {
-              setIsShowToast(false)
-            }, 2000);
+            toast.warning("کد با موفقیت حذف شد")
           })
       }
     })
@@ -85,12 +80,10 @@ export default function Offs() {
             .then(res => res.json())
             .then(data => {
               getOffs()
-              setIsShowToast(true)
-              setToastMessage("کد تخفیف با موفقیت اضافه شد")
+              toast.success("کد تخفیف با موفقیت اضافه شد")
               setTimeout(() => {
                 resetForm()
                 setSubmitting(false)
-                setIsShowToast(false)
               }, 2000);
             })
         }} >
@@ -220,17 +213,15 @@ export default function Offs() {
                       body: JSON.stringify(values)
                     })
                       .then(res => console.log(res))
-                      // .then(data=>console.log(data))
-                      // .then(data => {
-                      //   getOffs()
-                      //   setIsShowToast(true)
-                      //   setToastMessage("محصول با موفقیت ویرایش شد")
-                      //   setIsShowModal(false)
-                      //   setTimeout(() => {
-                      //     setIsShowToast(false)
-                      //     setSubmitting(false)
-                      //   }, 2000);
-                      // })
+                    // .then(data=>console.log(data))
+                    // .then(data => {
+                    //   getOffs()
+                    //   toast.info("کد با موفقیت ویرایش شد")
+                    //   setIsShowModal(false)
+                    //   setTimeout(() => {
+                    //     setSubmitting(false)
+                    //   }, 2000);
+                    // })
 
                   }} >
                   {({ isSubmitting }) => (
@@ -272,9 +263,9 @@ export default function Offs() {
           }
         />
       }
-      {
-        isShowToast && <Toast title={toastMessage} />
-      }
+
+      <Toast />
+
     </>
   )
 }

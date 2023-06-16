@@ -2,10 +2,11 @@ import React, { useState, useContext, useEffect } from 'react'
 import PanelNav from "../../../Components/PanelNav/PanelNav.jsx"
 import Input from '../../../Components/Input/Input.jsx'
 import Toast from "../../../Components/Toast/Toast.jsx"
-import ErrorToast from '../../../Components/Toast/ErrorToast.jsx'
 import { NavLink } from 'react-router-dom'
 import { useNavigate } from "react-router-dom";
 import { Formik, Form } from 'formik'
+import { toast } from 'react-toastify';
+
 
 import { loginValidate } from '../../../Components/Input/Validate.js'
 import AuthContext from '../../../Context/authContext.js'
@@ -15,9 +16,6 @@ export default function Login() {
     const navigate = useNavigate();
     const [errorText, setErrorText] = useState("")
     const auth = useContext(AuthContext)
-    const [isShowToast, setIsShowToast] = useState(false)
-    const [isShowErrToast, setIsShowErrToast] = useState(false)
-    const [toastMessage, setToastMessage] = useState("")
     return (
         <>
             <PanelNav />
@@ -56,20 +54,16 @@ export default function Login() {
                                                     .then(text => {
                                                         if (JSON.parse(text) == "there is no user with this email or username") {
                                                             console.log("Email")
-                                                            setIsShowErrToast(true)
-                                                            setToastMessage("همچین ایمیل یا نام کاربری وجود ندارد")
+                                                            toast.error("همچین ایمیل یا نام کاربری وجود ندارد")
                                                             setTimeout(() => {
                                                                 setSubmitting(false)
-                                                                // setIsShowErrToast(false)
                                                             }, 2000);
                                                         }
 
                                                         else if (JSON.parse(text) == "password is not correct") {
                                                             console.log("password")
-                                                            setIsShowErrToast(true)
-                                                            setToastMessage("رمزعبور اشتباه است")
+                                                            toast.error("رمزعبور اشتباه است")
                                                             setTimeout(() => {
-                                                                setIsShowErrToast(false)
                                                                 setSubmitting(false)
                                                             }, 2000);
                                                         }
@@ -81,8 +75,7 @@ export default function Login() {
                                         })
                                         .then(data => {
                                             auth.login({}, data.accessToken)
-
-                                            setIsShowToast(true)
+                                            toast.success("با موفقیت وارد شدید.")
                                             setTimeout(() => {
                                                 navigate("/");
                                                 setSubmitting(false)
@@ -119,12 +112,9 @@ export default function Login() {
                     </div>
                 </div>
             </section>
-            {
-                isShowToast && <Toast title="با موفقیت وارد شدید" />
-            }
-            {
-                isShowErrToast && <ErrorToast title={toastMessage} />
-            }
+
+            <Toast />
+
 
         </>
     )

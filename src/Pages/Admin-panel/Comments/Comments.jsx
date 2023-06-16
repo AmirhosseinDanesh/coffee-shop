@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { DataUrlV1 } from "../../../Data/Data"
+import { toast } from 'react-toastify';
+
 import Table from '../../../Components/Table/Table.jsx'
 import Toast from "../../../Components/Toast/Toast.jsx"
 import swal from 'sweetalert'
 export default function Comments() {
     const LocalStorageData = JSON.parse(localStorage.getItem("user"))
     const [comments, setComments] = useState([])
-
-    const [toastMessage, setToastMessage] = useState("")
-    const [isShowToast, setIsShowToast] = useState(false)
-    const [isShowErrToast, setIsShowErrToast] = useState(false)
 
     const getComments = () => {
         fetch(`${DataUrlV1}/comments`, {
@@ -39,8 +37,7 @@ export default function Comments() {
                 }).then(res => res.json())
                     .then(data => {
                         getComments()
-                        setIsShowToast(true)
-                        setToastMessage("کامنت با موفقیت رد شد")
+                        toast.info("کامنت با موفقیت رد شد")
                     })
 
             }
@@ -60,8 +57,7 @@ export default function Comments() {
                 }).then(res => res.json())
                     .then(data => {
                         getComments()
-                        setIsShowToast(true)
-                        setToastMessage("کامنت با موفقیت حذف شد")
+                        toast.warning("کامنت با موفقیت حذف شد")
                     })
 
             }
@@ -88,14 +84,12 @@ export default function Comments() {
                 })
                     .then(res => {
                         if (!res.ok) {
-                            setIsShowErrToast(true)
-                            setToastMessage("کاربر بن نشد مشکلی پیش آمده!")
+                            toast.error("کاربر بن نشد مشکلی پیش آمده!")
                         } else {
                             res.json()
                                 .then(data => {
                                     getComments()
-                                    setIsShowToast(true)
-                                    setToastMessage("کاربر با موفقیت بن شد")
+                                    toast.warning("کاربر با موفقیت بن شد")
                                 })
                         }
                     })
@@ -123,14 +117,12 @@ export default function Comments() {
                 })
                     .then(res => {
                         if (!res.ok) {
-                            setIsShowErrToast(true)
-                            setToastMessage("پاسخ مورد نظر ثبت نشد!")
+                            toast.error("پاسخ مورد نظر ثبت نشد!")
                         } else {
                             res.json()
                                 .then(data => {
                                     getComments()
-                                    setIsShowToast(true)
-                                    setToastMessage("پاسخ برای کامنت ثبت شد")
+                                    toast.success("پاسخ برای کامنت ثبت شد")
                                 })
                         }
                     })
@@ -160,8 +152,7 @@ export default function Comments() {
                 }).then(res => res.json())
                     .then(data => {
                         getComments()
-                        setIsShowToast(true)
-                        setToastMessage("کامنت با موفقیت حذف شد")
+                        toast.success("کامنت با موفقیت تایید شد")
                     })
 
             }
@@ -170,13 +161,7 @@ export default function Comments() {
 
     useEffect(() => {
         getComments()
-        if (isShowToast || isShowErrToast) {
-            setTimeout(() => {
-                setIsShowToast(false);
-                setIsShowErrToast(false);
-            }, 2000);
-        }
-    }, [isShowToast, isShowErrToast])
+    }, [])
 
     return (
         <>
@@ -268,13 +253,9 @@ export default function Comments() {
                 )
             }
 
-            {
-                isShowToast && <Toast title={toastMessage} />
-            }
-
-            {
-                isShowErrToast && <ErrorToast title={toastMessage} />
-            }
+            
+                <Toast  />
+            
         </>
     )
 }

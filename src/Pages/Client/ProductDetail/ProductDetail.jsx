@@ -2,10 +2,12 @@ import React, { useContext, useEffect, useState } from 'react'
 import Header from '../../../Components/Header/Header'
 import { useParams } from 'react-router-dom'
 import { DataUrl, DataUrlV1 } from '../../../Data/Data'
+import { toast } from 'react-toastify';
 import AuthContext from '../../../Context/authContext'
 import DOMPurify from 'dompurify'
 import { Formik, Form, Field } from 'formik'
 import Input from '../../../Components/Input/Input'
+import swal from 'sweetalert';
 export default function ProductDetail() {
   const LocalStorageData = JSON.parse(localStorage.getItem("user"))
   const [productDetail, setProductDetail] = useState([])
@@ -71,7 +73,7 @@ export default function ProductDetail() {
           {
             (auth.isLoggedIn == true) ? (
               <div className="mb-6">
-                <div className="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+                <div className="py-8 px-4 mb-4 bg-white rounded-lg rounded-t-lg  dark:bg-gray-900 ">
                   <Formik
                     // validate={loginValidate}
                     initialValues={{ body: "" }}
@@ -93,21 +95,20 @@ export default function ProductDetail() {
                           setTimeout(() => {
                             resetForm()
                             setSubmitting(false)
-
+                            swal({
+                              title:"کامنت با موفقیت ثبت شد ، پس از تایید شدن نمایش داده می شود."
+                            })
                           }, 1000);
                         })
 
                     }
                     }>
                     {({ isSubmitting }) => (
-                      <Form className="space-y-4 md:space-y-10">
+                      <Form className="">
                         <div className='mb-10'>
-                          <label className="sr-only">نظر شما</label>
-                          <Field type="textarea" name='body' className="px-0 py-5 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800"
-                            placeholder="نظر خود را در مورد این محصول بنویسید ..." required>
+                          <Field as="textarea" name='body' className="input" placeholder="نظر خود را در مورد این محصول بنویسید ..." required>
                           </Field>
                         </div>
-
 
                         <button type="submit"
                           className={isSubmitting ? ("input-submit bg-blue-500") : ("input-submit bg-blue-600")}

@@ -6,21 +6,17 @@ import Toast from "../../../Components/Toast/Toast.jsx"
 import Modal from '../../../Components/Modal/Modal.jsx'
 import swal from 'sweetalert'
 import Editor from '../../../Components/Editor/Editor'
-import ErrorToast from "../../../Components/Toast/ErrorToast"
 import DOMPurify from 'dompurify'
 
 
 import { articleValidate, articleEditValidate } from '../../../Components/Input/Validate.js'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import { DataUrlV1, DataUrl } from "../../../Data/Data"
+import { toast } from 'react-toastify'
 
 export default function Articles() {
   const LocalStorageData = JSON.parse(localStorage.getItem("user"))
   const [categories, setCategories] = useState([])
-
-  const [isShowErrToast, setIsShowErrToast] = useState(false)
-  const [isShowToast, setIsShowToast] = useState(false)
-  const [toastMessage, setToastMessage] = useState("")
   const [isShowModal, setIsShowModal] = useState(false)
   const [isShowDetailModal, setIsShowDetailModal] = useState(false)
   const [articles, setArticles] = useState([])
@@ -57,11 +53,7 @@ export default function Articles() {
           .then(res => res.json())
           .then(data => {
             getArticles()
-            setIsShowToast(true)
-            setToastMessage("مقاله با موفقیت حذف شد")
-            setTimeout(() => {
-              setIsShowToast(false)
-            }, 2000);
+            toast.warning("مقاله با موفقیت حذف شد")
           })
       }
     })
@@ -74,14 +66,7 @@ export default function Articles() {
       .then(data => {
         setCategories(data)
       })
-
-    if (isShowToast || isShowErrToast) {
-      setTimeout(() => {
-        setIsShowToast(false);
-        setIsShowErrToast(false);
-      }, 2000);
-    }
-  }, [isShowToast, isShowErrToast])
+  }, [])
   return (
     <>
       {/* add new Articles */}
@@ -107,20 +92,17 @@ export default function Articles() {
             })
               .then(res => {
                 if (!res.ok) {
-                  setIsShowErrToast(true)
-                  setToastMessage("مقاله اضافه نشد")
+                  toast.error("مقاله اضافه نشد")
                   setSubmitting(false)
                 } else {
 
                   res.json()
                     .then(data => {
                       getArticles()
-                      setIsShowToast(true)
-                      setToastMessage("مقاله با موفقیت پیش نویس شد")
+                      toast.info("مقاله با موفقیت پیش نویس شد")
                       setTimeout(() => {
                         resetForm()
                         setSubmitting(false)
-
                       }, 2000);
                     })
                 }
@@ -135,15 +117,13 @@ export default function Articles() {
             })
               .then(res => {
                 if (!res.ok) {
-                  setIsShowErrToast(true)
-                  setToastMessage("مقاله اضافه نشد")
+                  toast.error("مقاله اضافه نشد")
                   setSubmitting(false)
                 } else {
                   res.json()
                     .then(data => {
                       getArticles()
-                      setIsShowToast(true)
-                      setToastMessage("مقاله با موفقیت آپلود شد")
+                      toast.success("مقاله با موفقیت آپلود شد")
                       setTimeout(() => {
                         resetForm()
                         setSubmitting(false)
@@ -325,11 +305,9 @@ export default function Articles() {
                       .then(res => console.log(res))
                     // .then(data => {
                     //   getArticles()
-                    //   setIsShowToast(true)
-                    //   setToastMessage("مقاله با موفقیت ویرایش شد")
+                    //   toast.success("مقاله با موفقیت ویرایش شد")
                     //   setIsShowModal(false)
-                    //   setTimeout(() => {
-                    //     setIsShowToast(false)
+                    //   setTimeout(() => { 
                     //     setSubmitting(false)
                     //   }, 2000);
                     // })
@@ -406,15 +384,7 @@ export default function Articles() {
       }
 
 
-      {/* Toast */}
-
-      {
-        isShowToast && <Toast title={toastMessage} />
-      }
-
-      {
-        isShowErrToast && <ErrorToast title={toastMessage} />
-      }
+         <Toast />
     </>
   )
 }

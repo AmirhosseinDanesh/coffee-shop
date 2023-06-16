@@ -1,25 +1,19 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink , useNavigate } from 'react-router-dom'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import { registerValidate } from '../../../Components/Input/Validate'
 import { DataUrlV1 } from "../../../Data/Data"
+import { toast } from 'react-toastify';
 import AuthContext from '../../../Context/authContext'
-import ErrorToast from '../../../Components/Toast/ErrorToast'
 import PanelNav from '../../../Components/PanelNav/PanelNav'
 import Input from '../../../Components/Input/Input.jsx'
+import Toast from '../../../Components/Toast/Toast'
 
 
 export default function Register() {
     const auth = useContext(AuthContext)
-    const [isShowErrToast, setIsShowErrToast] = useState(false)
-    const [toastMessage, setToastMessage] = useState("")
-    useEffect(() => {
-        if (isShowErrToast) {
-            setTimeout(() => {
-                setIsShowErrToast(false);
-            }, 2000);
-        }
-    }, [isShowErrToast])
+    const navigate = useNavigate();
+
     return (
         <>
             <PanelNav />
@@ -53,12 +47,13 @@ export default function Register() {
                                         body: JSON.stringify(newUserInfo)
                                     }).then(res => {
                                         if (!res.ok) {
-                                            setIsShowErrToast(true)
-                                            setToastMessage("این شماره تلفن بن شده است")
+                                            toast.info("این شماره تلفن بن شده است")
                                         } else {
                                             res.json()
                                                 .then(data => {
+                                                    toast.success("با موفقیت ثبت نام شدید")
                                                     auth.login(data.user, data.accessToken)
+                                                    navigate("/");
                                                 })
                                         }
                                     })
@@ -95,9 +90,8 @@ export default function Register() {
                     </div>
                 </div>
             </section>
-            {
-                isShowErrToast && <ErrorToast title={toastMessage} />
-            }
+
+            <Toast />
         </>
     )
 }

@@ -20,6 +20,7 @@ import Categories from "../Pages/Admin-panel/Categories/Categories";
 import Offs from "../Pages/Admin-panel/Offs/Offs"
 import Comments from "../Pages/Admin-panel/Comments/Comments";
 import ContactUs from "../Pages/Client/ContactUs/ContactUs";
+import AboutUs from "../Pages/Client/AboutUs/AboutUs";
 
 const routes = [
     { path: "/", element: <Index /> },
@@ -31,6 +32,7 @@ const routes = [
     { path: "/courses/:shortName", element: <ProductDetail /> },
     { path: "/shop", element: <Shop /> },
     { path: "/contact-us", element: <ContactUs /> },
+    { path: "/About-us", element: <AboutUs /> },
     { path: "*", element: <NotFound /> },
     {
         path: "/p-admin/*",

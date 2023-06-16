@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { DataUrlV1 } from "../../../Data/Data"
+import { toast } from 'react-toastify';
 import Table from '../../../Components/Table/Table.jsx'
 import swal from 'sweetalert'
 import Toast from "../../../Components/Toast/Toast.jsx"
 export default function Contacts() {
     const LocalStorageData = JSON.parse(localStorage.getItem("user"))
     const [contacts, setContacts] = useState([])
-    const [toastMessage, setToastMessage] = useState("")
-    const [isShowToast, setIsShowToast] = useState(false)
-    const [isShowErrToast, setIsShowErrToast] = useState(false)
 
     const getContacts = () => {
         fetch(`${DataUrlV1}/contact`, {
@@ -40,6 +38,7 @@ export default function Contacts() {
                         .then(res => res.json())
                         .then(data => {
                             getContacts()
+                            toast.warning("پیام با موفقیت حذف شد.")
                         })
                 }
             })
@@ -54,7 +53,7 @@ export default function Contacts() {
             .then(res => {
                 if (res) {
                     const answer = {
-                        
+
                         email,
                         answer: res
                     }
@@ -67,14 +66,13 @@ export default function Contacts() {
                     })
                         .then(res => {
                             if (!res.ok) {
-                                setIsShowErrToast(true)
-                                setToastMessage("پاسخ مورد نظر ارسال نشد!")
+
+                                toast.error("پاسخ مورد نظر ارسال نشد!")
                             } else {
                                 res.json()
                                     .then(data => {
                                         getContacts()
-                                        setIsShowToast(true)
-                                        setToastMessage("پاسخ برای پیام موردنظر ارسال شد")
+                                        toast.success("پاسخ برای پیام موردنظر ارسال شد")
                                     })
                             }
                         })
@@ -158,13 +156,7 @@ export default function Contacts() {
                 )
             }
 
-            {
-                isShowToast && <Toast title={toastMessage} />
-            }
-
-            {
-                isShowErrToast && <ErrorToast title={toastMessage} />
-            }
+            <Toast />
         </>
     )
 }

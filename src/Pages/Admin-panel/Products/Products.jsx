@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import { DataUrlV1, DataUrl } from "../../../Data/Data"
 import { productValidate, productEditValidate } from '../../../Components/Input/Validate.js'
+import { toast } from 'react-toastify';
 
 import Input from '../../../Components/Input/Input.jsx'
 import Table from '../../../Components/Table/Table.jsx'
@@ -18,8 +19,6 @@ export default function Products() {
   const [selectEditProduct, setSelectEditArticles] = useState("")
   const [categories, setCategories] = useState([])
   const [isShowModal, setIsShowModal] = useState(false)
-  const [isShowToast, setIsShowToast] = useState(false)
-  const [toastMessage, setToastMessage] = useState("")
   const [articleBody, setArticleBody] = useState("")
   const closeModal = () => setIsShowModal(false)
 
@@ -47,36 +46,12 @@ export default function Products() {
           .then(res => res.json())
           .then(data => {
             getProducts()
-            setIsShowToast(true)
-            setToastMessage("محصول با موفقیت حدف شد")
-            setTimeout(() => {
-              setIsShowToast(false)
-            }, 2000);
+            toast.error("محصول با موفقیت حدف شد.")
           })
       }
     })
   }
 
-  const editProduct = (id, formData) => {
-    fetch(`${DataUrlV1}/courses/${id}`, {
-      method: "PUT",
-      headers: {
-        'Authorization': `Bearer ${LocalStorageData.token}`
-      },
-      body: formData
-    })
-      .then(res => res.json())
-      .then(data => {
-        getProducts()
-        setIsShowToast(true)
-        setToastMessage("محصول با موفقیت ویرایش شد")
-        setIsShowModal(false)
-        setTimeout(() => {
-          setIsShowToast(false)
-          setSubmitting(false)
-        }, 2000);
-      })
-  }
 
   useEffect(() => {
     getProducts()
@@ -114,14 +89,10 @@ export default function Products() {
             .then(res => res.json())
             .then(data => {
               getProducts()
-              setIsShowToast(true)
-              setToastMessage("محصول با موفقیت اضافه شد")
-              setTimeout(() => {
-                resetForm()
-                setSubmitting(false)
-                setIsShowToast(false)
-                setArticleBody("")
-              }, 2000);
+              toast.success("محصول با موفقیت ادد شد.")
+              resetForm()
+              setSubmitting(false)
+              setArticleBody("")
             })
         }} >
         {({ isSubmitting }) => (
@@ -268,15 +239,10 @@ export default function Products() {
                       .then(res => res.json())
                       .then(data => {
                         getProducts()
-                        setIsShowToast(true)
-                        setToastMessage("محصول با موفقیت ویرایش شد")
+                        toast.success("محصول با موفقیت ویرایش شد.")
                         setIsShowModal(false)
-                        setTimeout(() => {
-                          setIsShowToast(false)
-                          setSubmitting(false)
-                        }, 2000);
+                        setSubmitting(false)
                       })
-                    // editProduct(selectProduct._id, formData)
 
                   }} >
                   {({ isSubmitting }) => (
@@ -333,11 +299,7 @@ export default function Products() {
           }
         />
       }
-
-      {
-        isShowToast && <Toast title={toastMessage} />
-      }
-
+      <Toast />
     </>
   )
 }

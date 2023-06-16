@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import { DataUrlV1, DataUrl } from "../../../Data/Data"
 import { categoryValue } from '../../../Components/Input/Validate.js'
+import { toast } from 'react-toastify';
 
 import Input from '../../../Components/Input/Input.jsx'
 import Table from '../../../Components/Table/Table.jsx'
@@ -15,8 +16,6 @@ export default function Categories() {
     const [category, setCategory] = useState([])
     const [selectCategory, setSelectCategory] = useState([])
     const [isShowModal, setIsShowModal] = useState(false)
-    const [isShowToast, setIsShowToast] = useState(false)
-    const [toastMessage, setToastMessage] = useState("")
 
     const closeModal = () => setIsShowModal(false)
 
@@ -43,11 +42,7 @@ export default function Categories() {
                     .then(res => res.json())
                     .then(data => {
                         getCategory()
-                        setIsShowToast(true)
-                        setToastMessage("دسته بندی با موفقیت ادد شد")
-                        setTimeout(() => {
-                            setIsShowToast(false)
-                        }, 2000);
+                        toast.success("دسته بندی با موفقیت حذف شد")
                     })
             }
         })
@@ -77,12 +72,10 @@ export default function Categories() {
                         .then(res => res.json())
                         .then(data => {
                             getCategory()
-                            setIsShowToast(true)
-                            setToastMessage("دسته بندی با موفقیت اضافه شد")
+                            toast.success("دسته بندی با موفقیت اضافه شد")
                             setTimeout(() => {
                                 resetForm()
                                 setSubmitting(false)
-                                setIsShowToast(false)
                             }, 2000);
                         })
                 }} >
@@ -181,11 +174,9 @@ export default function Categories() {
 
                                             .then(data => {
                                                 getCategory()
-                                                setIsShowToast(true)
-                                                setToastMessage("دسته بندی با موفقیت ویرایش شد")
+                                                toast.success("دسته بندی با موفقیت ویرایش شد")
                                                 setIsShowModal(false)
                                                 setTimeout(() => {
-                                                    setIsShowToast(false)
                                                     setSubmitting(false)
                                                 }, 2000);
                                             })
@@ -215,9 +206,8 @@ export default function Categories() {
                 />
             }
 
-            {
-                isShowToast && <Toast title={toastMessage} />
-            }
+            <Toast />
+
 
         </>
     )

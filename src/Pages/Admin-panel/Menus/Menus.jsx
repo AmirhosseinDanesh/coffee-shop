@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import { DataUrlV1, DataUrl } from "../../../Data/Data"
 // import { MenusValue } from '../../../Components/Input/Validate.js'
+import { toast } from 'react-toastify';
 
 import Input from '../../../Components/Input/Input.jsx'
 import Table from '../../../Components/Table/Table.jsx'
@@ -15,8 +16,7 @@ export default function Menus() {
   const [menus, setMenus] = useState([])
   const [selectMenus, setSelectMenus] = useState([])
   const [isShowModal, setIsShowModal] = useState(false)
-  const [isShowToast, setIsShowToast] = useState(false)
-  const [toastMessage, setToastMessage] = useState("")
+
 
   const closeModal = () => setIsShowModal(false)
 
@@ -43,11 +43,7 @@ export default function Menus() {
           .then(res => res.json())
           .then(data => {
             getMenus()
-            setIsShowToast(true)
-            setToastMessage("منو با موفقیت ادد شد")
-            setTimeout(() => {
-              setIsShowToast(false)
-            }, 2000);
+            toast.warning("منو با موفقیت حذف شد")
           })
       }
     })
@@ -78,12 +74,10 @@ export default function Menus() {
             .then(res => res.json())
             .then(data => {
               getMenus()
-              setIsShowToast(true)
-              setToastMessage("منو با موفقیت اضافه شد")
+              toast.success("منو با موفقیت اضافه شد")
               setTimeout(() => {
                 resetForm()
                 setSubmitting(false)
-                setIsShowToast(false)
               }, 2000);
             })
         }} >
@@ -215,11 +209,9 @@ export default function Menus() {
 
                     // .then(data => {
                     //   getMenus()
-                    //   setIsShowToast(true)
-                    //   setToastMessage("منو با موفقیت ویرایش شد")
+                    //   toast.info("منو با موفقیت ویرایش شد")
                     //   setIsShowModal(false)
                     //   setTimeout(() => {
-                    //     setIsShowToast(false)
                     //     setSubmitting(false)
                     //   }, 2000);
                     // })
@@ -249,9 +241,7 @@ export default function Menus() {
         />
       }
 
-      {
-        isShowToast && <Toast title={toastMessage} />
-      }
+        <Toast />
 
     </>
   )

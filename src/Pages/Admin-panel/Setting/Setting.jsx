@@ -2,6 +2,9 @@ import React from 'react'
 import i18n from 'i18next'
 import { Formik, Form, Field } from 'formik'
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
+import Toast from '../../../Components/Toast/Toast';
+
 export default function Setting() {
     const { t } = useTranslation()
     return (
@@ -12,8 +15,12 @@ export default function Setting() {
                     i18n.changeLanguage(values.lang)
                     if (values.lang == "en") {
                         localStorage.setItem("lang", "en")
+                        toast.info("Language changed to English")
+
                     } else {
                         localStorage.setItem("lang", "fa")
+                        toast.info("زبان به فارسی تغییر کرد.")
+
                     }
                 }
                 }>
@@ -38,6 +45,8 @@ export default function Setting() {
                     </Form>
                 )}
             </Formik>
+
+            <Toast />
         </>
     )
 }

@@ -3,12 +3,12 @@ import React, { useState, useEffect } from 'react'
 import Modal from '../../../Components/Modal/Modal.jsx'
 import Table from '../../../Components/Table/Table.jsx'
 import Toast from "../../../Components/Toast/Toast.jsx"
-import ErrorToast from "../../../Components/Toast/ErrorToast"
 import Input from '../../../Components/Input/Input.jsx'
 
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import { DataUrlV1 } from "../../../Data/Data"
 import { registerValidate } from '../../../Components/Input/Validate.js'
+import { toast } from 'react-toastify';
 
 
 export default function Users() {
@@ -16,9 +16,6 @@ export default function Users() {
   const [users, setUsers] = useState([])
   const [selectUsers, setSelectUsers] = useState([])
   const [isShowModal, setIsShowModal] = useState(false)
-  const [isShowToast, setIsShowToast] = useState(false)
-  const [isShowErrToast, setIsShowErrToast] = useState(false)
-  const [toastMessage, setToastMessage] = useState("")
 
   const closeModal = () => setIsShowModal(false)
 
@@ -50,14 +47,12 @@ export default function Users() {
         })
           .then(res => {
             if (!res.ok) {
-              setIsShowErrToast(true)
-              setToastMessage("کاربر حذف نشد مشکلی پیش آمده!")
+              toast.error("کاربر حذف نشد مشکلی پیش آمده!")
             } else {
               res.json()
                 .then(data => {
                   getUsers()
-                  setIsShowToast(true)
-                  setToastMessage("کاربر با موفقیت حذف شد")
+                  toast.warning("کاربر با موفقیت حذف شد")
                 })
             }
           })
@@ -80,14 +75,12 @@ export default function Users() {
         })
           .then(res => {
             if (!res.ok) {
-              setIsShowErrToast(true)
-              setToastMessage("کاربر بن نشد مشکلی پیش آمده!")
+             toast.error("کاربر بن نشد مشکلی پیش آمده!")
             } else {
               res.json()
                 .then(data => {
                   getUsers()
-                  setIsShowToast(true)
-                  setToastMessage("کاربر با موفقیت بن شد")
+                  toast.info("کاربر با موفقیت بن شد")
                 })
             }
           })
@@ -116,14 +109,12 @@ export default function Users() {
         })
           .then(res => {
             if (!res.ok) {
-              setIsShowErrToast(true)
-              setToastMessage("کاربر ادمین نشد مشکلی پیش آمده!")
+              toast.error("کاربر ادمین نشد مشکلی پیش آمده!")
             } else {
               res.json()
                 .then(data => {
                   getUsers()
-                  setIsShowToast(true)
-                  setToastMessage("کاربر با موفقیت ادمین شد")
+                  toast.success("کاربر با موفقیت ادمین شد")
                 })
             }
           })
@@ -134,13 +125,7 @@ export default function Users() {
 
   useEffect(() => {
     getUsers()
-    if (isShowToast || isShowErrToast) {
-      setTimeout(() => {
-        setIsShowToast(false);
-        setIsShowErrToast(false);
-      }, 2000);
-    }
-  }, [isShowToast, isShowErrToast])
+  },[])
 
   return (
     <>
@@ -159,12 +144,10 @@ export default function Users() {
             .then(res => res.json())
             .then(data => {
               getUsers()
-              setIsShowToast(true)
-              setToastMessage("کاربر با موفقیت اضافه شد")
+              toast.success("کاربر با موفقیت اضافه شد")
               setTimeout(() => {
                 resetForm()
                 setSubmitting(false)
-                setIsShowToast(false)
               }, 2000);
             })
         }} >
@@ -281,11 +264,9 @@ export default function Users() {
                       })
                       .then(data => {
                         getUsers()
-                        setIsShowToast(true)
-                        setToastMessage("کاربر با موفقیت ویرایش شد")
+                        toast.success("کاربر با موفقیت ویرایش شد")
                         setIsShowModal(false)
                         setTimeout(() => {
-                          setIsShowToast(false)
                           setSubmitting(false)
                         }, 2000);
                       })
@@ -317,15 +298,7 @@ export default function Users() {
         />
       }
 
-
-
-      {
-        isShowToast && <Toast title={toastMessage} />
-      }
-      {
-        isShowErrToast && <ErrorToast title={toastMessage} />
-      }
-
+      <Toast  />
     </>
 
   )
