@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 export default function Toast() {
+    console.log(localStorage.getItem("theme"))
     return (
         <ToastContainer
             position="bottom-left"
@@ -16,7 +17,7 @@ export default function Toast() {
             pauseOnFocusLoss
             draggable
             pauseOnHover
-            theme="light"
+            theme={localStorage.getItem("theme")}
         />
 
     )
