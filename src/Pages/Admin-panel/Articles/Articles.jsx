@@ -182,7 +182,6 @@ export default function Articles() {
                   setValue={setArticleBody}
                 />
               </div>
-
               <div className='col-start-1 md:col-end-3 '>
                 <label className="input-label">ثبت</label>
                 <button type="submit"
@@ -343,7 +342,7 @@ export default function Articles() {
                             {(msg) => <span className='text-xs text-red-600'>{msg}</span>}
                           </ErrorMessage>
                         </div>
-                        <div className='col-start-1 col-end-3'>
+                        <div className='col-start-1 md:col-end-3 w-[99%]'>
                           <Editor
                             value={(typeof (selectArticles.body) == "string") ? (selectArticles.body) : (selectArticles.body[1])}
                             setValue={setSelectEditArticles}
@@ -352,7 +351,7 @@ export default function Articles() {
                             console.log(typeof (selectArticles.body))
                           }
                         </div>
-                        <div className='col-start-1 col-end-3'>
+                        <div className='col-start-1 md:col-end-3'>
                           <label className="input-label">تغییر وضعیت</label>
                           <button type="submit"
                             className={isSubmitting ? ("input-submit bg-blue-500") : ("input-submit bg-blue-600")}

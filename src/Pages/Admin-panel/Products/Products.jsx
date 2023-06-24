@@ -103,7 +103,6 @@ export default function Products() {
             <Form className="space-y-1 md:space-y-1 grid gap-2 mb-6 md:grid-cols-2 mt-5">
               <Input label="نام محصول" type="text" name="name" placeholder="محصول اول" />
               <Input label="لینک محصول" type="text" name="shortName" placeholder="product1" />
-              {/* <Input label="توضیحات محصول" type="text" name="description" placeholder="این محصول برای تمامی افراد ..." /> */}
               <Input label="قیمت محصول" type="text" name="price" placeholder="21,000,000" />
               <div>
                 <label className="input-label">دسته بندی</label>
@@ -132,7 +131,7 @@ export default function Products() {
                   setValue={setArticleBody}
                 />
               </div>
-              <div className='col-start-1 col-end-3'>
+              <div className='col-start-1 md:col-end-3'>
                 <label className="input-label">ثبت</label>
                 <button type="submit"
                   className={isSubmitting ? ("input-submit bg-blue-500") : ("input-submit bg-blue-600")}
@@ -274,13 +273,13 @@ export default function Products() {
                             {(msg) => <span className='text-xs text-red-600'>{msg}</span>}
                           </ErrorMessage>
                         </div>          
-                        <div className='col-start-1 col-end-3'>
+                        <div className='col-start-1 md:col-end-3 w-[99%]'>
                           <Editor
                             value={(typeof (selectProduct.description) == "string") ? (selectProduct.description) : (selectProduct.description[0])}
                             setValue={setSelectEditArticles}
                           />
                         </div>
-                        <div className='col-start-1 col-end-3'>
+                        <div className='col-start-1 md:col-end-3'>
                           <label className="input-label">تغییر وضعیت</label>
                           <button type="submit"
                             className={isSubmitting ? ("input-submit bg-blue-500") : ("input-submit bg-blue-600")}
@@ -289,7 +288,6 @@ export default function Products() {
                             {isSubmitting ? ("لطفا صبر کنید ...") : ("ویرایش کردن")}
                           </button>
                         </div>
-
                       </Form>
                     </div>
                   )}

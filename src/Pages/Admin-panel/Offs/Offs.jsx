@@ -111,7 +111,7 @@ export default function Offs() {
                   {(msg) => <span className='text-xs text-red-600'>{msg}</span>}
                 </ErrorMessage>
               </div>
-              <div className='col-start-1 col-end-3'>
+              <div className='col-start-1 md:col-end-3'>
                 <label className="input-label">ثبت</label>
                 <button type="submit"
                   className={isSubmitting ? ("input-submit bg-blue-500") : ("input-submit bg-blue-600")}
