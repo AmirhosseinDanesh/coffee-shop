@@ -18,7 +18,6 @@ export default function Dashboard() {
       .then(res => res.json())
       .then(data => {
         setInfos(data.infos)
-        console.log(data)
       })
   }
 
@@ -29,7 +28,7 @@ export default function Dashboard() {
   return (
     <div className='flex justify-around flex-wrap items-center mt-5 gap-x-1 gap-y-5 text-xs md:text-base font-Dana'>
       
-      <div className='md:basis-1/4 bg-[#24314d] text-white flex flex-col gap-y-6 rounded-2xl text-center p-4'>
+      <div className='md:basis-1/4 bg-[#24314d] text-white flex flex-col gap-y-6 rounded-2xl text-center p-3 md:p-4'>
         <div className=''>
           <span className=''>{(infos.length) ? (infos[0].title) : (<Skeleton />)}</span>
         </div>
@@ -47,7 +46,7 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <div className='md:basis-1/4 bg-[#24314d] text-white flex flex-col gap-y-6 rounded-2xl text-center p-4'>
+      <div className='md:basis-1/4 bg-[#24314d] text-white flex flex-col gap-y-6 rounded-2xl text-center p-3 md:p-4'>
         <div className=''>
           <span className=''>{(infos.length) ? (infos[1].title) : (<Skeleton />)}</span>
         </div>
@@ -65,7 +64,7 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <div className='md:basis-1/4 bg-[#24314d] text-white flex flex-col gap-y-6 rounded-2xl text-center p-4'>
+      <div className='md:basis-1/4 bg-[#24314d] text-white flex flex-col gap-y-6 rounded-2xl text-center p-3 md:p-4'>
         <div className=''>
           <span className=''>{(infos.length) ? (infos[2].title) : (<Skeleton />)}</span>
         </div>
@@ -83,7 +82,7 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <div className='md:basis-1/4 bg-[#24314d] text-white flex flex-col gap-y-6 rounded-2xl text-center p-4'>
+      <div className='md:basis-1/4 bg-[#24314d] text-white flex flex-col gap-y-6 rounded-2xl text-center p-3 md:p-4'>
         <div className=''>
           <span className=''>{(infos.length) ? (infos[3].title) : (<Skeleton />)}</span>
         </div>
