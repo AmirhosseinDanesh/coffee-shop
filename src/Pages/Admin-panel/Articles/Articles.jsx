@@ -14,6 +14,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik'
 import { DataUrlV1, DataUrl } from "../../../Data/Data"
 import { toast } from 'react-toastify'
 import Pagination from '../../../Components/Pagination/Pagination';
+import Search from '../../../Components/Search/Search'
 export default function Articles() {
   const LocalStorageData = JSON.parse(localStorage.getItem("user"))
   const [categories, setCategories] = useState([])
@@ -25,6 +26,8 @@ export default function Articles() {
   const [selectArticles, setSelectArticles] = useState([])
   const [selectEditArticles, setSelectEditArticles] = useState([])
   const [currentItems, setCurrentItems] = useState([])
+  const [filteredProducts, setFilteredProducts] = useState([]);
+
   const closeModal = () => {
     setIsShowModal(false)
     setIsShowDetailModal(false)
@@ -35,6 +38,8 @@ export default function Articles() {
       .then(res => res.json())
       .then(data => {
         setArticles(data)
+        console.log(data)
+        setFilteredProducts(data)
       })
   }
 
@@ -66,7 +71,7 @@ export default function Articles() {
       .then(data => {
         setCategories(data)
       })
-      
+
   }, [])
   return (
     <>
@@ -199,6 +204,11 @@ export default function Articles() {
           </div>
         )}
       </Formik >
+
+      <Search data={articles} setFilteredProducts={setFilteredProducts} />
+
+
+
       {/* list of articles */}
       {
         (articles.length) ? (
@@ -348,7 +358,7 @@ export default function Articles() {
                           <label className="input-label">عکس محصول</label>
                           <Field type="file" name="cover" className="input" onChange={(event) => {
                             setSelectArticlescover(event.target.files[0]);
-                          }}  />
+                          }} />
                           <ErrorMessage name="cover">
                             {(msg) => <span className='text-xs text-red-600'>{msg}</span>}
                           </ErrorMessage>
@@ -360,7 +370,7 @@ export default function Articles() {
                             setValue={setSelectEditArticles}
                           />
                           {console.log(selectArticles.body)}
-                          
+
                         </div>
                         <div className='col-start-1 md:col-end-3'>
                           <label className="input-label">تغییر وضعیت</label>
