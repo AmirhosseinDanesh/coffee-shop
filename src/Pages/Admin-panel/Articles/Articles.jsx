@@ -177,6 +177,8 @@ export default function Articles() {
                 </ErrorMessage>
               </div>
               <div className='col-start-1 md:col-end-3 w-[99%]'>
+                <label className="input-label">متن مقاله</label>
+
                 <Editor
                   value={articleBody}
                   setValue={setArticleBody}
@@ -281,8 +283,9 @@ export default function Articles() {
               <div className="p-6 space-y-6">
                 <Formik
                   validate={articleEditValidate}
-                  initialValues={{ title: `${selectArticles.title}`, description: `${selectArticles.description}`, body: `${selectArticles.body}`, shortName: `${selectArticles.shortName}`, categoryID: `${selectArticles.categoryID._id}`, cover: '' }}
+                  initialValues={{ title: `${selectArticles.title}`, description: `${selectArticles.description}`, body: `${selectArticles.body}`, shortName: `${selectArticles.shortName}`, categoryID: `${selectArticles.categoryID}`, cover: '' }}
                   onSubmit={(values, { setSubmitting }) => {
+                    console.log(selectArticles.categoryID)
                     const formData = new FormData();
                     formData.append('title', values.title);
                     formData.append('description', values.description);
@@ -317,7 +320,6 @@ export default function Articles() {
                       <Form className="space-y-1 md:space-y-1 grid gap-2 mb-6 md:grid-cols-2 mt-5">
                         <Input label="موضوع مقاله" type="text" name="title" placeholder="ری اکت یا ویو ؟" />
                         <Input label="توضیحات مقاله" type="text" name="description" placeholder="بررسی دو فریم ورک محبوب جاوا اسکریپت" />
-                        <Input label="متن مقاله" type="text" name="body" placeholder="اولین موضوعی که باید در مورد ..." />
                         <Input label="لینک مقاله" type="text" name="shortName" placeholder="react-or-vue" />
                         <div>
                           <label className="input-label">دسته بندی</label>
@@ -343,6 +345,7 @@ export default function Articles() {
                           </ErrorMessage>
                         </div>
                         <div className='col-start-1 md:col-end-3 w-[99%]'>
+                          <label className="input-label">متن مقاله</label>
                           <Editor
                             value={(typeof (selectArticles.body) == "string") ? (selectArticles.body) : (selectArticles.body[1])}
                             setValue={setSelectEditArticles}
@@ -383,7 +386,7 @@ export default function Articles() {
       }
 
 
-         <Toast />
+      <Toast />
     </>
   )
 }
