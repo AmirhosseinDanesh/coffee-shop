@@ -1,19 +1,24 @@
-import React , {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import ReactPaginate from 'react-paginate';
-export default function Pagination({ data , items , setItems }) {
+export default function Pagination({ data, items, setItems }) {
     const [itemOffset, setItemOffset] = useState(0);
-    const itemsPerPage = 4
+    const [itemsPerPage, setItemsPerPage] = useState(4)
     const endOffset = itemOffset + itemsPerPage;
     const currentItems = data.slice(itemOffset, endOffset);
     const pageCount = Math.ceil(data.length / itemsPerPage);
-    
     const handlePageClick = (event) => {
         const newOffset = (event.selected * itemsPerPage) % data.length;
         setItemOffset(newOffset);
+        getSetItem(currentItems)
     };
-    useEffect(()=>{
+
+    const getSetItem = () => {
         setItems(currentItems)
-    },[currentItems])
+
+    }
+    useEffect(() => {
+        getSetItem();
+    }, [itemOffset, data]);
     return (
         <div className="flex items-center justify-between border-t border-gray-200 bg-white dark:bg-gray-700 px-4 py-3 sm:px-6 text-sm ">
             <div>

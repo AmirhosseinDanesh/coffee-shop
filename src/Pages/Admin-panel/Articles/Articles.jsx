@@ -13,7 +13,7 @@ import { articleValidate, articleEditValidate } from '../../../Components/Input/
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import { DataUrlV1, DataUrl } from "../../../Data/Data"
 import { toast } from 'react-toastify'
-
+import Pagination from '../../../Components/Pagination/Pagination';
 export default function Articles() {
   const LocalStorageData = JSON.parse(localStorage.getItem("user"))
   const [categories, setCategories] = useState([])
@@ -24,7 +24,7 @@ export default function Articles() {
   const [selectArticlesCover, setSelectArticlescover] = useState("")
   const [selectArticles, setSelectArticles] = useState([])
   const [selectEditArticles, setSelectEditArticles] = useState([])
-
+  const [currentItems, setCurrentItems] = useState([])
   const closeModal = () => {
     setIsShowModal(false)
     setIsShowDetailModal(false)
@@ -200,75 +200,82 @@ export default function Articles() {
       {/* list of articles */}
       {
         (articles.length) ? (
-          <Table
-            childrenTH={
-              <tr>
-                <th scope="col" className="px-3 py-3">
-                  عکس مقاله
-                </th>
-                <th scope="col" className="px-3 py-3">
-                  موضوع مقاله
-                </th>
-                <th scope="col" className="px-3 py-3">
-                  توضیح کوتاه
-                </th>
-                <th scope="col" className="px-3 py-3">
-                  وضعیت
-                </th>
-                <th scope="col" className="px-3 py-3">
-                  ویرایش
-                </th>
-              </tr>
-            }
-            childrenTD={
-              articles.map((art) => (
-                <tr key={art._id} className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                  <td className="px-2 py-2">
-                    <img src={`${DataUrl}/courses/covers/${art.cover}`} alt="" className='w-[100px]' />
-                  </td>
-                  <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    {art.title}
+          <>
+            <Table
+              childrenTH={
+                <tr>
+                  <th scope="col" className="px-3 py-3">
+                    عکس مقاله
                   </th>
-                  <td className="px-2 py-5 break-normal line-clamp-2 ">
-                    {art.description}
-                  </td>
-                  <td className="px-2 py-2">
-                    <div className='flex justify-center'>
-                      {(art.publish) ?
-                        (
-                          <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" >
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                          </svg>
-
-                        )
-                        :
-                        (
-                          <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" >
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-                          </svg>
-                        )}
-                    </div>
-                  </td>
-                  <td className="px-2 py-2">
-                    <div className='flex'>
-                      <button className=" dark:text-white bg-blue-700 hover:bg-blue-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => {
-                        setSelectArticles(art)
-                        setSelectArticlescover(art.cover)
-                        setIsShowModal(true)
-                      }}>ویرایش</button>
-                      <button className=" dark:text-white bg-red-700 hover:bg-red-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => {
-                        removeArticles(art._id)
-                      }}>حذف</button>
-                      <button className=" dark:text-white bg-red-700 hover:bg-red-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => {
-                        setSelectArticles(art)
-                        setIsShowDetailModal(true)
-                      }}>جزئیات</button>
-                    </div>
-                  </td>
+                  <th scope="col" className="px-3 py-3">
+                    موضوع مقاله
+                  </th>
+                  <th scope="col" className="px-3 py-3">
+                    توضیح کوتاه
+                  </th>
+                  <th scope="col" className="px-3 py-3">
+                    وضعیت
+                  </th>
+                  <th scope="col" className="px-3 py-3">
+                    ویرایش
+                  </th>
                 </tr>
-              ))
-            }
-          />
+              }
+              childrenTD={
+                currentItems.map((art) => (
+                  <tr key={art._id} className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                    <td className="px-2 py-2">
+                      <img src={`${DataUrl}/courses/covers/${art.cover}`} alt="" className='w-[100px]' />
+                    </td>
+                    <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                      {art.title}
+                    </th>
+                    <td className="px-2 py-5 break-normal line-clamp-2 ">
+                      {art.description}
+                    </td>
+                    <td className="px-2 py-2">
+                      <div className='flex justify-center'>
+                        {(art.publish) ?
+                          (
+                            <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" >
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                            </svg>
+
+                          )
+                          :
+                          (
+                            <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" >
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                            </svg>
+                          )}
+                      </div>
+                    </td>
+                    <td className="px-2 py-2">
+                      <div className='flex'>
+                        <button className=" dark:text-white bg-blue-700 hover:bg-blue-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => {
+                          setSelectArticles(art)
+                          setSelectArticlescover(art.cover)
+                          setIsShowModal(true)
+                        }}>ویرایش</button>
+                        <button className=" dark:text-white bg-red-700 hover:bg-red-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => {
+                          removeArticles(art._id)
+                        }}>حذف</button>
+                        <button className=" dark:text-white bg-red-700 hover:bg-red-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => {
+                          setSelectArticles(art)
+                          setIsShowDetailModal(true)
+                        }}>جزئیات</button>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              }
+            />
+            <Pagination
+              data={articles}
+              items={currentItems}
+              setItems={setCurrentItems}
+            />
+          </>
         ) : (
           <div className='bg-red-700 p-3 rounded-xl text-center text-white'>
             مقاله ای موجود نیست از طریق فرم بالا میتوانید اولین مقاله خود را اضافه کنید.
