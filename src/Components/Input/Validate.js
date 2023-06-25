@@ -170,9 +170,9 @@ export const articleEditValidate = (values) => {
     if (values.description === "") {
         errors.description = "وارد کردن توضیحات الزامی است"
     }
-    if (values.body === "") {
-        errors.body = "وارد کردن متن مقاله الزامی است"
-    }
+    // if (values.body === "") {
+    //     errors.body = "وارد کردن متن مقاله الزامی است"
+    // }
     if (values.shortName === "") {
         errors.shortName = "وارد کردن لینک الزامی است"
     }

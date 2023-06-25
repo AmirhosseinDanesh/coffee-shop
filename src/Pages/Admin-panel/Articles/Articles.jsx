@@ -20,7 +20,7 @@ export default function Articles() {
   const [isShowModal, setIsShowModal] = useState(false)
   const [isShowDetailModal, setIsShowDetailModal] = useState(false)
   const [articles, setArticles] = useState([])
-  const [articleBody, setArticleBody] = useState("")
+  const [articleBody, setArticleBody] = useState(null)
   const [selectArticlesCover, setSelectArticlescover] = useState("")
   const [selectArticles, setSelectArticles] = useState([])
   const [selectEditArticles, setSelectEditArticles] = useState([])
@@ -66,6 +66,7 @@ export default function Articles() {
       .then(data => {
         setCategories(data)
       })
+      
   }, [])
   return (
     <>
@@ -80,6 +81,7 @@ export default function Articles() {
           });
           formData.append('cover', event.target.elements.cover.files[0]);
           formData.append('body', articleBody);
+          console.log(articleBody)
 
 
           if (values.status == "draft") {
@@ -290,13 +292,13 @@ export default function Articles() {
               <div className="p-6 space-y-6">
                 <Formik
                   validate={articleEditValidate}
-                  initialValues={{ title: `${selectArticles.title}`, description: `${selectArticles.description}`, body: `${selectArticles.body}`, shortName: `${selectArticles.shortName}`, categoryID: `${selectArticles.categoryID}`, cover: '' }}
+                  initialValues={{ title: selectArticles.title, description: selectArticles.description, body: selectArticles.body, shortName: selectArticles.shortName, categoryID: selectArticles.categoryID, cover: '' }}
                   onSubmit={(values, { setSubmitting }) => {
                     console.log(selectArticles.categoryID)
                     const formData = new FormData();
                     formData.append('title', values.title);
                     formData.append('description', values.description);
-                    formData.append('body', selectEditArticles);
+                    formData.append('body', String(selectEditArticles));
                     formData.append('shortName', values.shortName);
                     formData.append('categoryID', values.categoryID);
                     if (selectArticlesCover) {
@@ -346,7 +348,7 @@ export default function Articles() {
                           <label className="input-label">عکس محصول</label>
                           <Field type="file" name="cover" className="input" onChange={(event) => {
                             setSelectArticlescover(event.target.files[0]);
-                          }} />
+                          }}  />
                           <ErrorMessage name="cover">
                             {(msg) => <span className='text-xs text-red-600'>{msg}</span>}
                           </ErrorMessage>
@@ -354,12 +356,11 @@ export default function Articles() {
                         <div className='col-start-1 md:col-end-3 w-[99%]'>
                           <label className="input-label">متن مقاله</label>
                           <Editor
-                            value={(typeof (selectArticles.body) == "string") ? (selectArticles.body) : (selectArticles.body[1])}
+                            value={(typeof (selectArticles.body) == "string") ? (selectArticles.body) : (selectArticles.body[0])}
                             setValue={setSelectEditArticles}
                           />
-                          {
-                            console.log(typeof (selectArticles.body))
-                          }
+                          {console.log(selectArticles.body)}
+                          
                         </div>
                         <div className='col-start-1 md:col-end-3'>
                           <label className="input-label">تغییر وضعیت</label>
