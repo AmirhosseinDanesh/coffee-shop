@@ -23,12 +23,13 @@ export default function Products() {
   const closeModal = () => setIsShowModal(false)
   const [currentItems, setCurrentItems] = useState([])
   const [searchValue, setSearchValue] = useState("")
-  const [filteredProducts, setFilteredProducts] = useState([...products]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const getProducts = () => {
     fetch(`${DataUrlV1}/courses`)
       .then(res => res.json())
       .then(data => {
         setProducts(data)
+        setFilteredProducts(data)
       })
 
   }
