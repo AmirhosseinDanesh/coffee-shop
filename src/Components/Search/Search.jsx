@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 
-export default function Search({ data , value  , setFilteredProducts}) {
-    const [searchValue, setSearchValue] = useState("")    
+export default function Search({ data, value, setFilteredProducts }) {
+    const [searchValue, setSearchValue] = useState("")
     const searchValueChangeHandler = (event) => {
-    setFilteredProducts(data)
+        setFilteredProducts(data)
         setSearchValue(event.target.value)
-        const filterProduct = data.filter(pr => pr.name.includes(event.target.value))
+        const filterProduct = data.filter(pr => pr[value].includes(event.target.value))
         setFilteredProducts(filterProduct)
     }
     return (

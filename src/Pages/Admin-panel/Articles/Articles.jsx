@@ -27,7 +27,6 @@ export default function Articles() {
   const [selectEditArticles, setSelectEditArticles] = useState([])
   const [currentItems, setCurrentItems] = useState([])
   const [filteredProducts, setFilteredProducts] = useState([]);
-
   const closeModal = () => {
     setIsShowModal(false)
     setIsShowDetailModal(false)
@@ -205,7 +204,7 @@ export default function Articles() {
         )}
       </Formik >
 
-      <Search data={articles} setFilteredProducts={setFilteredProducts} />
+      <Search data={articles} value="title" setFilteredProducts={setFilteredProducts} />
 
 
 
@@ -283,7 +282,7 @@ export default function Articles() {
               }
             />
             <Pagination
-              data={articles}
+              data={filteredProducts}
               items={currentItems}
               setItems={setCurrentItems}
             />

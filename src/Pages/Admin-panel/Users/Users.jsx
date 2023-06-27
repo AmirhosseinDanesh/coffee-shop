@@ -9,13 +9,16 @@ import { Formik, Form, Field, ErrorMessage } from 'formik'
 import { DataUrlV1 } from "../../../Data/Data"
 import { registerValidate } from '../../../Components/Input/Validate.js'
 import { toast } from 'react-toastify';
-
+import Pagination from '../../../Components/Pagination/Pagination.jsx'
+import Search from '../../../Components/Search/Search.jsx'
 
 export default function Users() {
   const LocalStorageData = JSON.parse(localStorage.getItem("user"))
   const [users, setUsers] = useState([])
   const [selectUsers, setSelectUsers] = useState([])
   const [isShowModal, setIsShowModal] = useState(false)
+  const [currentItems, setCurrentItems] = useState([])
+  const [filteredProducts, setFilteredProducts] = useState([]);
 
   const closeModal = () => setIsShowModal(false)
 
@@ -30,6 +33,7 @@ export default function Users() {
       .then(res => res.json())
       .then(data => {
         setUsers(data)
+        console.log(data)
       })
   }
 
@@ -75,7 +79,7 @@ export default function Users() {
         })
           .then(res => {
             if (!res.ok) {
-             toast.error("کاربر بن نشد مشکلی پیش آمده!")
+              toast.error("کاربر بن نشد مشکلی پیش آمده!")
             } else {
               res.json()
                 .then(data => {
@@ -125,7 +129,7 @@ export default function Users() {
 
   useEffect(() => {
     getUsers()
-  },[])
+  }, [])
 
   return (
     <>
@@ -176,64 +180,72 @@ export default function Users() {
         )}
 
       </Formik >
+      <Search data={users} value="name" setFilteredProducts={setFilteredProducts} />
 
       {
         (users.length) ? (
-          <Table
-            childrenTH={
-              <tr>
-                <th scope="col" className="px-2 py-3">
-                  نام
-                </th>
-                <th scope="col" className="px-2 py-3">
-                  ایمیل
-                </th>
-                <th scope="col" className="px-2 py-3">
-                  تلفن
-                </th>
-                <th scope="col" className="px-2 py-3">
-                  ویرایش
-                </th>
-              </tr>
-            }
-            childrenTD={
-              users.map((user) => (
-                <tr key={user._id} className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                  <th scope="row" className="px-2 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    {user.name}
+          <>
+            <Table
+              childrenTH={
+                <tr>
+                  <th scope="col" className="px-2 py-3">
+                    نام
                   </th>
-                  <td className="px-2 py-2">
-                    {user.email}
-                  </td>
-                  <td className="px-2 py-2">
-                    {user.phone}
-                  </td>
-                  <td className="px-2 py-2 flex">
-                    <button className=" dark:text-white bg-blue-700 hover:bg-blue-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => {
-                      setSelectUsers(user)
-                      setIsShowModal(true)
-                    }}>ویرایش</button>
-                    <button className=" dark:text-white bg-red-700 hover:bg-red-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => {
-                      removeUser(user._id)
-                    }}>حذف</button>
-                    <button className=" dark:text-white bg-red-700 hover:bg-red-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => {
-                      banUser(user._id)
-                    }}>بن</button>
-                    {
-                      (user.role === "ADMIN") ? (
-                        <>
-                        </>
-                      ) : (
-                        <button className=" dark:text-white bg-green-700 hover:bg-green-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => {
-                          adminUser(user._id)
-                        }}>ادمین کردن</button>
-                      )
-                    }
-                  </td>
+                  <th scope="col" className="px-2 py-3">
+                    ایمیل
+                  </th>
+                  <th scope="col" className="px-2 py-3">
+                    تلفن
+                  </th>
+                  <th scope="col" className="px-2 py-3">
+                    ویرایش
+                  </th>
                 </tr>
-              ))
-            }
-          />
+              }
+              childrenTD={
+                currentItems.map((user) => (
+                  <tr key={user._id} className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                    <th scope="row" className="px-2 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                      {user.name}
+                    </th>
+                    <td className="px-2 py-2">
+                      {user.email}
+                    </td>
+                    <td className="px-2 py-2">
+                      {user.phone}
+                    </td>
+                    <td className="px-2 py-2 flex">
+                      <button className=" dark:text-white bg-blue-700 hover:bg-blue-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => {
+                        setSelectUsers(user)
+                        setIsShowModal(true)
+                      }}>ویرایش</button>
+                      <button className=" dark:text-white bg-red-700 hover:bg-red-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => {
+                        removeUser(user._id)
+                      }}>حذف</button>
+                      <button className=" dark:text-white bg-red-700 hover:bg-red-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => {
+                        banUser(user._id)
+                      }}>بن</button>
+                      {
+                        (user.role === "ADMIN") ? (
+                          <>
+                          </>
+                        ) : (
+                          <button className=" dark:text-white bg-green-700 hover:bg-green-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => {
+                            adminUser(user._id)
+                          }}>ادمین کردن</button>
+                        )
+                      }
+                    </td>
+                  </tr>
+                ))
+              }
+            />
+            <Pagination
+              data={filteredProducts}
+              items={currentItems}
+              setItems={setCurrentItems}
+            />
+          </>
         ) : (
           <div className='bg-red-700 p-3 rounded-xl text-center text-white'>
             کاربری موجود نیست از طریق فرم بالا میتوانید اولین کاربر خود را اضافه کنید.
@@ -298,7 +310,7 @@ export default function Users() {
         />
       }
 
-      <Toast  />
+      <Toast />
     </>
 
   )
