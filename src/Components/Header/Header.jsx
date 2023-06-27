@@ -21,6 +21,7 @@ export default function Header() {
     fetch(`${DataUrlV1}/menus`)
       .then(res => res.json())
       .then(data => setHeaderLink(data))
+
   }, [])
   return (
     <>
@@ -246,7 +247,7 @@ export default function Header() {
 
 
       {/* Right Navbar */}
-      <div className={headerRightNavbar ? ("fixed overflow-y-auto top-0 bottom-0 right-0 w-64 min-h-screen bg-white dark:bg-zinc-700 pt-3 px-4 z-20 transition-all") : ("fixed top-0 -right-64 w-64 min-h-screen bg-white dark:bg-zinc-700 pt-3 px-4 z-20 transition-all")}>
+      <div className={headerRightNavbar ? ("block md:hidden  fixed overflow-y-auto top-0 bottom-0 right-0 w-64 min-h-screen bg-white dark:bg-zinc-700 pt-3 px-4 z-20 transition-all") : ("fixed top-0 -right-64 w-64 min-h-screen bg-white dark:bg-zinc-700 pt-3 px-4 z-20 transition-all")}>
         {/* LOGO */}
         <div className='flex items-center justify-between pb-5 mb-6 border-b border-b-gray-100 dark:border-b-white/10'>
           <div className='text-orange-300'>
@@ -280,7 +281,7 @@ export default function Header() {
             </li>
             <li>
               <div className='flex items-center justify-between'>
-                <NavLink to="/shop" className="flex items-center gap-x-2 pr-2 h-10">
+                <NavLink to="/shop" className={({ isActive }) => (isActive || sidemenu) ? ("flex items-center gap-x-2 pr-2 h-10 text-orange-300") : ("flex items-center gap-x-2 pr-2 h-10")}>
                   <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" >
                     <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
                   </svg>
@@ -300,7 +301,7 @@ export default function Header() {
                     <>
                       {
                         headerLink.map(link => (
-                          <NavLink to={`/category/${link.href}`} className={({ isActive }) => (isActive) ? ("submenu--active") : ("")}>{link.title}</NavLink>
+                          <NavLink key={link._id} to={`/category/${link.href}`} className={({ isActive }) => (isActive) ? ("submenu--active") : ("")}>{link.title}</NavLink>
                         ))
                       }
                     </>
@@ -423,7 +424,7 @@ export default function Header() {
 
 
       {/* Left  Cart */}
-      <div className={headerLeftNavbar ? ("fixed overflow-y-auto top-0 bottom-0 left-0 w-64 min-h-screen bg-white dark:bg-zinc-700 pt-3 px-4 z-20 transition-all") : ("fixed top-0 -left-64 w-64 min-h-screen bg-white dark:bg-zinc-700 pt-3 px-4 z-20 transition-all")}>
+      <div className={headerLeftNavbar ? (" md:hidden fixed flex flex-col overflow-y-auto top-0 bottom-0 left-0 w-64 min-h-screen bg-white dark:bg-zinc-700 pt-3 px-4 z-20 transition-all") : ("fixed top-0 -left-64 w-64 min-h-screen bg-white dark:bg-zinc-700 pt-3 px-4 z-20 transition-all")}>
         {/* LOGO */}
         <div className='flex items-center justify-between pb-5 mb-6 border-b border-b-gray-100 dark:border-b-white/10'>
           <div className='p-1 rounded-lg hover:bg-zinc-800/50 ' onClick={() => {
@@ -485,24 +486,35 @@ export default function Header() {
               </div>
             </div>
           </div>
-          <div className='fixed bottom-2 flex justify-between items-center gap-x-10 mt-5'>
-            <div>
-              <span className='font-DanaMedium text-gray-300 text-xs '>مبلغ قابل پرداخت</span>
-              <div className='text-zinc-700 dark:text-white font-DanaBold text-xs'>
-                175,500
-                <span className='font-Dana text-sm mr-1'>
-                  تومان
-                </span>
-              </div>
+        </div>
+
+        <div className='flex justify-between items-center gap-x-10 mt-auto mb-4'>
+          <div className='flex flex-col gap-y-3 '>
+            <span className='font-DanaMedium text-gray-300 text-xs '>مبلغ قابل پرداخت</span>
+            <div className='text-zinc-700 dark:text-white font-DanaBold text-xs '>
+              175,500
+              <span className='font-Dana text-sm mr-1'>
+                تومان
+              </span>
             </div>
-            <NavLink to="/cart" className='text-sm text-center flex items-center justify-center w-[100px] h-12  text-white bg-teal-600 dark:bg-emerald-500 dark:hover:bg-emerald-700 transition-colors hover:bg-teal-700 rounded-xl tracking-tightest'>ثبت سفارش</NavLink>
+          </div>
+
+          <div>
+            <NavLink to="/cart" className='text-sm text-center flex items-center justify-center w-[90px] h-12  text-white bg-teal-600 dark:bg-emerald-500 dark:hover:bg-emerald-700 transition-colors hover:bg-teal-700 rounded-xl tracking-tightest'>ثبت سفارش</NavLink>
           </div>
         </div>
+
+
       </div>
 
 
 
-      <div className={headerLeftNavbar || headerRightNavbar ? ("overlay md:hidden fixed inset-0 w-full h-full bg-black/40 z-10 transition-all") : ("transition-all")}></div>
+      <div className={headerLeftNavbar || headerRightNavbar ? ("overlay md:hidden fixed inset-0 w-full h-full bg-black/40 z-10 transition-all") : ("transition-all")}
+        onClick={()=>{
+          setHeaderLeftNavbar(false)
+          setHeaderRightNavbar(false)
+        }}  
+      ></div>
 
     </>
   )
