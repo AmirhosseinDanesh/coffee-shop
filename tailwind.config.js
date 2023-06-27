@@ -31,8 +31,25 @@ export default {
       },
       letterSpacing:{
         "tightest" : "-0.0625em"
+      },
+      container:{
+        center: true,
+        padding : {
+          DEFAULT : "1rem",
+          lg : "0.625rem"
+        }
+      },
+      backgroundImage: {
+        'slide1': "url('/public/images/sliders/1.png')",
+        'footer-texture': "url('/img/footer-texture.png')",
       }
     },
+    screens:{
+      "sm" : "640px",
+      "md" : "768px",
+      "lg" : "1024px",
+      "xl" : "1280px",
+    }
   },
   plugins: [
     function({addVariant}){
