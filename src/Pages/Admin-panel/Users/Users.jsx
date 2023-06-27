@@ -33,7 +33,7 @@ export default function Users() {
       .then(res => res.json())
       .then(data => {
         setUsers(data)
-        console.log(data)
+        setFilteredProducts(data)
       })
   }
 
@@ -180,7 +180,7 @@ export default function Users() {
         )}
 
       </Formik >
-      <Search data={users} value="name" setFilteredProducts={setFilteredProducts} />
+      <Search data={users} value="name" setFilteredProducts={setFilteredProducts} placeholder={"نام کاربر مورد نظر را بنویسید ..."} />
 
       {
         (users.length) ? (

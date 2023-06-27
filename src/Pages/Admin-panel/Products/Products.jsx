@@ -154,7 +154,7 @@ export default function Products() {
 
       </Formik >
       {/* Product List */}
-      <Search data={products} value="name" setFilteredProducts={setFilteredProducts} />
+      <Search data={products} value="name" setFilteredProducts={setFilteredProducts} placeholder={"نام محصول مورد نظر را بنویسید ..."} />
       {
         (products.length) ? (
           <>

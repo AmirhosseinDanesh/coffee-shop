@@ -204,7 +204,7 @@ export default function Articles() {
         )}
       </Formik >
 
-      <Search data={articles} value="title" setFilteredProducts={setFilteredProducts} />
+      <Search data={articles} value="title" setFilteredProducts={setFilteredProducts} placeholder={"نام مقاله مورد نظر را بنویسید ..."} />
 
 
 
@@ -299,7 +299,8 @@ export default function Articles() {
           children={
             <>
               <div className="p-6 space-y-6">
-                <Formik
+                <p className='dark:text-white'>این قابلیت هنوز فعال نیست.</p>
+                {/* <Formik
                   validate={articleEditValidate}
                   initialValues={{ title: selectArticles.title, description: selectArticles.description, body: selectArticles.body, shortName: selectArticles.shortName, categoryID: selectArticles.categoryID, cover: '' }}
                   onSubmit={(values, { setSubmitting }) => {
@@ -307,7 +308,7 @@ export default function Articles() {
                     const formData = new FormData();
                     formData.append('title', values.title);
                     formData.append('description', values.description);
-                    formData.append('body', String(selectEditArticles));
+                    formData.append('body', selectEditArticles);
                     formData.append('shortName', values.shortName);
                     formData.append('categoryID', values.categoryID);
                     if (selectArticlesCover) {
@@ -323,14 +324,14 @@ export default function Articles() {
                       body: formData
                     })
                       .then(res => console.log(res))
-                    // .then(data => {
-                    //   getArticles()
-                    //   toast.success("مقاله با موفقیت ویرایش شد")
-                    //   setIsShowModal(false)
-                    //   setTimeout(() => { 
-                    //     setSubmitting(false)
-                    //   }, 2000);
-                    // })
+                    .then(data => {
+                      getArticles()
+                      toast.success("مقاله با موفقیت ویرایش شد")
+                      setIsShowModal(false)
+                      setTimeout(() => { 
+                        setSubmitting(false)
+                      }, 2000);
+                    })
 
                   }} >
                   {({ isSubmitting }) => (
@@ -365,7 +366,8 @@ export default function Articles() {
                         <div className='col-start-1 md:col-end-3 w-[99%]'>
                           <label className="input-label">متن مقاله</label>
                           <Editor
-                            value={(typeof (selectArticles.body) == "string") ? (selectArticles.body) : (selectArticles.body[0])}
+                            value={(selectArticles.body.join(" "))}
+                            // value={(typeof (selectArticles.body) == "string") ? (selectArticles.body) : (selectArticles.body[0])}
                             setValue={setSelectEditArticles}
                           />
                           {console.log(selectArticles.body)}
@@ -383,7 +385,7 @@ export default function Articles() {
                       </Form>
                     </div>
                   )}
-                </Formik>
+                </Formik> */}
               </div>
             </>
           }

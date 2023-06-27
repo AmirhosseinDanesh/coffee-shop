@@ -17,8 +17,8 @@ export default function Contacts() {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data)
                 setContacts(data)
+                console.log(data)
             })
     }
 
@@ -139,9 +139,18 @@ export default function Contacts() {
                                         <button className=" dark:text-white bg-red-700 hover:bg-red-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => {
                                             removeContact(contact._id)
                                         }}>حذف</button>
-                                        <button className=" dark:text-white bg-green-700 hover:bg-green-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => {
-                                            answerContact(contact.email)
-                                        }}>پاسخ</button>
+
+                                        {
+                                            (contact.answer) ? (
+                                                <>
+                                                    <span className=" dark:text-white bg-emerald-500 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg">پاسخ داده شده</span>
+                                                </>
+                                            ) : (
+                                                <button className=" dark:text-white bg-green-700 hover:bg-green-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => {
+                                                    answerContact(contact.email)
+                                                }}>پاسخ</button>
+                                            )
+                                        }
 
 
                                     </td>
