@@ -255,3 +255,17 @@ export const contactUsValue = (values) => {
     return errors;
 }
 
+export const commentvalue = (values) => {
+    const errors = {};
+
+    if (values.body === "") {
+        errors.body = "وارد کردن متن الزامی است."
+    }
+    if (values.score === "") {
+        errors.score = "وارد کردن امتیاز الزامی است."
+    }
+
+
+    return errors;
+}
+

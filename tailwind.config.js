@@ -40,11 +40,12 @@ export default {
         }
       },
       backgroundImage: {
-        'slide1': "url('/public/images/sliders/1.png')",
-        'footer-texture': "url('/img/footer-texture.png')",
+        'slide-1-D': "url('/public/images/sliders/1.webp')",
+        'slide-1-M': "url('/public/images/sliders/1M.webp')",
       }
     },
     screens:{
+      "xs" : "480px",
       "sm" : "640px",
       "md" : "768px",
       "lg" : "1024px",

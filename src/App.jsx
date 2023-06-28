@@ -17,12 +17,12 @@ export default function App() {
     localStorage.setItem("user", JSON.stringify({ token }))
   }
 
-  const logout = () => {
+  const logout = useCallback(() => {
     setToken(null),
       setUserInfos({})
     localStorage.removeItem("user")
 
-  }
+  })
 
   useEffect(() => {
     const localStorageData = JSON.parse(localStorage.getItem("user"))

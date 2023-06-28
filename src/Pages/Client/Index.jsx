@@ -17,10 +17,10 @@ export default function Index() {
       <Header />
       <Slider >
         <SwiperSlide >
-          <div className={`bg-[url('/images/sliders/1.png')] bg-no-repeat`}>
-            <div className="container md:min-h-screen flex justify-end items-center text-white">
+          <div className="bg-slide-1-M md:bg-slide-1-D xs:h-auto xs:aspect-[2/1] h-[250px] bg-no-repeat bg-cover bg-[center_top]">
+            <div className="container h-full md:min-h-screen flex justify-end items-center text-white">
               <>
-                <div>
+                <div className=''>
                   <h2 className="font-MorabbaBold text-2xl md:text-6xl mb-0.5 md:mb-7">قهوه عربیکا تانزانیکا</h2>
                   <span className="font-MorabbaLight text-xl md:text-5xl ">یک فنجان بالانس</span>
                   <span className="block w-[100px] h-px md:h-0.5 bg-orange-300 my-3 md:my-7"></span>
