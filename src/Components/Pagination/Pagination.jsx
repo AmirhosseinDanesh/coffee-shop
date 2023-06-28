@@ -31,7 +31,7 @@ export default function Pagination({ data, items, setItems }) {
     return (
         <div className="flex items-center justify-between border-t border-gray-200 bg-white dark:bg-gray-600 px-4 py-3 sm:px-6 text-sm ">
             <div>
-                <p className="text-sm dark:text-gray-300 flex gap-x-2 items-center">
+                <div className="text-sm dark:text-gray-300 flex gap-x-2 items-center">
                     <select className='bg-gray-50 border border-gray-300  text-gray-900 text-xs md:text-sm rounded-md dark:bg-gray-700 dark:text-white ' name="" id="" onChange={updateSelect} defaultValue={itemsPerPage}>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -39,22 +39,23 @@ export default function Pagination({ data, items, setItems }) {
                         <option value="4">4</option>
                         <option value="5">5</option>
                     </select>
-                    <p>لیست</p>
-                    <span className="font-DanaMedium">{itemOffset + 1}</span>
-                    <p>تا</p>
-                    <span className="font-DanaMedium">{Math.min(itemOffset + itemsPerPage, data.length)}</span>
+                    <div className='flex justify-between gap-x-1'>
+                        <p>شماره</p>
+                        <span className="font-DanaMedium underline">{itemOffset + 1}</span>
+                        <p>تا</p>
+                        <span className="font-DanaMedium underline">{Math.min(itemOffset + itemsPerPage, data.length)}</span>
+                        {(data.length) ? (
+                            <>
+                                <p>کل</p>
+                                <span className='font-DanaMedium underline'>{data.length}</span>
+                            </>
+                        ) : (
+                            <></>
+                        )}
+                    </div>
 
-                    {(data.length) ? (
-                        <>
-                            <p>مجموع کل</p>
-                            <span className='font-DanaMedium'>{data.length}</span>
-                        </>
-                    ) : (
-                        <></>
-                    )}
 
-
-                </p>
+                </div>
             </div>
             <div>
                 <ReactPaginate

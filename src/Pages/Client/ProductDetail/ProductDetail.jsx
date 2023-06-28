@@ -160,18 +160,18 @@ export default function ProductDetail() {
             (productDetail.comments) ?
               (
                 productDetail.comments.map((cm) => (
-                  <article key={cm._id} className="p-6 mb-2 text-base bg-white rounded-lg dark:bg-gray-900">
+                  <article key={cm._id} className="p-6 mb-2 text-xs md:text-base md:text-base bg-white rounded-lg dark:bg-gray-900">
                     <footer className="">
                       <div className="flex items-center justify-between">
                         <div className='flex'>
-                          <p className="inline-flex items-center ml-3 text-sm text-gray-900 dark:text-white">{cm.creator.name}
+                          <p className="inline-flex items-center ml-3 text-gray-900 dark:text-white gap-x-1">{cm.creator.name}
                             <span>
                               {
-                                (cm.creator.role === "ADMIN") ? ("(ادمین)") : ("(کاربر )")
+                                (cm.creator.role === "ADMIN") ? ("(ادمین)") : ("(کاربر)")
                               }
                             </span>
                           </p>
-                          <p className="text-xs text-gray-600 dark:text-gray-400">
+                          <p className="text-xs md:text-base text-gray-600 dark:text-gray-400">
                             <span>{cm.createdAt.slice(0, 10)}</span>
                           </p>
                         </div>
@@ -193,17 +193,17 @@ export default function ProductDetail() {
                         </div>
                       </div>
                     </footer>
-                    <p className="text-gray-500 dark:text-gray-400">{cm.body}</p>
+                    <p className="text-gray-500 dark:text-gray-400 my-4">{cm.body}</p>
                     <div className="flex items-center mt-4 space-x-4">
                       <button type="button"
-                        className="flex items-center text-sm text-gray-500 hover:dark:text-white  dark:text-gray-400">
+                        className="flex items-center text-xs md:text-base text-gray-500 hover:dark:text-white  dark:text-gray-400">
                         <svg aria-hidden="true" className="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
                         جواب دادن
                       </button>
                     </div>
                     {
                       (cm.answerContent) ? (
-                        <article className="p-6 mb-2 ml-6 lg:ml-12 text-base bg-white rounded-lg dark:bg-gray-900">
+                        <article className="p-6 mb-2 ml-6 lg:ml-12 text-xs md:text-base bg-white rounded-lg dark:bg-gray-900">
                           <footer className="flex justify-between items-center mb-2">
                             <div className="flex items-center">
                               <p className="inline-flex items-center ml-3 text-sm text-gray-900 dark:text-white">{cm.answerContent.creator.name}
@@ -218,7 +218,7 @@ export default function ProductDetail() {
                               </p>
                             </div>
                           </footer>
-                          <p className="text-gray-500 dark:text-gray-400">{cm.answerContent.body}</p>
+                          <p className="text-gray-500 dark:text-gray-400 my-4">{cm.answerContent.body}</p>
                           <div className="flex items-center mt-4 space-x-4">
                             <button type="button"
                               className="flex items-center text-sm text-gray-500 hover:dark:text-white  dark:text-gray-400">

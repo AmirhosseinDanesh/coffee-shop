@@ -1,11 +1,33 @@
-import React, { useState } from 'react'
+import React, { useState , useEffect } from 'react'
 
 
 export default function Modal({ title, onHide, children }) {
+    useEffect(() => {
+        var modal = document.querySelector('.modal');
+        const escape = (e) => {
+            if (e.keyCode === 27) {
+                onHide()
+            }
+        }
+        window.addEventListener("keydown", escape)
 
+        const clickOnSpace = (event) => {
+            if (event.target === modal) {
+                onHide()
+            }
+        }
+        window.addEventListener("click", clickOnSpace)
+
+        return () => {
+
+            window.removeEventListener("keydown", escape)
+            window.removeEventListener("click", clickOnSpace)
+
+        }
+    })
     return (
         <>
-            <div className="backdrop-blur-md justify-center fixed top-0 right-0 z-50 m-auto w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+            <div className="modal backdrop-blur-md justify-center fixed top-0 right-0 z-50 m-auto w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
                 <div className="relative w-full max-w-2xl max-h-full m-auto ">
                     <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
                         <div className="flex items-center justify-between p-4 border-b rounded-t dark:border-gray-600">
