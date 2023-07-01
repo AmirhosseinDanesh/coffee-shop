@@ -67,6 +67,9 @@
     bottom: 0;
     margin: auto;
   }
+  .userpanel-li{
+    @apply flex justify-center p-2 my-3 md:my-5 bg-gray-700 hover:bg-gray-800 rounded-lg transition-colors text-center
+  }
   
 }
 

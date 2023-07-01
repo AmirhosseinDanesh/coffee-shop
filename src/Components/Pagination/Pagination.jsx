@@ -29,7 +29,7 @@ export default function Pagination({ data, items, setItems }) {
     };
 
     return (
-        <div className="flex items-center justify-between border-t border-gray-200 bg-white dark:bg-gray-600 px-4 py-3 sm:px-6 text-sm ">
+        <div className="flex items-center justify-between border-t border-gray-200 bg-white dark:bg-gray-600 px-4 py-1 sm:px-6 text-sm ">
             <div>
                 <div className="text-sm dark:text-gray-300 flex gap-x-2 items-center">
                     <select className='bg-gray-50 border border-gray-300  text-gray-900 text-xs md:text-sm rounded-md dark:bg-gray-700 dark:text-white ' name="" id="" onChange={updateSelect} defaultValue={itemsPerPage}>
@@ -66,7 +66,7 @@ export default function Pagination({ data, items, setItems }) {
                     renderOnZeroPageCount={null}
                     nextLabel={<svg aria-hidden="true" className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd"></path></svg>}
                     previousLabel={<svg aria-hidden="true" className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd"></path></svg>}
-                    containerClassName='inline-flex items-center -space-x-px'
+                    containerClassName='inline-flex items-center -space-x-px mt-2'
                     previousLinkClassName='block px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-700 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-950 dark:hover:text-white'
                     nextLinkClassName='block px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-700 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-950 dark:hover:text-white'
                     pageLinkClassName='hidden md:block px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-700 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-950 dark:hover:text-white'

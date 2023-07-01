@@ -18,8 +18,9 @@ export default function App() {
   }
 
   const logout = useCallback(() => {
-    setToken(null),
-      setUserInfos({})
+    setIsLoggedIn(false)
+    setToken(null)
+    setUserInfos({})
     localStorage.removeItem("user")
 
   })
@@ -40,7 +41,7 @@ export default function App() {
     } else {
       setIsLoggedIn(false)
     }
-  }, [])
+  }, [isLoggedIn])
 
 
 

@@ -22,6 +22,12 @@ import Comments from "../Pages/Admin-panel/Comments/Comments";
 import ContactUs from "../Pages/Client/ContactUs/ContactUs";
 import AboutUs from "../Pages/Client/AboutUs/AboutUs";
 
+import UserPanel from "../Pages/User-panel/UserPanel"
+import UserDashboard from "../Pages/User-panel/UserDashboard/UserDashboard"
+import UserDetails from "../Pages/User-panel/UserDetails/UserDetails"
+import UserTickets from "../pages/User-panel/UserTickets/UserTickets"
+import UserOrder from "../Pages/User-panel/UserOrder/UserOrder";
+
 const routes = [
     { path: "/", element: <Index /> },
     { path: "/login", element: <Login /> },
@@ -48,6 +54,16 @@ const routes = [
             {path : "comments" , element : <Comments/>},
             {path : "contacts" , element : <Contacts/>},
             {path : "offs" , element : <Offs/>},
+        ]
+    },
+    {
+        path: "/my-account/*",
+        element: <UserPanel />,
+        children : [
+            {path : "dashboard" , element : <UserDashboard />},
+            {path : "details" , element : <UserDetails />},
+            {path : "orders" , element : <UserOrder />},
+            {path : "tickets" , element : <UserTickets />},
         ]
     }
 ]
