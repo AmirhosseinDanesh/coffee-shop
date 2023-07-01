@@ -41,7 +41,7 @@ export default function UserAllTickets() {
         tickets.length ? (
           tickets.map(tick => (
             <div className='border rounded-xl mb-6'>
-              <NavLink to="#" >
+              <NavLink to={`answer/${tick._id}`} >
                 <div className='h-28 flex justify-around items-center text-xs md:text-base text-center '>
                   <p className='w-1/4  md:w-full md:line-clamp-none line-clamp-1'>{tick.title}</p>
                   <p className='w-1/4  md:w-full md:line-clamp-none line-clamp-1'>{tick.user}</p>
@@ -75,7 +75,7 @@ export default function UserAllTickets() {
           ))
         ) : (
           <div>
-            هیچ تیکتی
+            هیچ تیکتی وجود ندارد.
           </div>
         )
       }
