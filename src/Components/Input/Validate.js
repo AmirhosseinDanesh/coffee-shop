@@ -269,3 +269,26 @@ export const commentvalue = (values) => {
     return errors;
 }
 
+export const ticketalue = (values) => {
+    const errors = {};
+
+    if (values.departmentID === "") {
+        errors.departmentID = "وارد کردن دپارتمان الزامی است."
+    }
+    if (values.departmentSubID === "") {
+        errors.departmentSubID = "وارد کردن نوع تیکت الزامی است."
+    }
+    if (values.title === "") {
+        errors.title = "وارد کردن عنوان الزامی است."
+    }
+    if (values.priority === "") {
+        errors.priority = "وارد کردن اولویت الزامی است."
+    }
+    if (values.body === "") {
+        errors.body = "وارد کردن متن الزامی است."
+    }
+
+
+    return errors;
+}
+

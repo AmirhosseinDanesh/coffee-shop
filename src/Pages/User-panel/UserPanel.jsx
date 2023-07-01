@@ -28,10 +28,10 @@ export default function UserPanel() {
               <NavLink to="orders" className={({ isActive }) => (isActive) ? ("userpanel-li bg-gray-900") : ("userpanel-li")}>سفارشات</NavLink>
             </li>
             <li>
-              <NavLink to="details" className={({ isActive }) => (isActive) ? ("userpanel-li bg-gray-900") : ("userpanel-li")}>جزئیات حساب کاربری</NavLink>
+              <NavLink to="tickets" className={({ isActive }) => (isActive) ? ("userpanel-li bg-gray-900") : ("userpanel-li")}>تیکت های پشتیبانی</NavLink>
             </li>
             <li>
-              <NavLink to="tickets" className={({ isActive }) => (isActive) ? ("userpanel-li bg-gray-900") : ("userpanel-li")}>تیکت های پشتیبانی</NavLink>
+              <NavLink to="details" className={({ isActive }) => (isActive) ? ("userpanel-li bg-gray-900") : ("userpanel-li")}>جزئیات حساب کاربری</NavLink>
             </li>
             <li>
               <button className="userpanel-li w-full" onClick={() => {

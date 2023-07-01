@@ -6,7 +6,7 @@ export default function UserOrder() {
   const LocalStorageData = JSON.parse(localStorage.getItem("user"))
   const [orders, setOrders] = useState([])
   const [currentItems, setCurrentItems] = useState([])
-  
+
   useEffect(() => {
     fetch(`${DataUrlV1}/orders`, {
       method: "GET",
@@ -16,7 +16,6 @@ export default function UserOrder() {
     })
       .then(res => res.json())
       .then(data => {
-        console.log(data)
         setOrders(data)
       })
   }, [])
@@ -45,13 +44,13 @@ export default function UserOrder() {
                     </tr>
                   }
                   childrenTD={
-                    currentItems.map((order , index) => (
+                    currentItems.map((order, index) => (
                       <tr key={order._id} className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                         <th scope="row" className="px-2 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                           {index + 1}
                         </th>
                         <td className="px-2 py-5">
-                          {order.createdAt.slice(0,10)}
+                          {order.createdAt.slice(0, 10)}
                         </td>
                         <td className="px-2 py-5">
                           {order.course.name}
@@ -59,7 +58,7 @@ export default function UserOrder() {
                         <td className="px-2 py-5">
                           {order.price}
                         </td>
-                        
+
                       </tr>
                     ))
                   }
@@ -72,7 +71,7 @@ export default function UserOrder() {
               </>
             ) : (
               <div className='bg-red-700 p-3 rounded-xl text-center text-white'>
-                کاربری موجود نیست از طریق فرم بالا میتوانید اولین کاربر خود را اضافه کنید.
+                سفارشی موجود نیست به صفحه فروشگاه رفته و اولین سفارش خود را ثبت کنید.
               </div >
             )
           }
