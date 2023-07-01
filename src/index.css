@@ -68,7 +68,7 @@
     margin: auto;
   }
   .userpanel-li{
-    @apply flex justify-center p-2 my-3 md:my-5 bg-gray-700 hover:bg-gray-800 rounded-lg transition-colors text-center
+    @apply flex justify-center p-2 my-3 md:my-5 text-gray-900 bg-zinc-200 hover:bg-zinc-300 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-800 rounded-lg transition-colors text-center
   }
   
 }

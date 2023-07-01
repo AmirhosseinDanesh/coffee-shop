@@ -25,9 +25,9 @@ import AboutUs from "../Pages/Client/AboutUs/AboutUs";
 import UserPanel from "../Pages/User-panel/UserPanel"
 import UserDashboard from "../Pages/User-panel/UserDashboard/UserDashboard"
 import UserDetails from "../Pages/User-panel/UserDetails/UserDetails"
-import UserTickets from "../pages/User-panel/UserTickets/UserTickets"
+import UserSendTickets from "../Pages/User-panel/UserSendTickets/UserSendTickets";
 import UserOrder from "../Pages/User-panel/UserOrder/UserOrder";
-
+import UserAllTickets from "../Pages/User-panel/UserAllTickets/UserAllTickets"
 const routes = [
     { path: "/", element: <Index /> },
     { path: "/login", element: <Login /> },
@@ -63,7 +63,8 @@ const routes = [
             {path : "dashboard" , element : <UserDashboard />},
             {path : "details" , element : <UserDetails />},
             {path : "orders" , element : <UserOrder />},
-            {path : "tickets" , element : <UserTickets />},
+            {path : "tickets" , element : <UserAllTickets />},
+            {path : "tickets/send-tickets" , element : <UserSendTickets />},
         ]
     }
 ]
