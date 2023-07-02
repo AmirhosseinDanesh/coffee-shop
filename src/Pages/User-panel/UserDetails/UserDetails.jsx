@@ -6,6 +6,8 @@ import { NavLink } from 'react-router-dom'
 
 import AuthContext from "../../../Context/authContext"
 import { DataUrlV1 } from '../../../Data/Data'
+import { toast } from 'react-toastify'
+import Toast from '../../../Components/Toast/Toast'
 
 
 export default function UserDetails() {
@@ -18,17 +20,17 @@ export default function UserDetails() {
   const LocalStorageData = JSON.parse(localStorage.getItem("user"))
 
 
-  const editAcc =(event)=>{
-    
+  const editAcc = (event) => {
+
     event.preventDefault()
     const newInfo = {
       name,
       phone,
-      email ,
-      username ,
+      email,
+      username,
       password
     }
-    fetch(`${DataUrlV1}/users` , {
+    fetch(`${DataUrlV1}/users`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -36,10 +38,18 @@ export default function UserDetails() {
       },
       body: JSON.stringify(newInfo)
     })
-    .then(res =>res.json())
-    .then(data =>{
-      console.log(data)
-    })
+      .then(res => {
+        if (!res.ok) {
+          toast.error("حساب کاربری ویرایش نشد!")
+        } else {
+          res.json()
+            .then(data => {
+              toast.success("حساب کاربری با موفقیت ویرایش شد:)")
+              setPassword("")
+            })
+        }
+      })
+
   }
 
 
@@ -57,7 +67,7 @@ export default function UserDetails() {
         </div>
         <div>
           <label className="input-label">ایمیل</label>
-          <input type="text" name='name' className='input' value={email} onChange={(event) => {
+          <input type="email" name='name' className='input' value={email} onChange={(event) => {
             setEmail(event.target.value)
           }} />
         </div>
@@ -75,9 +85,9 @@ export default function UserDetails() {
         </div>
         <div>
           <label className="input-label">رمز عبور جدید</label>
-          <input type="text" name='name' className='input' placeholder='*******' value={password} onChange={(event) => {
+          <input type="password" name='name' className='input' placeholder='*******' value={password} onChange={(event) => {
             setPassword(event.target.value)
-          }} required=""/>
+          }} required="" />
         </div>
         <div className='col-start-1 md:col-end-3' >
           <button className='input-submit bg-blue-600 mt-3' type="submit" onClick={() => {
@@ -85,6 +95,7 @@ export default function UserDetails() {
           }}>ویرایش اطلاعات</button>
         </div>
       </form>
+      <Toast />
     </div>
   )
 }
