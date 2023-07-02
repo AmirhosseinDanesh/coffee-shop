@@ -96,3 +96,7 @@
   font-size: 0.8rem;
   direction: rtl;
 }
+
+.swiper, swiper-container{
+  overflow: inherit !important;
+}
