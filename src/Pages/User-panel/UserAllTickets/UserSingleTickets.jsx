@@ -29,12 +29,12 @@ export default function UserSingleTickets() {
             </div>
 
             <div className='relative'>
-                <div className='bg-blue-700 rounded-4xl w-3/4 mb-10'>
+                <div className='bg-blue-700 rounded-l-2xl rounded-t-2xl w-3/4 mb-10'>
                     <p className='p-5'>{ticketInfo.ticket}</p>
                 </div>
 
                 {ticketInfo.answer ? (
-                    <div className='bg-green-700 rounded-4xl absolute right-1/4'>
+                    <div className='bg-green-700 rounded-r-2xl rounded-t-2xl absolute right-1/4'>
                         <p className='p-5'>{ticketInfo.answer}</p>
                     </div>
                 ) : (

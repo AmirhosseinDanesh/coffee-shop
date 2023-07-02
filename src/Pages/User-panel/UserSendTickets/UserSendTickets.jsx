@@ -6,12 +6,12 @@ import { toast } from 'react-toastify'
 import { ticketalue } from '../../../Components/Input/Validate.js'
 import Input from '../../../Components/Input/Input'
 import Toast from '../../../Components/Toast/Toast'
-import { NavLink } from 'react-router-dom'
+import { NavLink , useNavigate } from 'react-router-dom'
 export default function UserSendTickets() {
   const [departments, setDepartments] = useState([])
   const [departmentSub, setDepartmentSub] = useState([])
   const LocalStorageData = JSON.parse(localStorage.getItem("user"))
-
+  const navigate = useNavigate()
   const getDepartments = () => {
     fetch(`${DataUrlV1}/tickets/departments`)
       .then(res => res.json())
@@ -62,6 +62,7 @@ export default function UserSendTickets() {
                 setTimeout(() => {
                   resetForm()
                   setSubmitting(false)
+                  navigate("/my-account/tickets")
                 }, 3000);
               })
 
