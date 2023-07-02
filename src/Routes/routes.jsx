@@ -1,3 +1,5 @@
+import Private from "../Components/Private/Private";
+
 import Index from "../Pages/Client/Index";
 import Login from "../Pages/Auth/Login/Login";
 import Register from "../Pages/Auth/Register/Register";
@@ -43,30 +45,32 @@ const routes = [
     { path: "*", element: <NotFound /> },
     {
         path: "/p-admin/*",
-        element: <AdminPanel />,
-        children : [
-            {path : "dashboard" , element : <DashBoard/>},
-            {path : "users" , element : <Users/>},
-            {path : "products" , element : <Products/>},
-            {path : "menus" , element : <Menus/>},
-            {path : "articles" , element : <Articles/>},
-            {path : "categories" , element : <Categories/>},
-            {path : "setting" , element : <Setting/>},
-            {path : "comments" , element : <Comments/>},
-            {path : "contacts" , element : <Contacts/>},
-            {path : "offs" , element : <Offs/>},
+        element: <Private>
+                    <AdminPanel />
+                </Private>,
+        children: [
+            { path: "dashboard", element: <DashBoard /> },
+            { path: "users", element: <Users /> },
+            { path: "products", element: <Products /> },
+            { path: "menus", element: <Menus /> },
+            { path: "articles", element: <Articles /> },
+            { path: "categories", element: <Categories /> },
+            { path: "setting", element: <Setting /> },
+            { path: "comments", element: <Comments /> },
+            { path: "contacts", element: <Contacts /> },
+            { path: "offs", element: <Offs /> },
         ]
     },
     {
         path: "/my-account/*",
         element: <UserPanel />,
-        children : [
-            {path : "dashboard" , element : <UserDashboard />},
-            {path : "details" , element : <UserDetails />},
-            {path : "orders" , element : <UserOrder />},
-            {path : "tickets" , element : <UserAllTickets />},
-            {path : "tickets/send-tickets" , element : <UserSendTickets />},
-            {path : "tickets/answer/:id" , element : <UserSingleTickets />},
+        children: [
+            { path: "dashboard", element: <UserDashboard /> },
+            { path: "details", element: <UserDetails /> },
+            { path: "orders", element: <UserOrder /> },
+            { path: "tickets", element: <UserAllTickets /> },
+            { path: "tickets/send-tickets", element: <UserSendTickets /> },
+            { path: "tickets/answer/:id", element: <UserSingleTickets /> },
         ]
     }
 ]

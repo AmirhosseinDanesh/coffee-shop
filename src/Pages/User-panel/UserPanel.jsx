@@ -33,6 +33,13 @@ export default function UserPanel() {
             <li>
               <NavLink to="details" className={({ isActive }) => (isActive) ? ("userpanel-li bg-zinc-400 dark:bg-gray-900") : ("userpanel-li")}>جزئیات حساب کاربری</NavLink>
             </li>
+            {
+              auth.userInfos.role === "ADMIN" ? (<li>
+                <NavLink to="/p-admin/dashboard" target='_blank' className={({ isActive }) => (isActive) ? ("userpanel-li bg-zinc-400 dark:bg-gray-900") : ("userpanel-li")}>ادمین پنل</NavLink>
+              </li>) : (
+                <></>
+              )
+            }
             <li>
               <button className="userpanel-li w-full" onClick={() => {
                 swal({
