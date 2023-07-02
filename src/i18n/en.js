@@ -5,6 +5,8 @@ const en = {
     navProducts : "Products",
     navMenus : "Menus",
     navArticles : "Articles",
+    tickets: "Tickets",
+
     setting : "Setting",
     categories: "Categories",
     comments: "Comments",

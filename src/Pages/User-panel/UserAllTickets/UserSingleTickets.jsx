@@ -34,7 +34,7 @@ export default function UserSingleTickets() {
                 </div>
 
                 {ticketInfo.answer ? (
-                    <div className='bg-green-700 rounded-r-2xl rounded-t-2xl absolute right-1/4'>
+                    <div className='bg-green-700 rounded-r-2xl rounded-t-2xl absolute w-3/4 right-1/4'>
                         <p className='p-5'>{ticketInfo.answer}</p>
                     </div>
                 ) : (

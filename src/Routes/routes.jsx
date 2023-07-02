@@ -31,6 +31,7 @@ import UserSendTickets from "../Pages/User-panel/UserSendTickets/UserSendTickets
 import UserOrder from "../Pages/User-panel/UserOrder/UserOrder";
 import UserAllTickets from "../Pages/User-panel/UserAllTickets/UserAllTickets"
 import UserSingleTickets from "../Pages/User-panel/UserAllTickets/UserSingleTickets";
+import Tickets from "../Pages/Admin-panel/Tickets/Tickets";
 const routes = [
     { path: "/", element: <Index /> },
     { path: "/login", element: <Login /> },
@@ -59,6 +60,7 @@ const routes = [
             { path: "comments", element: <Comments /> },
             { path: "contacts", element: <Contacts /> },
             { path: "offs", element: <Offs /> },
+            { path: "tickets", element: <Tickets /> },
         ]
     },
     {

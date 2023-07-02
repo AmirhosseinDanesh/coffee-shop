@@ -5,6 +5,7 @@ const fa = {
     navProducts: "محصولات",
     navMenus: "منوها",
     navArticles: "مقالات",
+    tickets: "تیکت ها",
     setting: "تنظیمات",
     categories: "دسته بندی محصولات",
     comments: "کامنت ها",
