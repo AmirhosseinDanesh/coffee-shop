@@ -1,17 +1,19 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from '../../Components/Header/Header'
 import Slider from '../../Components/Slider/Slider'
 import { SwiperSlide } from 'swiper/react'
+import { NavLink } from 'react-router-dom'
+import { DataUrlV1 } from '../../Data/Data'
+import ProductCart from "../../Components/ProductCart/ProductCart"
+
 export default function Index() {
+  const [allProducts, setAllProducts] = useState([])
   useEffect(() => {
-    let docTitle = document.title
-    window.addEventListener("blur", () => [
-      document.title = "بیا همینجا ، نرو جای دیگه :)"
-    ])
-    window.addEventListener("focus", () => [
-      document.title = docTitle
-    ])
+    fetch(`${DataUrlV1}/courses`)
+      .then(res => res.json())
+      .then(data => setAllProducts(data))
   }, [])
+  console.log(allProducts.slice(0, 8))
   return (
     <>
       <Header />
@@ -46,9 +48,34 @@ export default function Index() {
           </div>
         </SwiperSlide>
       </Slider>
-      <div>
+      <section className='products-section pt-8 md:pt-20 lg:pt-48 pb-20'>
+        <div className='container'>
+          {/* section Head */}
+          <div className='flex justify-between items-center mb-5 md:mb-12'>
+            <div className='text-zinc-700 dark:text-white'>
+              <h3 className='text-2xl md:text-5xl font-MorabbaMedium '>جدیدترین محصولات</h3>
+              <h6 className='text-lg md:text-3xl font-MorabbaLight md:mt-1.5 mt-0.5'>فرآوری شده از دانه قهوه</h6>
+            </div>
+            <NavLink className="flex items-center md:gap-x-1 text-base md:text-xl tracking-tightest text-orange-300 hover:bg-orange-300/20 pr-3 pl-1 h-10 rounded-lg transition-colors" to="/shop">
+              <span className='hidden md:inline-block'>مشاهده همه محصولات</span>
+              <span className='inline-block md:hidden'>مشاهده همه</span>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
+                <path fillRule="evenodd" d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z" clipRule="evenodd" />
+              </svg>
+            </NavLink>
 
-      </div>
+          </div>
+          
+          {/* section body */}
+          <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3.5 md:gap-5 child:h-[200px]'>
+            {
+              allProducts.slice(0, 8).map((pro) => (
+                <ProductCart key={pro._id} {...pro} />
+              ))
+            }
+          </div>
+        </div>
+      </section>
     </>
   )
 }

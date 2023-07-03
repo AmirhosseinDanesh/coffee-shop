@@ -6,7 +6,10 @@ export default function ProductCart({ ...pro }) {
 
     return (
         <>
-            <div className="max-w-sm hover:shadow-xl basis-full md:basis-1/2 lg:basis-1/3 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 mb-10">
+            <div className='p-5 bg-white dark:bg-zinc-700 shadow-normal rounded-2xl'>
+                
+            </div>
+            {/* <div className="max-w-sm hover:shadow-xl basis-full md:basis-1/2 lg:basis-1/3 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 mb-10">
                 <NavLink className="flex justify-center" to={`/products/${pro.shortName}`}>
                     {
                         (pro.cover) ? (
@@ -60,7 +63,7 @@ export default function ProductCart({ ...pro }) {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
         </>
     )
 }

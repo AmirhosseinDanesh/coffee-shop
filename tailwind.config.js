@@ -42,6 +42,8 @@ export default {
       backgroundImage: {
         'slide-1-D': "url('/public/images/sliders/1.webp')",
         'slide-1-M': "url('/public/images/sliders/1M.webp')",
+        'slide-2-D': "url('/public/images/sliders/2.jpg')",
+        'product-bg': "url('/public/images/product-bg.png')",
       }
     },
     screens:{
