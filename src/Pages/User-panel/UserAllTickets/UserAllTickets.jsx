@@ -20,7 +20,6 @@ export default function UserAllTickets() {
       .then(res => res.json())
       .then(data => {
         setTickets(data)
-        console.log(data)
       })
   }
 
@@ -50,7 +49,7 @@ export default function UserAllTickets() {
                     {
                       tick.answer == 0 ? (
                         <>
-                          <svg className="w-5 h-5 text-red-500 md:hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                          <svg className="w-5 h-5 text-red-500 block md:hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                           </svg>
                           <span className='hidden md:block'>پاسخ داده نشده</span>
@@ -58,7 +57,7 @@ export default function UserAllTickets() {
 
                       ) : (
                         <>
-                          <svg className="w-5 h-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                          <svg className="w-5 h-5 text-green-500 block md:hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                           </svg>
                           <span className='hidden md:block'>پاسخ داده شده</span>
