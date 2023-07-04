@@ -175,11 +175,11 @@ export default function Offs() {
                   </td>
                   <td className="px-2 py-2">
                     <div className='flex'>
-                      <button className=" dark:text-white bg-blue-700 hover:bg-blue-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => {
+                      {/* <button className=" dark:text-white bg-blue-700 hover:bg-blue-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => {
                         setSelectOff(off)
                         setIsShowModal(true)
                         // setSelectoffcover(off.cover)
-                      }}>ویرایش</button>
+                      }}>ویرایش</button> */}
                       <button className=" dark:text-white bg-red-700 hover:bg-red-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => {
                         removeOffs(off._id)
                       }}>حذف</button>

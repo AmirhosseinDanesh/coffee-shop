@@ -203,8 +203,6 @@ export default function Products() {
                         <button className=" dark:text-white bg-red-700 hover:bg-red-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => {
                           removeProducts(product._id)
                         }}>حذف</button>
-                        <button className=" dark:text-white bg-red-700 hover:bg-red-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => { console.log("edit") }}>جزئیات</button>
-
                       </div>
                     </td>
                   </tr>

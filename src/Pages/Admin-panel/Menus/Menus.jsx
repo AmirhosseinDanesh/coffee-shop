@@ -163,14 +163,13 @@ export default function Menus() {
                   </td>
                   <td className="px-2 py-2">
                     <div className='flex'>
-                      <button className=" dark:text-white bg-blue-700 hover:bg-blue-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => {
+                      {/* <button className=" dark:text-white bg-blue-700 hover:bg-blue-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => {
                         setSelectMenus(cat)
                         setIsShowModal(true)
-                      }}>ویرایش</button>
+                      }}>ویرایش</button> */}
                       <button className=" dark:text-white bg-red-700 hover:bg-red-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => {
                         removeMenus(cat._id)
                       }}>حذف</button>
-                      <button className=" dark:text-white bg-red-700 hover:bg-red-900 text-white font-DanaMedium py-2 px-4 mx-1 rounded-lg" onClick={() => { console.log("edit") }}>جزئیات</button>
                     </div>
                   </td>
                 </tr>
@@ -241,7 +240,7 @@ export default function Menus() {
         />
       }
 
-        <Toast />
+      <Toast />
 
     </>
   )
