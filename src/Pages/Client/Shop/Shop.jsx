@@ -7,11 +7,29 @@ import { NavLink } from 'react-router-dom'
 import ProductCart from "../../../Components/ProductCart/ProductCart"
 export default function Shop() {
     const [allProducts, setAllProducts] = useState([])
+    const [filterProducts, setFilterProducts] = useState([])
+    
+    const filterHandler = (value)=>{
+        if(value === "highest"){
+            setFilterProducts([...allProducts].sort((a , b) => a.price - b.price).reverse())
+        } else if (value === "cheapest") {   
+            setFilterProducts([...allProducts].sort((a , b) => a.price - b.price))
+        } else{
+            setFilterProducts([...allProducts].sort((a , b ) => a.createdAt - b.createdAt))
+        }
+    }
+    
     useEffect(() => {
         fetch(`${DataUrlV1}/courses`)
             .then(res => res.json())
-            .then(data => setAllProducts(data))
+            .then(data => {
+                setAllProducts(data)
+                setFilterProducts(data)
+                console.log(data)
+            })
+        
     }, [])
+    
     return (
         <>
             <Header />
@@ -57,19 +75,21 @@ export default function Shop() {
                         <h3 className='text-2xl md:text-5xl font-MorabbaMedium '>همه محصولات</h3>
                     </div>
                     <div className=''>
-                        <select className="pl-16 px-px py-2 md:py-3 md:pl-32 rounded-md bg-black/50 dark:bg-zinc-700 text-white text-sm">
-                            <option value="-1">فیلتر محصولات</option>
-                            <option value="">گرانترین</option>
-                            <option value="">ارزان ترین</option>
+                        <select className="pl-16 px-px py-2 md:py-3 md:pl-32 rounded-md bg-black/50 dark:bg-zinc-700 text-white text-sm" onChange={(event)=>{
+                            filterHandler(event.target.value)
+                        }}>
+                            <option value="-1">جدید ترین</option>
+                            <option value="highest">گرانترین</option>
+                            <option value="cheapest">ارزان ترین</option>
                         </select>
                     </div>
 
                 </div>
 
                 {/* section body */}
-                <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3.5 md:gap-5 child:h-[200px]'>
+                <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3.5 md:gap-5'>
                     {
-                        allProducts.slice(0, 8).map((pro) => (
+                        filterProducts.slice(0, 8).map((pro) => (
                             <ProductCart key={pro._id} {...pro} />
                         ))
                     }

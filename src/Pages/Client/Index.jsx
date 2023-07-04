@@ -13,7 +13,7 @@ export default function Index() {
       .then(res => res.json())
       .then(data => setAllProducts(data))
   }, [])
-  console.log(allProducts.slice(0, 8))
+  
   return (
     <>
       <Header />
@@ -67,7 +67,7 @@ export default function Index() {
           </div>
           
           {/* section body */}
-          <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3.5 md:gap-5 child:h-[200px]'>
+          <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3.5 md:gap-5'>
             {
               allProducts.slice(0, 8).map((pro) => (
                 <ProductCart key={pro._id} {...pro} />
