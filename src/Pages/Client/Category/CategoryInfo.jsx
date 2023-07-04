@@ -8,14 +8,20 @@ import ProductCart from '../../../Components/ProductCart/ProductCart'
 import { SwiperSlide } from 'swiper/react'
 export default function CategoryInfo() {
     const [categoryProducts, setCategoryProducts] = useState([])
+    const [category, setCategory] = useState([])
+
     const { categoryName } = useParams()
+
     useEffect(() => {
         fetch(`${DataUrlV1}/courses/category/${categoryName}`)
             .then(res => res.json())
             .then(data => {
                 setCategoryProducts(data)
-                console.log(data)
             })
+
+        fetch(`${DataUrlV1}/category/`)
+            .then(res => res.json())
+            .then(data => setCategory(data))
     }, [categoryName])
     return (
         <>
@@ -54,8 +60,16 @@ export default function CategoryInfo() {
                 </div>
             </SwiperSlide>
             <div className='mt-10 md:p-10'>
-                <div className='font-DanaBold text-base md:text-3xl text-center border-b-2 pb-8 mb-10 dark:text-gray-300'>
-                    محصولات دسته بندی {categoryName}
+                <div className='font-DanaMedium text-base md:text-3xl text-center border-b-2 pb-8 mb-10 dark:text-gray-300 flex justify-center'>
+                    <p className=''>محصولات دسته بندی</p>
+                    <p className='mx-1'>
+                        {
+                            category.filter(cat => cat.name === categoryName).map(c => (
+                                c.title
+                            ))
+                        }
+                    </p>
+
                 </div>
                 <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3.5 md:gap-5 container'>
                     {
