@@ -25,7 +25,7 @@ export default function Comments() {
 
     const rejectComment = (id) => {
         swal({
-            title: "آیا از تایید این کاممنت مطمعن هستید؟",
+            title: "آیا از تایید این کامنت مطمعن هستید؟",
             buttons: ["خیر", "بله"]
         }).then((res) => {
             if (res) {
@@ -140,7 +140,7 @@ export default function Comments() {
 
     const acceptComment = (id) => {
         swal({
-            title: "آیا از تایید این کاممنت مطمعن هستید؟",
+            title: "آیا از تایید این کامنت مطمعن هستید؟",
             buttons: ["خیر", "بله"]
         }).then((res) => {
             if (res) {

@@ -5,6 +5,7 @@ import { SwiperSlide } from 'swiper/react'
 import { NavLink } from 'react-router-dom'
 import { DataUrlV1 } from '../../Data/Data'
 import ProductCart from "../../Components/ProductCart/ProductCart"
+import ReactLoading from 'react-loading';
 
 export default function Index() {
   const [allProducts, setAllProducts] = useState([])
@@ -13,7 +14,7 @@ export default function Index() {
       .then(res => res.json())
       .then(data => setAllProducts(data))
   }, [])
-  
+
   return (
     <>
       <Header />
@@ -65,13 +66,19 @@ export default function Index() {
             </NavLink>
 
           </div>
-          
+
           {/* section body */}
           <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3.5 md:gap-5'>
             {
-              allProducts.slice(0, 8).map((pro) => (
-                <ProductCart key={pro._id} {...pro} />
-              ))
+              allProducts.length ? (
+                allProducts.slice(0, 8).map((pro) => (
+                  <ProductCart key={pro._id} {...pro} />
+                ))
+              ) : (
+                <div className='flex w-full justify-center items-center text-center col-start-1 col-end-8 backdrop-blur-sm h-[200px] md:h-[400px]'>
+                  <ReactLoading type={"bubbles"} color={"white"} height={75} width={75} />
+                </div>
+              )
             }
           </div>
         </div>

@@ -45,6 +45,7 @@ export default {
         'slide-2-D': "url('/public/images/sliders/2.jpg')",
         'slide-3-D': "url('/public/images/sliders/3.jpg')",
         'product-bg': "url('/public/images/product-bg.png')",
+        'product-bg2': "url('/public/images/product-bg2.png')",
       }
     },
     screens:{

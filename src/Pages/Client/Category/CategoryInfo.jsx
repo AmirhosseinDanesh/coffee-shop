@@ -80,7 +80,7 @@ export default function CategoryInfo() {
                             ))
                         ) : (
                             <>
-                                <div className='bg-gray-700 w-full p-3 rounded-xl text-center text-white'>
+                                <div className='bg-gray-700 w-full p-3 rounded-xl text-center text-white col-start-1 col-end-3'>
                                     محصولی برای نمایش وجود ندارد.
                                 </div>
                             </>

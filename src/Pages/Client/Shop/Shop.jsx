@@ -72,15 +72,15 @@ export default function Shop() {
                 {/* section Head */}
                 <div className='flex justify-between items-center my-10 md:my-20 '>
                     <div className='text-zinc-700 dark:text-white'>
-                        <h3 className='text-2xl md:text-5xl font-MorabbaMedium '>همه محصولات</h3>
+                        <h3 className='text-xl md:text-5xl font-MorabbaMedium '>همه محصولات</h3>
                     </div>
                     <div className=''>
-                        <select className="pl-16 px-px py-2 md:py-3 md:pl-32 rounded-md bg-black/50 dark:bg-zinc-700 text-white text-sm" onChange={(event)=>{
+                        <select className="pl-4 px-px py-1 md:py-3  md:pl-32 rounded-md bg-zinc-400 text-gray-100 dark:bg-zinc-700 dark:text-white text-xs md:text-base" onChange={(event)=>{
                             filterHandler(event.target.value)
                         }}>
-                            <option value="-1">جدید ترین</option>
-                            <option value="highest">گرانترین</option>
-                            <option value="cheapest">ارزان ترین</option>
+                            <option value="-1" className='text-xs md:text-base'>جدید ترین</option>
+                            <option value="highest" className='text-xs md:text-base'>گرانترین</option>
+                            <option value="cheapest" className='text-xs md:text-base'>ارزان ترین</option>
                         </select>
                     </div>
 
