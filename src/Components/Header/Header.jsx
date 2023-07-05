@@ -572,7 +572,7 @@ export default function Header() {
 
 
       {/* Left  Cart */}
-      <div className={headerLeftNavbar ? (" md:hidden fixed flex flex-col overflow-y-auto top-0 bottom-0 left-0 w-64 min-h-screen bg-white dark:bg-zinc-700 pt-3 px-4 z-20 transition-all") : ("fixed top-0 -left-64 w-64 min-h-screen bg-white dark:bg-zinc-700 pt-3 px-4 z-20 transition-all")}>
+      <div className={headerLeftNavbar ? (" md:hidden fixed flex flex-col overflow-y-auto top-0 bottom-0 left-0 w-64 min-h-full bg-white dark:bg-zinc-700 pt-3 px-4 z-20 transition-all") : ("fixed top-0 -left-64 w-64 min-h-screen bg-white dark:bg-zinc-700 pt-3 px-4 z-20 transition-all")}>
         {/* LOGO */}
         <div className='flex items-center justify-between pb-5 mb-6 border-b border-b-gray-100 dark:border-b-white/10'>
           <div className='p-1 rounded-lg hover:bg-zinc-800/50 ' onClick={() => {
@@ -647,11 +647,11 @@ export default function Header() {
           </div>
         </div>
 
-        <div className='flex justify-between items-center gap-x-10 mt-auto mb-4'>
+        <div className='flex justify-between items-center gap-x-10 mt-auto mb-5'>
           {
             contextData.userCart.length ? (
               <>
-                <div className='flex flex-col gap-y-3 '>
+                <div className='flex flex-col gap-y-3 mt-5'>
                   <span className='font-DanaMedium text-gray-300 text-xs '>مبلغ قابل پرداخت</span>
                   <div className='text-zinc-700 dark:text-white font-DanaBold text-xs '>
                     {calculateTotalPrice().toLocaleString()}
@@ -661,7 +661,7 @@ export default function Header() {
                   </div>
                 </div>
 
-                <div>
+                <div className='mt-5'>
                   <NavLink to="/cart" className='text-sm text-center flex items-center justify-center w-[90px] h-12  text-white bg-teal-600 dark:bg-emerald-500 dark:hover:bg-emerald-700 transition-colors hover:bg-teal-700 rounded-xl tracking-tightest'>ثبت سفارش</NavLink>
                 </div>
               </>
