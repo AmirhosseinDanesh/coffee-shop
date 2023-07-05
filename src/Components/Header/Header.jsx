@@ -17,7 +17,8 @@ export default function Header() {
   const [sidemenu, setSidemenu] = useState(false)
 
   const clearCart = () => {
-    console.log("first")
+    localStorage.setItem('userCart' , []);
+    contextData.setUserCart([])
   }
   const updateLocalStorage = (cart) => {
     localStorage.setItem('userCart', JSON.stringify(cart));
@@ -69,12 +70,12 @@ export default function Header() {
       }
       return product;
     }).filter(item => item !== null); // حذف آیتم‌هایی با مقدار null از آرایه
-  
+
     contextData.setUserCart(updatedCart);
-  
+
     // ذخیره سبد خرید در localStorage
     localStorage.setItem('userCart', JSON.stringify(updatedCart));
-  
+
     // بررسی و حذف محصول از localStorage اگر موجودیش صفر شده است
     if (product.count === 1) {
       const storedCart = localStorage.getItem('userCart');
@@ -85,12 +86,7 @@ export default function Header() {
       }
     }
   }
-  
 
-  
-  
-  
-  
 
   const calculateTotalPrice = () => {
     return contextData.userCart.reduce((total, product) => {
@@ -110,10 +106,10 @@ export default function Header() {
       .then(res => res.json())
       .then(data => setHeaderLink(data));
 
-      const cart = localStorage.getItem('userCart');
-      if (cart) {
-        contextData.setUserCart(JSON.parse(cart));
-      }
+    const cart = localStorage.getItem('userCart');
+    if (cart) {
+      contextData.setUserCart(JSON.parse(cart));
+    }
   }, []);
   return (
     <>
@@ -562,7 +558,7 @@ export default function Header() {
         {/* Cart */}
         <div>
           <div className='flex items-center justify-between font-DanaMedium text-xs tracking-tighter'>
-            <span className='text-gray-300'>1 مورد</span>
+            <span className='text-gray-300'>{(contextData.userCart.length)} مورد</span>
             <div className='flex items-center text-orange-300' onClick={() => clearCart()}>
               <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" >
                 <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
@@ -571,57 +567,84 @@ export default function Header() {
 
           </div>
           <div className='pb-1 border-b border-b-gray-300 dark:border-b-white/10 divide-y divide-gray-100 dark:divide-white/10 child:py-5'>
-            <div className='flex gap-x-2.5'>
-              <img src="/images/products/p1.png" alt="p1" className='w-[75px] h-[75px]' />
-              <div className='flex flex-col justify-between'>
-                <h4 className='font-DanaMedium text-zinc-700 dark:text-white text-xs line-clamp-2 leading-6	'>قهوه اسپرسو بن مانو مدل پریسکا 250 گرمی</h4>
-                <div className='flex flex-col gap-y-2 mt-2'>
-                  <span className='text-teal-600 dark:text-emerald-500 text-xs tracking-tighter'>
-                    14.500 تومان تخفیف
-                  </span>
-                  <div className='text-zinc-700 text-base dark:text-white font-DanaBold'>
-                    175,000
-                    <span className='font-Dana text-xs mr-1'>
-                      تومان
-                    </span>
+            {
+              contextData.userCart.map(product => (
+                <div className='flex gap-x-2.5 items-center'>
+                  <img src={`${DataUrl}/courses/covers/${product.cover}`} alt="p1" className='w-[65px] h-[65px]' />
+                  <div className='flex flex-col justify-between w-full gap-y-3'>
+                    <div className='flex justify-between items-center'>
+                      <h4 className='font-Dana text-zinc-700 dark:text-white text-sm line-clamp-2 leading-6	'>{product.name}</h4>
+                      <button className='border  rounded-full p-px' onClick={() => {
+                        removeProductFromCart(product)
+                      }}>
+                        <svg className="w-3 h-3 dark:text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" >
+                          <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+                        </svg>
+                      </button>
+                    </div>
+                    <div className='flex flex-col gap-y-4 mt-2'>
+                      <div className='flex justify-between items-center gap-x-3 border p-1  text-orange-300 border-orange-300 rounded-full w-[60%]'>
+                        <button onClick={() => {
+                          addToCart(product)
+                        }}>
+                          <svg className="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" >
+                            <path d="M10.75 6.75a.75.75 0 00-1.5 0v2.5h-2.5a.75.75 0 000 1.5h2.5v2.5a.75.75 0 001.5 0v-2.5h2.5a.75.75 0 000-1.5h-2.5v-2.5z" />
+                          </svg>
+                        </button>
+                        <span>{product.count}</span>
+                        <button onClick={() => {
+                          removeProducts(product)
+                        }}>
+                          <svg className="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" >
+                            <path d="M6.75 9.25a.75.75 0 000 1.5h6.5a.75.75 0 000-1.5h-6.5z" />
+                          </svg>
+                        </button>
+                      </div>
+                      <div className='text-zinc-700 text-base dark:text-white font-DanaBold'>
+                        {(product.price * product.count).toLocaleString()}
+                        <span className='font-Dana text-xs mr-1'>
+                          تومان
+                        </span>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-            <div className='flex gap-x-2.5'>
-              <img src="/images/products/p1.png" alt="p1" className='w-[75px] h-[75px]' />
-              <div className='flex flex-col justify-between'>
-                <h4 className='font-DanaMedium text-zinc-700 dark:text-white text-xs line-clamp-2 leading-6	'>قهوه اسپرسو بن مانو مدل پریسکا 250 گرمی</h4>
-                <div className='flex flex-col gap-y-2 mt-2'>
-                  <span className='text-teal-600 dark:text-emerald-500 text-xs tracking-tighter'>
-                    14.500 تومان تخفیف
-                  </span>
-                  <div className='text-zinc-700 text-base dark:text-white font-DanaBold'>
-                    175,000
-                    <span className='font-Dana text-xs mr-1'>
-                      تومان
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
+              ))
+            }
+
           </div>
         </div>
 
         <div className='flex justify-between items-center gap-x-10 mt-auto mb-4'>
-          <div className='flex flex-col gap-y-3 '>
-            <span className='font-DanaMedium text-gray-300 text-xs '>مبلغ قابل پرداخت</span>
-            <div className='text-zinc-700 dark:text-white font-DanaBold text-xs '>
-              175,500
-              <span className='font-Dana text-sm mr-1'>
-                تومان
-              </span>
-            </div>
-          </div>
+          {
+            contextData.userCart.length ? (
+              <>
+                <div className='flex flex-col gap-y-3 '>
+                  <span className='font-DanaMedium text-gray-300 text-xs '>مبلغ قابل پرداخت</span>
+                  <div className='text-zinc-700 dark:text-white font-DanaBold text-xs '>
+                    {calculateTotalPrice().toLocaleString()}
+                    <span className='font-Dana text-sm mr-1'>
+                      تومان
+                    </span>
+                  </div>
+                </div>
 
-          <div>
-            <NavLink to="/cart" className='text-sm text-center flex items-center justify-center w-[90px] h-12  text-white bg-teal-600 dark:bg-emerald-500 dark:hover:bg-emerald-700 transition-colors hover:bg-teal-700 rounded-xl tracking-tightest'>ثبت سفارش</NavLink>
-          </div>
+                <div>
+                  <NavLink to="/cart" className='text-sm text-center flex items-center justify-center w-[90px] h-12  text-white bg-teal-600 dark:bg-emerald-500 dark:hover:bg-emerald-700 transition-colors hover:bg-teal-700 rounded-xl tracking-tightest'>ثبت سفارش</NavLink>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className='w-full'>
+                  <div className='text-zinc-700 dark:text-white font-DanaBold text-center '>
+                    <span className='text-center'>
+                      سبد خرید خالی است.
+                    </span>
+                  </div>
+                </div>
+              </>
+            )
+          }
         </div>
 
 
