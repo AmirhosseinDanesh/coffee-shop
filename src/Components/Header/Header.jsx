@@ -8,9 +8,9 @@ import ProductsContext from '../../Context/ProductsContext'
 export default function Header() {
 
   const contextData = useContext(ProductsContext)
+  const auth = useContext(AuthContext)
 
   const [headerLink, setHeaderLink] = useState([])
-  const auth = useContext(AuthContext)
   const navigate = useNavigate();
   const [headerRightNavbar, setHeaderRightNavbar] = useState(false)
   const [headerLeftNavbar, setHeaderLeftNavbar] = useState(false)
@@ -19,14 +19,102 @@ export default function Header() {
   const clearCart = () => {
     console.log("first")
   }
+  const updateLocalStorage = (cart) => {
+    localStorage.setItem('userCart', JSON.stringify(cart));
+  }
 
+  const addToCart = (pro) => {
+    let newUserProductCart = {
+      id: pro._id,
+      name: pro.name,
+      price: pro.price,
+      count: 1,
+      cover: pro.cover,
+    }
+
+    let isProductInCart = contextData.userCart.some(product => (
+      product.name === pro.name
+    ))
+
+    if (!isProductInCart) {
+      let updatedCart = [...contextData.userCart, newUserProductCart];
+      updateLocalStorage(updatedCart);
+      contextData.setUserCart(updatedCart);
+
+    } else {
+      let updatedCart = contextData.userCart.map(product => {
+        if (product.name === pro.name) {
+          return {
+            ...product,
+            count: product.count + 1
+          };
+        }
+        return product;
+      });
+
+      contextData.setUserCart(updatedCart);
+      updateLocalStorage(updatedCart);
+    }
+  }
+
+  const removeProducts = (pro) => {
+    const updatedCart = contextData.userCart.map(product => {
+      if (product.id === pro.id) {
+        if (product.count > 1) {
+          product.count -= 1;
+          return product; // برگرداندن محصول با تعداد بروزرسانی شده
+        } else {
+          return null; // برگرداندن null به جای حذف محصول از سبد خرید
+        }
+      }
+      return product;
+    }).filter(item => item !== null); // حذف آیتم‌هایی با مقدار null از آرایه
+  
+    contextData.setUserCart(updatedCart);
+  
+    // ذخیره سبد خرید در localStorage
+    localStorage.setItem('userCart', JSON.stringify(updatedCart));
+  
+    // بررسی و حذف محصول از localStorage اگر موجودیش صفر شده است
+    if (product.count === 1) {
+      const storedCart = localStorage.getItem('userCart');
+      if (storedCart) {
+        const parsedCart = JSON.parse(storedCart);
+        const updatedStoredCart = parsedCart.filter(item => item.id !== pro.id);
+        localStorage.setItem('userCart', JSON.stringify(updatedStoredCart));
+      }
+    }
+  }
+  
+
+  
+  
+  
+  
+
+  const calculateTotalPrice = () => {
+    return contextData.userCart.reduce((total, product) => {
+      return total + (product.price * product.count);
+    }, 0);
+  }
+
+  const removeProductFromCart = (product) => {
+    const updatedCart = contextData.userCart.filter(p => p.id !== product.id);
+    contextData.setUserCart(updatedCart)
+    localStorage.setItem('userCart', JSON.stringify(updatedCart));
+
+  }
 
   useEffect(() => {
     fetch(`${DataUrlV1}/menus`)
       .then(res => res.json())
-      .then(data => setHeaderLink(data))
+      .then(data => setHeaderLink(data));
 
-  }, [])
+      const cart = localStorage.getItem('userCart');
+      if (cart) {
+        contextData.setUserCart(JSON.parse(cart));
+      }
+  }, []);
   return (
     <>
       <header className='fixed top-9 right-0 left-0 hidden md:flex items-center px-5 lg:px-10 rounded-3xl w-[98%] lg:w-[90%] h-24 mx-auto bg-black/50 backdrop-blur-[6px] z-50'>
@@ -94,14 +182,15 @@ export default function Header() {
                   </svg>
                 </div>
                 {/*  */}
-                <div className='absolute opacity-0 invisible group-hover:opacity-100 group-hover:visible top-full left-0 p-5  w-[400px] text-zinc-700 dark:text-white text-base bg-white dark:bg-zinc-700 rounded-2xl border-t border-t-orange-300 space-y-4 tracking-normal shadow-normal transition-all'>
+                <div className='absolute overflow-auto max-h-96 opacity-0 invisible group-hover:opacity-100 group-hover:visible top-full left-0 p-5  w-[400px] text-zinc-700 dark:text-white text-base bg-white dark:bg-zinc-700 rounded-2xl border-t border-t-orange-300 space-y-4 tracking-normal shadow-normal transition-all'>
                   <div className='flex items-center justify-between font-DanaMedium text-xs tracking-tighter'>
-                    <span className='text-gray-300'>1 مورد</span>
+                    <span className='text-gray-300'>{(contextData.userCart.length)} مورد</span>
                     <a href="#" className='flex items-center text-orange-300'>
                       مشاهده سبد خرید
-                      <svg className="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4">
+                        <path fillRule="evenodd" d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z" clipRule="evenodd" />
                       </svg>
+
                     </a>
 
                   </div>
@@ -111,23 +200,36 @@ export default function Header() {
                         <div className='flex gap-x-2.5'>
                           <img src={`${DataUrl}/courses/covers/${product.cover}`} alt="p1" className='w-[120px] h-[120px]' />
                           <div className='flex flex-col justify-between w-full'>
-                            <h4 className='font-DanaMedium text-zinc-700 dark:text-white text-base line-clamp-2'>{product.name}</h4>
                             <div className='flex justify-between items-center'>
-                              <div className='flex justify-between items-center gap-x-3 border p-2 text-orange-300 border-orange-300 rounded-full'>
-                                <button>
+                              <h4 className='font-DanaMedium text-zinc-700 dark:text-white text-base line-clamp-2'>{product.name}</h4>
+                              <button className='border  rounded-full p-px' onClick={() => {
+                                removeProductFromCart(product)
+                              }}>
+                                <svg className="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" >
+                                  <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+                                </svg>
+                              </button>
+                            </div>
+                            <div className='flex justify-between items-center'>
+                              <div className='flex justify-between items-center gap-x-3  border p-2 text-orange-300 border-orange-300 rounded-full'>
+                                <button onClick={() => {
+                                  addToCart(product)
+                                }}>
                                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
                                     <path d="M10.75 6.75a.75.75 0 00-1.5 0v2.5h-2.5a.75.75 0 000 1.5h2.5v2.5a.75.75 0 001.5 0v-2.5h2.5a.75.75 0 000-1.5h-2.5v-2.5z" />
                                   </svg>
                                 </button>
                                 <span>{product.count}</span>
-                                <button>
+                                <button onClick={() => {
+                                  removeProducts(product)
+                                }}>
                                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
                                     <path d="M6.75 9.25a.75.75 0 000 1.5h6.5a.75.75 0 000-1.5h-6.5z" />
                                   </svg>
                                 </button>
                               </div>
                               <div className='text-zinc-700 dark:text-white font-DanaBold'>
-                                {product.price}
+                                {(product.price * product.count).toLocaleString()}
                                 <span className='font-Dana text-sm mr-1'>
                                   تومان
                                 </span>
@@ -139,16 +241,34 @@ export default function Header() {
                     }
                   </div>
                   <div className='flex justify-between mt-5'>
-                    <div>
-                      <span className='font-DanaMedium text-gray-300 text-xs tracking-tighter'>مبلغ قابل پرداخت</span>
-                      <div className='text-zinc-700 dark:text-white font-DanaBold '>
-                        175,500
-                        <span className='font-Dana text-sm mr-1'>
-                          تومان
-                        </span>
-                      </div>
-                    </div>
-                    <a href="#" className='flex text-lg items-center justify-center w-[144px] h-14 text-white bg-teal-600 dark:bg-emerald-500 dark:hover:bg-emerald-700 transition-colors hover:bg-teal-700 rounded-xl tracking-tightest'>ثبت سفارش</a>
+                    {
+                      contextData.userCart.length ? (
+                        <>
+                          <div>
+                            <span className='font-DanaMedium text-gray-300 text-xs tracking-tighter'>مبلغ قابل پرداخت</span>
+                            <div className='text-zinc-700 dark:text-white font-DanaBold '>
+                              <span>
+                                {calculateTotalPrice().toLocaleString()}
+                              </span>
+                              <span className='font-Dana text-sm mr-1'>
+                                تومان
+                              </span>
+                            </div>
+                          </div>
+                          <a href="#" className='flex text-lg items-center justify-center w-[144px] h-14 text-white bg-teal-600 dark:bg-emerald-500 dark:hover:bg-emerald-700 transition-colors hover:bg-teal-700 rounded-xl tracking-tightest'>ثبت سفارش</a>
+                        </>
+                      ) : (
+                        <>
+                          <div className='w-full'>
+                            <div className='text-zinc-700 dark:text-white font-DanaBold text-center '>
+                              <span className='text-center'>
+                                سبد خرید خالی است.
+                              </span>
+                            </div>
+                          </div>
+                        </>
+                      )
+                    }
                   </div>
                 </div>
               </div>
