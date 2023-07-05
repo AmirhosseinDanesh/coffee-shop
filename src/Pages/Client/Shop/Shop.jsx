@@ -25,7 +25,6 @@ export default function Shop() {
             .then(data => {
                 setAllProducts(data)
                 setFilterProducts(data)
-                console.log(data)
             })
         
     }, [])

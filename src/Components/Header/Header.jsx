@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom'
 import AuthContext from '../../Context/authContext'
 import swal from 'sweetalert'
 import ProductsContext from '../../Context/ProductsContext'
+import Toast from "../Toast/Toast"
+import { toast } from 'react-toastify'
 export default function Header() {
 
   const contextData = useContext(ProductsContext)
@@ -17,9 +19,10 @@ export default function Header() {
   const [sidemenu, setSidemenu] = useState(false)
 
   const clearCart = () => {
-    localStorage.setItem('userCart' , []);
+    localStorage.setItem('userCart', []);
     contextData.setUserCart([])
   }
+  
   const updateLocalStorage = (cart) => {
     localStorage.setItem('userCart', JSON.stringify(cart));
   }
@@ -36,11 +39,11 @@ export default function Header() {
     let isProductInCart = contextData.userCart.some(product => (
       product.name === pro.name
     ))
-
     if (!isProductInCart) {
       let updatedCart = [...contextData.userCart, newUserProductCart];
       updateLocalStorage(updatedCart);
       contextData.setUserCart(updatedCart);
+      console.log("first")
 
     } else {
       let updatedCart = contextData.userCart.map(product => {
@@ -48,8 +51,10 @@ export default function Header() {
           return {
             ...product,
             count: product.count + 1
+            
           };
         }
+        
         return product;
       });
 
@@ -63,13 +68,13 @@ export default function Header() {
       if (product.id === pro.id) {
         if (product.count > 1) {
           product.count -= 1;
-          return product; // برگرداندن محصول با تعداد بروزرسانی شده
+          return product;
         } else {
-          return null; // برگرداندن null به جای حذف محصول از سبد خرید
+          return null;
         }
       }
       return product;
-    }).filter(item => item !== null); // حذف آیتم‌هایی با مقدار null از آرایه
+    }).filter(item => item !== null); 
 
     contextData.setUserCart(updatedCart);
 
@@ -172,10 +177,24 @@ export default function Header() {
             <div className='flex items-center gap-x-4'>
               {/* Cart */}
               <div className='relative group'>
-                <div className='py-3 '>
-                  <svg className='w-8 h-8' xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
-                  </svg>
+                <div className='flex '>
+                  {
+                    contextData.userCart.length ? (
+                      <>
+                        <div className="t-2 absolute left-5">
+                          <p className="flex h-2 w-2 items-center justify-center rounded-full bg-green-500 p-3 text-xs text-white">{contextData.userCart.length}</p>
+                        </div>
+                        <svg className='w-8 h-8' xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+                        </svg>
+                      </>
+                    ) : (
+                      <svg className='w-8 h-8' xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+                      </svg>
+                    )
+                  }
+
                 </div>
                 {/*  */}
                 <div className='absolute overflow-auto max-h-96 opacity-0 invisible group-hover:opacity-100 group-hover:visible top-full left-0 p-5  w-[400px] text-zinc-700 dark:text-white text-base bg-white dark:bg-zinc-700 rounded-2xl border-t border-t-orange-300 space-y-4 tracking-normal shadow-normal transition-all'>
@@ -193,7 +212,7 @@ export default function Header() {
                   <div className='pb-1 border-b border-b-gray-300 dark:border-b-white/10 divide-y divide-gray-100 dark:divide-white/10 child:py-5'>
                     {
                       contextData.userCart.map(product => (
-                        <div className='flex gap-x-2.5'>
+                        <div key={product.id} className='flex gap-x-2.5'>
                           <img src={`${DataUrl}/courses/covers/${product.cover}`} alt="p1" className='w-[120px] h-[120px]' />
                           <div className='flex flex-col justify-between w-full'>
                             <div className='flex justify-between items-center'>
@@ -251,7 +270,7 @@ export default function Header() {
                               </span>
                             </div>
                           </div>
-                          <a href="#" className='flex text-lg items-center justify-center w-[144px] h-14 text-white bg-teal-600 dark:bg-emerald-500 dark:hover:bg-emerald-700 transition-colors hover:bg-teal-700 rounded-xl tracking-tightest'>ثبت سفارش</a>
+                          <NavLink to="/cart" className='flex text-lg items-center justify-center w-[144px] h-14 text-white bg-teal-600 dark:bg-emerald-500 dark:hover:bg-emerald-700 transition-colors hover:bg-teal-700 rounded-xl tracking-tightest'>ثبت سفارش</NavLink>
                         </>
                       ) : (
                         <>
@@ -353,9 +372,22 @@ export default function Header() {
         <div className='p-1 rounded-lg hover:bg-zinc-800/50 ' onClick={() => {
           setHeaderLeftNavbar(true)
         }}>
-          <svg className="w-6 h-6 text-zinc-700 dark:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
-          </svg>
+          {
+            contextData.userCart.length ? (
+              <>
+                <div className="t-3 absolute left-9">
+                  <p className="flex h-2 w-2 items-center justify-center rounded-full bg-green-500 p-1.5 text-xs text-white">{contextData.userCart.length}</p>
+                </div>
+                <svg className='w-5 h-5 dark:text-white' xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+                </svg>
+              </>
+            ) : (
+              <svg className='w-5 h-5 dark:text-white' xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+              </svg>
+            )
+          }
         </div>
 
 
@@ -569,7 +601,7 @@ export default function Header() {
           <div className='pb-1 border-b border-b-gray-300 dark:border-b-white/10 divide-y divide-gray-100 dark:divide-white/10 child:py-5'>
             {
               contextData.userCart.map(product => (
-                <div className='flex gap-x-2.5 items-center'>
+                <div key={product.id} className='flex gap-x-2.5 items-center'>
                   <img src={`${DataUrl}/courses/covers/${product.cover}`} alt="p1" className='w-[65px] h-[65px]' />
                   <div className='flex flex-col justify-between w-full gap-y-3'>
                     <div className='flex justify-between items-center'>
@@ -658,6 +690,8 @@ export default function Header() {
           setHeaderRightNavbar(false)
         }}
       ></div>
+
+      <Toast />
 
     </>
   )

@@ -9,19 +9,58 @@ import { commentvalue } from "../../../Components/Input/Validate"
 import AuthContext from '../../../Context/authContext'
 import DOMPurify from 'dompurify'
 import swal from 'sweetalert';
+
+import ProductsContext from '../../../Context/ProductsContext'
+
 export default function ProductDetail() {
+  const contextData = useContext(ProductsContext)
+
   const LocalStorageData = JSON.parse(localStorage.getItem("user"))
   const [productDetail, setProductDetail] = useState([])
   const { shortName } = useParams()
   const auth = useContext(AuthContext)
+  const updateLocalStorage = (cart) => {
+    localStorage.setItem('userCart', JSON.stringify(cart));
+  }
+  const addToCart = (pro) => {
+    let newUserProductCart = {
+      id: pro._id,
+      name: pro.name,
+      price: pro.price,
+      count: 1,
+      cover: pro.cover,
+    }
 
+    let isProductInCart = contextData.userCart.some(product => (
+      product.name === pro.name
+    ))
+    if (!isProductInCart) {
+      let updatedCart = [...contextData.userCart, newUserProductCart];
+      updateLocalStorage(updatedCart);
+      contextData.setUserCart(updatedCart);
 
+    } else {
+      let updatedCart = contextData.userCart.map(product => {
+        if (product.name === pro.name) {
+          return {
+            ...product,
+            count: product.count + 1
+
+          };
+        }
+
+        return product;
+      });
+
+      contextData.setUserCart(updatedCart);
+      updateLocalStorage(updatedCart);
+    }
+  }
 
   useEffect(() => {
     fetch(`${DataUrlV1}/courses/${shortName}`)
       .then(res => res.json())
       .then(data => {
-        console.log(data)
         setProductDetail(data)
       })
   }, [])
@@ -62,7 +101,7 @@ export default function ProductDetail() {
           </p>
           <div>
             <button className='input-submit bg-blue-600' onClick={() => {
-              console.log("first")
+              addToCart(productDetail)
             }}>
               اضافه کردن به سبد خرید
             </button>

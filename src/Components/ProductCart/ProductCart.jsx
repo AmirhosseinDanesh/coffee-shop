@@ -66,7 +66,7 @@ export default function ProductCart({ ...pro }) {
                             ("")
                     }
 
-                    <h5 className="my-5 text-sm md:text-xl text-right font-DanaBold tracking-tight text-gray-900 dark:text-white">{pro.name}</h5>
+                    <h5 className="my-5 text-xs md:text-xl text-right font-DanaBold tracking-tight text-gray-900 dark:text-white">{pro.name}</h5>
                     <div className='flex text-xs md:text-xl  items-center justify-start gap-x-1 text-gray-950 dark:text-gray-200'>
                         {pro.price.toLocaleString()}
                         <span className='text-sm'>تومان</span>
