@@ -1,10 +1,14 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { NavLink } from 'react-router-dom'
-import { DataUrlV1 } from "../../Data/Data"
+import { DataUrl, DataUrlV1 } from "../../Data/Data"
 import { useNavigate } from 'react-router-dom'
 import AuthContext from '../../Context/authContext'
 import swal from 'sweetalert'
+import ProductsContext from '../../Context/ProductsContext'
 export default function Header() {
+
+  const contextData = useContext(ProductsContext)
+
   const [headerLink, setHeaderLink] = useState([])
   const auth = useContext(AuthContext)
   const navigate = useNavigate();
@@ -102,40 +106,37 @@ export default function Header() {
 
                   </div>
                   <div className='pb-1 border-b border-b-gray-300 dark:border-b-white/10 divide-y divide-gray-100 dark:divide-white/10 child:py-5'>
-                    <div className='flex gap-x-2.5'>
-                      <img src="/images/products/p1.png" alt="p1" className='w-[120px] h-[120px]' />
-                      <div className='flex flex-col justify-between'>
-                        <h4 className='font-DanaMedium text-zinc-700 dark:text-white text-base line-clamp-2'>قهوه اسپرسو بن مانو مدل پریسکا 250 گرمی</h4>
-                        <div>
-                          <span className='text-teal-600 dark:text-emerald-500 text-xs tracking-tighter'>
-                            14.500 تومان تخفیف
-                          </span>
-                          <div className='text-zinc-700 dark:text-white font-DanaBold'>
-                            175,000
-                            <span className='font-Dana text-sm mr-1'>
-                              تومان
-                            </span>
+                    {
+                      contextData.userCart.map(product => (
+                        <div className='flex gap-x-2.5'>
+                          <img src={`${DataUrl}/courses/covers/${product.cover}`} alt="p1" className='w-[120px] h-[120px]' />
+                          <div className='flex flex-col justify-between w-full'>
+                            <h4 className='font-DanaMedium text-zinc-700 dark:text-white text-base line-clamp-2'>{product.name}</h4>
+                            <div className='flex justify-between items-center'>
+                              <div className='flex justify-between items-center gap-x-3 border p-2 text-orange-300 border-orange-300 rounded-full'>
+                                <button>
+                                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
+                                    <path d="M10.75 6.75a.75.75 0 00-1.5 0v2.5h-2.5a.75.75 0 000 1.5h2.5v2.5a.75.75 0 001.5 0v-2.5h2.5a.75.75 0 000-1.5h-2.5v-2.5z" />
+                                  </svg>
+                                </button>
+                                <span>{product.count}</span>
+                                <button>
+                                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
+                                    <path d="M6.75 9.25a.75.75 0 000 1.5h6.5a.75.75 0 000-1.5h-6.5z" />
+                                  </svg>
+                                </button>
+                              </div>
+                              <div className='text-zinc-700 dark:text-white font-DanaBold'>
+                                {product.price}
+                                <span className='font-Dana text-sm mr-1'>
+                                  تومان
+                                </span>
+                              </div>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </div>
-                    <div className='flex gap-x-2.5'>
-                      <img src="/images/products/p1.png" alt="p1" className='w-[120px] h-[120px]' />
-                      <div className='flex flex-col justify-between'>
-                        <h4 className='font-DanaMedium text-zinc-700 dark:text-white text-base line-clamp-2'>قهوه اسپرسو بن مانو مدل پریسکا 250 گرمی</h4>
-                        <div>
-                          <span className='text-teal-600 dark:text-emerald-500 text-xs tracking-tighter'>
-                            14.500 تومان تخفیف
-                          </span>
-                          <div className='text-zinc-700 dark:text-white font-DanaBold'>
-                            175,000
-                            <span className='font-Dana text-sm mr-1'>
-                              تومان
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                      ))
+                    }
                   </div>
                   <div className='flex justify-between mt-5'>
                     <div>
@@ -509,10 +510,10 @@ export default function Header() {
 
 
       <div className={headerLeftNavbar || headerRightNavbar ? ("overlay md:hidden fixed inset-0 w-full h-full bg-black/40 z-10 transition-all") : ("transition-all")}
-        onClick={()=>{
+        onClick={() => {
           setHeaderLeftNavbar(false)
           setHeaderRightNavbar(false)
-        }}  
+        }}
       ></div>
 
     </>

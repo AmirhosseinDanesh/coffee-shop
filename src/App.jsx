@@ -3,12 +3,17 @@ import { useRoutes } from "react-router-dom"
 import routes from './Routes/routes.jsx'
 import AuthContext from './Context/authContext.js'
 import { DataUrlV1 } from "./Data/Data.js"
+
+import productsContext from './Context/ProductsContext.js'
+
 export default function App() {
 
   const router = useRoutes(routes)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [token, setToken] = useState(false)
   const [userInfos, setUserInfos] = useState({})
+
+  const [userCart, setUserCart] = useState([])
 
   const login = (userInfos, token) => {
     setToken(token)
@@ -53,7 +58,13 @@ export default function App() {
       login,
       logout,
     }}>
-      {router}
+      <productsContext.Provider value={{
+        userCart,
+        setUserCart,
+      }}>
+
+        {router}
+      </productsContext.Provider>
     </AuthContext.Provider>
   )
 }

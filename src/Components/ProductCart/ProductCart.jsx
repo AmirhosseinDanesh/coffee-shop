@@ -1,9 +1,39 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { NavLink } from 'react-router-dom'
 import { DataUrl } from '../../Data/Data'
-import DOMPurify from 'dompurify'
-export default function ProductCart({ ...pro }) {
 
+import ProductsContext from "../../Context/ProductsContext"
+
+export default function ProductCart({ ...pro }) {
+    const contextData = useContext(ProductsContext)
+
+    const addToCart = (pro) => {
+        let newUserProductCart = {
+            id: pro._id,
+            name: pro.name,
+            price: pro.price,
+            count: 1,
+            cover: pro.cover,
+        }
+        let isProductInCart = contextData.userCart.some(product => (
+            product.name === pro.name
+        ))
+        if (!isProductInCart) {
+            contextData.setUserCart(prevProduct => (
+                [...prevProduct, newUserProductCart]
+            ))
+        }
+        else {
+            let userCart = [...contextData.userCart]
+            let newUserCart = userCart.map(product => {
+                if (product.name === pro.name) {
+                    product.count += 1;
+                }
+                return product
+            })
+            contextData.setUserCart(newUserCart)
+        }
+    }
     return (
         <>
             <div className='md:p-5 p-2 bg-white dark:bg-zinc-700 shadow-normal rounded-2xl'>
@@ -31,10 +61,13 @@ export default function ProductCart({ ...pro }) {
                         <span className='text-sm'>تومان</span>
                     </div>
                     <div className='mb-5 font-DanaBold  w-full flex justify-between'>
-                        
+
                     </div>
                     <div className='flex w-full justify-between items-center text-gray-950 dark:text-gray-200'>
-                        <div className="p-2 md:p-3 text-sm text-center text-white rounded-full bg-zinc-800">
+                        <div className="p-2 md:p-3 text-sm text-center text-white rounded-full bg-zinc-800" onClick={() => {
+                            addToCart(pro)
+
+                        }}>
                             <svg className="w-4 md:w-6 h-4 md:h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" >
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
                             </svg>
