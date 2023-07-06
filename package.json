@@ -16,6 +16,7 @@
     "dompurify": "^3.0.3",
     "formik": "^2.4.1",
     "i18next": "^22.5.1",
+    "moment-jalaali": "^0.10.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-i18next": "^12.3.1",

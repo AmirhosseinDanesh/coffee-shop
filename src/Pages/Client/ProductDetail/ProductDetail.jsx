@@ -76,7 +76,9 @@ export default function ProductDetail() {
                 <>
                   <NavLink className="underline hover:text-gray-900 hover:dark:text-white " to="/">خانه</NavLink>
                   <span className=''>/</span>
-                  <NavLink className="underline hover:text-gray-900 hover:dark:text-white " to={productDetail.categoryID.name}>{productDetail.categoryID.title}</NavLink>
+                  <NavLink className="underline hover:text-gray-900 hover:dark:text-white " to="/shop">فروشگاه</NavLink>
+                  <span className=''>/</span>
+                  <NavLink className="underline hover:text-gray-900 hover:dark:text-white " to={`/category/${productDetail.categoryID.name}`}>{productDetail.categoryID.title}</NavLink>
                 </>
               ) : (
                 <>
@@ -233,13 +235,6 @@ export default function ProductDetail() {
                       </div>
                     </footer>
                     <p className="text-gray-500 dark:text-gray-400 my-4">{cm.body}</p>
-                    <div className="flex items-center mt-4 space-x-4">
-                      <button type="button"
-                        className="flex items-center text-xs md:text-base text-gray-500 hover:dark:text-white  dark:text-gray-400">
-                        <svg aria-hidden="true" className="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
-                        جواب دادن
-                      </button>
-                    </div>
                     {
                       (cm.answerContent) ? (
                         <article className="p-6 mb-2 ml-6 lg:ml-12 text-xs md:text-base bg-white rounded-lg dark:bg-gray-900">
@@ -258,13 +253,6 @@ export default function ProductDetail() {
                             </div>
                           </footer>
                           <p className="text-gray-500 dark:text-gray-400 my-4">{cm.answerContent.body}</p>
-                          <div className="flex items-center mt-4 space-x-4">
-                            <button type="button"
-                              className="flex items-center text-sm text-gray-500 hover:dark:text-white  dark:text-gray-400">
-                              <svg aria-hidden="true" className="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
-                              جواب دادن
-                            </button>
-                          </div>
                         </article>
                       ) : (
                         <>

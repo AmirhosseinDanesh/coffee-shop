@@ -48,11 +48,11 @@ export default function ArticlesClient() {
           </div>
         </SwiperSlide>
       </Slider>
-      <div className='mt-10 md:p-10'>
+      <div className='mt-10 md:p-10 container'>
         <div className='font-DanaBold text-3xl text-center border-b-2 pb-8 mb-10 dark:text-gray-300'>
           آخرین مقالات
         </div>
-        <div className='flex flex-wrap p-4 justify-center md:justify-around gap-x-1'>
+        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 p-4 '>
           {
 
             (articles.length ? (
