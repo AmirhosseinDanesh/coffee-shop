@@ -29,6 +29,8 @@ export default function ProductDetail() {
       price: pro.price,
       count: 1,
       cover: pro.cover,
+      discount: pro.discount
+
     }
 
     let isProductInCart = contextData.userCart.some(product => (
@@ -94,7 +96,7 @@ export default function ProductDetail() {
                 (productDetail.discount !== 0) ? (
                   <>
                     <div className='text-gray-700 dark:text-white'>
-                      <span className='font-DanaMedium text-sm md:text-2xl'>{(productDetail.price - ((productDetail.discount * productDetail.price) / 100)).toLocaleString()}</span>
+                      <span className='font-DanaMedium text-lg md:text-2xl'>{(productDetail.price - ((productDetail.discount * productDetail.price) / 100)).toLocaleString()}</span>
                       <span className='text-xs tracking-tighter mr-0.5'>تومان</span>
                     </div>
                     <div className='offer text-gray-400/80 flex justify-center items-center'>
@@ -103,7 +105,11 @@ export default function ProductDetail() {
                     </div>
                   </>
                 ) : (
-                  (productDetail.price.toLocaleString())
+                  <>
+                    <span className='text-xl md:text-2xl'>{productDetail.price.toLocaleString()}</span>
+                    <span className='text-xs tracking-tighter mr-0.5'>تومان</span>
+                  </>
+
                 )
               ) : (
                 <>

@@ -21,7 +21,7 @@ export default function ArticlesInfo() {
     return (
         <>
             <Header />
-            <div className='p-10'>
+            <div className='container'>
                 <div className='text-center text-3xl md:mt-40 mt-5 md:px-10 text-gray-700 dark:text-white'>
                     <h1>{articleData.title}</h1>
 
