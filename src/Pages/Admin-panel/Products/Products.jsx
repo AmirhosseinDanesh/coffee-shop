@@ -74,7 +74,7 @@ export default function Products() {
       {/* New Product Field */}
       <Formik
         validate={productValidate}
-        initialValues={{ name: "", shortName: "", description: "", price: "", status: "start", categoryID: "", cover: "" }}
+        initialValues={{ name: "", shortName: "", description: "", price: "", status: "start", categoryID: "", cover: "", discount: "" }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
 
           const formData = new FormData();
@@ -131,6 +131,7 @@ export default function Products() {
                   {(msg) => <span className='text-xs text-red-600'>{msg}</span>}
                 </ErrorMessage>
               </div>
+              <Input label="تخفیف محصول" type="text" name="discount" placeholder="10" />
               <div className='col-start-1 md:col-end-3 w-[99%]'>
                 <label className="input-label">متن مقاله</label>
 
@@ -231,7 +232,7 @@ export default function Products() {
               <div className="p-6 space-y-6">
                 <Formik
                   validate={productEditValidate}
-                  initialValues={{ name: `${selectProduct.name}`, shortName: `${selectProduct.shortName}`, description: selectProduct.description, price: `${selectProduct.price}`, status: "start", categoryID: `${selectProduct.categoryID._id}`, cover: '' }}
+                  initialValues={{ name: `${selectProduct.name}`, shortName: `${selectProduct.shortName}`, description: selectProduct.description, price: `${selectProduct.price}`, status: "start", categoryID: `${selectProduct.categoryID._id}`, cover: '', discount: selectProduct.discount }}
                   onSubmit={(values, { setSubmitting }) => {
                     console.log(selectProduct.description)
                     const formData = new FormData();
@@ -240,6 +241,7 @@ export default function Products() {
                     formData.append('description', selectEditProduct);
                     formData.append('price', values.price);
                     formData.append('status', "start");
+                    formData.append('discount', values.discount);
                     formData.append('categoryID', values.categoryID);
                     if (selectProductCover) {
                       formData.append('cover', selectProductCover);
@@ -289,6 +291,7 @@ export default function Products() {
                             {(msg) => <span className='text-xs text-red-600'>{msg}</span>}
                           </ErrorMessage>
                         </div>
+                        <Input label="تخفیف محصول" type="text" name="discount" placeholder="10" />
                         <div className='col-start-1 md:col-end-3 w-[99%]'>
                           <label className="input-label">متن مقاله</label>
                           <Editor
