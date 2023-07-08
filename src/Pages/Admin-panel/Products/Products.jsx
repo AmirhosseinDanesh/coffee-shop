@@ -189,7 +189,25 @@ export default function Products() {
                       {product.name}
                     </th>
                     <td className="px-2 py-2">
-                      {product.price.toLocaleString()}
+                      {product.discount !== 0 ? (
+                        <span className='flex gap-3'>
+                          <span className='offer'>
+                            {product.price.toLocaleString()}
+                          </span>
+                          <span>
+                            {
+                              product.discount !== 0 &&
+                              (product.price - ((product.discount * product.price) / 100)).toLocaleString()
+                            }
+                          </span>
+                        </span>
+                      ) : (
+                        <span className='flex gap-3'>
+                          <span className=''>
+                            {product.price.toLocaleString()}
+                          </span>
+                        </span>
+                      )}
                     </td>
                     <td className="px-2 py-2">
                       {product.categoryID.title}
