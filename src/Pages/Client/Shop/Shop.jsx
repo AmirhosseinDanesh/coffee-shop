@@ -8,17 +8,19 @@ import ProductCart from "../../../Components/ProductCart/ProductCart"
 export default function Shop() {
     const [allProducts, setAllProducts] = useState([])
     const [filterProducts, setFilterProducts] = useState([])
-    
-    const filterHandler = (value)=>{
-        if(value === "highest"){
-            setFilterProducts([...allProducts].sort((a , b) => a.price - b.price).reverse())
-        } else if (value === "cheapest") {   
-            setFilterProducts([...allProducts].sort((a , b) => a.price - b.price))
-        } else{
-            setFilterProducts([...allProducts].sort((a , b ) => a.createdAt - b.createdAt))
+
+    const filterHandler = (value) => {
+        if (value === "highest") {
+            setFilterProducts([...allProducts].sort((a, b) => ((a.price - ((a.discount * a.price) / 100))) - ((b.price - ((b.discount * b.price) / 100)))).reverse())
+        } else if (value === "cheapest") {
+            setFilterProducts([...allProducts].sort((a, b) => ((a.price - ((a.discount * a.price) / 100))) - ((b.price - ((b.discount * b.price) / 100)))))
+        } else if (value === "offest") {
+            setFilterProducts([...allProducts].sort((a , b) => a.discount - b.discount).reverse())
+        } else {
+            setFilterProducts([...allProducts].sort((a, b) => a.createdAt - b.createdAt))
         }
     }
-    
+
     useEffect(() => {
         fetch(`${DataUrlV1}/courses`)
             .then(res => res.json())
@@ -26,9 +28,9 @@ export default function Shop() {
                 setAllProducts(data)
                 setFilterProducts(data)
             })
-        
+
     }, [])
-    
+
     return (
         <>
             <Header />
@@ -74,12 +76,13 @@ export default function Shop() {
                         <h3 className='text-xl md:text-5xl font-MorabbaMedium '>همه محصولات</h3>
                     </div>
                     <div className=''>
-                        <select className="pl-4 px-px py-1 md:py-3  md:pl-32 rounded-md bg-zinc-400 text-gray-100 dark:bg-zinc-700 dark:text-white text-xs md:text-base" onChange={(event)=>{
+                        <select className="pl-4 px-px py-1 md:py-3  md:pl-32 rounded-md bg-zinc-400 text-gray-100 dark:bg-zinc-700 dark:text-white text-xs md:text-base" onChange={(event) => {
                             filterHandler(event.target.value)
                         }}>
                             <option value="-1" className='text-xs md:text-base'>جدید ترین</option>
                             <option value="highest" className='text-xs md:text-base'>گرانترین</option>
                             <option value="cheapest" className='text-xs md:text-base'>ارزان ترین</option>
+                            <option value="offest" className='text-xs md:text-base'>بیشترین تخفیف</option>
                         </select>
                     </div>
 
