@@ -68,17 +68,17 @@ export default function ProductDetail() {
     <>
       <Header />
 
-      <div className='md:mt-40 p-10 flex flex-col-reverse md:flex-row justify-around items-center'>
-        <div className='basis-auto md:basis-1/2 text-gray-950 dark:text-white flex flex-col gap-y-5 mt-16 md:mt-0'>
+      <div className='md:mt-40 container py-10 flex flex-col-reverse md:flex-row justify-around items-center'>
+        <div className='w-full md:w-1/2 text-gray-950 dark:text-white flex flex-col gap-y-5 mt-16 md:mt-0'>
           <h3 className="flex gap-x-2 text-gray-600 dark:text-gray-400 font-DanaBold" >
             {
               (productDetail.categoryID) ? (
                 <>
-                  <NavLink className="underline hover:text-gray-900 hover:dark:text-white " to="/">خانه</NavLink>
+                  <NavLink className="underline hover:text-gray-900 hover:dark:text-white text-sm md:text-base" to="/">خانه</NavLink>
                   <span className=''>/</span>
-                  <NavLink className="underline hover:text-gray-900 hover:dark:text-white " to="/shop">فروشگاه</NavLink>
+                  <NavLink className="underline hover:text-gray-900 hover:dark:text-white text-sm md:text-base" to="/shop">فروشگاه</NavLink>
                   <span className=''>/</span>
-                  <NavLink className="underline hover:text-gray-900 hover:dark:text-white " to={`/category/${productDetail.categoryID.name}`}>{productDetail.categoryID.title}</NavLink>
+                  <NavLink className="underline hover:text-gray-900 hover:dark:text-white text-sm md:text-base" to={`/category/${productDetail.categoryID.name}`}>{productDetail.categoryID.title}</NavLink>
                 </>
               ) : (
                 <>
@@ -88,17 +88,31 @@ export default function ProductDetail() {
 
           </h3>
           <div className='flex justify-between items-center '>
-            <h2 className='text-2xl font-MorabbaMedium'>{productDetail.name}</h2>
+            <h2 className='text-3xl font-MorabbaMedium'>{productDetail.name}</h2>
             <span className='text-2xl'>{
-              (productDetail.price) ? (productDetail.price.toLocaleString()) : ("")
+              (productDetail.price) ? (
+                (productDetail.discount !== 0) ? (
+                  <>
+                    <div className='text-gray-700 dark:text-white'>
+                      <span className='font-DanaMedium text-sm md:text-2xl'>{(productDetail.price - ((productDetail.discount * productDetail.price) / 100)).toLocaleString()}</span>
+                      <span className='text-xs tracking-tighter mr-0.5'>تومان</span>
+                    </div>
+                    <div className='offer text-gray-400/80 flex justify-center items-center'>
+                      <span className='text-xs md:text-lg'>{productDetail.price.toLocaleString()}</span>
+                      <span className='hidden xl:inline text-sm tracking-tighter mr-0.5'>تومان</span>
+                    </div>
+                  </>
+                ) : (
+                  (productDetail.price.toLocaleString())
+                )
+              ) : (
+                <>
+                </>
+              )
             }
-              <span className='text-base mr-2'>تومان</span>
             </span>
           </div>
-          <div className='flex'>
-
-          </div>
-          <p className='text-sm leading-6  font-DanaMedium' dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(productDetail.description) }}>
+          <p className='text-sm md:text-base leading-7 md:leading-9 font-DanaMedium tracking-wide' dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(productDetail.description) }}>
 
           </p>
           <div>
@@ -109,8 +123,8 @@ export default function ProductDetail() {
             </button>
           </div>
         </div>
-        <div className='basis-auto md:basis-1/3 mt-10'>
-          <img className='w-full rounded-lg' src={`${DataUrl}/courses/covers/${productDetail.cover}`} alt="" />
+        <div className='w-full md:w-1/2 mt-10'>
+          <img className='w-65 mx-auto md:w-auto rounded-lg' src={`${DataUrl}/courses/covers/${productDetail.cover}`} alt="" />
         </div>
       </div >
 
@@ -201,7 +215,7 @@ export default function ProductDetail() {
             (productDetail.comments) ?
               (
                 productDetail.comments.map((cm) => (
-                  <article key={cm._id} className="p-6 mb-2 text-xs md:text-base md:text-base bg-white rounded-lg dark:bg-gray-900">
+                  <article key={cm._id} className="p-6 mb-2 text-xs md:text-base bg-white rounded-lg dark:bg-gray-900">
                     <footer className="">
                       <div className="flex items-center justify-between">
                         <div className='flex'>
