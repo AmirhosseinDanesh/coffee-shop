@@ -8,9 +8,9 @@ export default function Cart() {
 
     const calculateTotalPrice = () => {
         return contextData.userCart.reduce((total, product) => {
-          return total + (((product.price - ((product.discount * product.price) / 100)) * product.count));
+            return total + (((product.price - ((product.discount * product.price) / 100)) * product.count));
         }, 0);
-      }
+    }
 
     const updateLocalStorage = (cart) => {
         localStorage.setItem('userCart', JSON.stringify(cart));
@@ -18,40 +18,40 @@ export default function Cart() {
 
     const addToCart = (pro) => {
         let newUserProductCart = {
-          id: pro._id,
-          name: pro.name,
-          price: pro.price,
-          count: 1,
-          cover: pro.cover,
-          discount: pro.discount
-    
+            id: pro._id,
+            name: pro.name,
+            price: pro.price,
+            count: 1,
+            cover: pro.cover,
+            discount: pro.discount
+
         }
-    
+
         let isProductInCart = contextData.userCart.some(product => (
-          product.name === pro.name
+            product.name === pro.name
         ))
         if (!isProductInCart) {
-          let updatedCart = [...contextData.userCart, newUserProductCart];
-          updateLocalStorage(updatedCart);
-          contextData.setUserCart(updatedCart);
-    
+            let updatedCart = [...contextData.userCart, newUserProductCart];
+            updateLocalStorage(updatedCart);
+            contextData.setUserCart(updatedCart);
+
         } else {
-          let updatedCart = contextData.userCart.map(product => {
-            if (product.name === pro.name) {
-              return {
-                ...product,
-                count: product.count + 1
-    
-              };
-            }
-    
-            return product;
-          });
-    
-          contextData.setUserCart(updatedCart);
-          updateLocalStorage(updatedCart);
+            let updatedCart = contextData.userCart.map(product => {
+                if (product.name === pro.name) {
+                    return {
+                        ...product,
+                        count: product.count + 1
+
+                    };
+                }
+
+                return product;
+            });
+
+            contextData.setUserCart(updatedCart);
+            updateLocalStorage(updatedCart);
         }
-      }
+    }
 
     const removeProducts = (pro) => {
         const updatedCart = contextData.userCart.map(product => {
@@ -112,13 +112,33 @@ export default function Cart() {
                                         <div className="sm:ml-4 sm:flex sm:w-full sm:justify-between">
                                             <div className="mt-5 sm:mt-0">
                                                 <h2 className="text-lg font-bold text-gray-900 dark:text-white ">{product.name}</h2>
-                                                <p className="mt-1 text-base text-gray-700 dark:text-white "><span className='text-xs'>فی</span> {(product.price - ((product.discount * product.price) / 100)).toLocaleString()} <span className='mr-1 text-xs'>تومان</span></p>
+                                                <p className="mt-3 text-base text-gray-700 dark:text-white flex justify-between items-start">
+                                                    <span className='text-xs md:text-base'>فی</span>
+                                                    <div>
+                                                        {
+                                                            (product.discount !== 0) ? (
+                                                                <>
+                                                                    <div className='text-teal-600 dark:text-emerald-500'>
+                                                                        <span className='font-DanaMedium text-sm md:text-xl'>{(product.price - ((product.discount * product.price) / 100)).toLocaleString()}</span>
+                                                                        <span className='text-xs tracking-tighter mr-0.5'>تومان</span>
+                                                                    </div>
+                                                                    <div className='offer text-gray-400/80 flex justify-center items-center'>
+                                                                        <span className='text-xs md:text-lg'>{product.price.toLocaleString()}</span>
+                                                                        <span className='hidden xl:inline text-sm tracking-tighter mr-0.5'>تومان</span>
+                                                                    </div>
+                                                                </>
+                                                            ) : (
+                                                                (product.price)
+                                                            )
+                                                        }
+                                                    </div>
+                                                </p>
                                             </div>
                                             <div className="mt-4 flex justify-between sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
                                                 <div className="flex items-center border-gray-100">
-                                                    <span className="cursor-pointer rounded-r bg-white py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50" onClick={() => addToCart(product)}> + </span>
-                                                    <span className="w-8 h-8 flex justify-center items-center  bg-white text-center text-xs outline-none">{product.count}</span>
-                                                    <span className="cursor-pointer rounded-l bg-white py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50" onClick={() => removeProducts(product)}> - </span>
+                                                    <span className="cursor-pointer rounded-r bg-gray-300 py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50" onClick={() => addToCart(product)}> + </span>
+                                                    <span className="w-8 h-8 flex justify-center items-center  bg-gray-300 text-center text-xs outline-none">{product.count}</span>
+                                                    <span className="cursor-pointer rounded-l bg-gray-300 py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50" onClick={() => removeProducts(product)}> - </span>
                                                 </div>
                                                 <div className="flex items-center justify-between w-[30%] md:w-full dark:text-white">
                                                     <p className="text-sm">{((product.price - ((product.discount * product.price) / 100)) * product.count).toLocaleString()}</p>

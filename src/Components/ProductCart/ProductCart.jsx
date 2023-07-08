@@ -76,7 +76,7 @@ export default function ProductCart({ ...pro }) {
                         <span className='text-xs tracking-tighter mr-0.5'>تومان</span>
                     </div>
                     {
-                        (pro.discount) ? (
+                        (pro.discount !== 0) ? (
                             <div className='offer text-gray-400/80 flex justify-center items-center'>
                                 <span className='text-xs md:text-lg'>{pro.price.toLocaleString()}</span>
                                 <span className='hidden xl:inline text-sm tracking-tighter mr-0.5'>تومان</span>
