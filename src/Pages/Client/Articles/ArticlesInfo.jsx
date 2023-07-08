@@ -13,7 +13,6 @@ export default function ArticlesInfo() {
         fetch(`${DataUrlV1}/articles/${articleName.articleName}`)
             .then(res => res.json())
             .then(data => {
-                console.log(data)
                 setArticleData(data)
                 setArticleCategoty(data.categoryID.title)
                 setArticleLink(data.categoryID.name)

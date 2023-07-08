@@ -22,7 +22,7 @@ export default function Header() {
     localStorage.setItem('userCart', []);
     contextData.setUserCart([])
   }
-  
+
   const updateLocalStorage = (cart) => {
     localStorage.setItem('userCart', JSON.stringify(cart));
   }
@@ -34,6 +34,8 @@ export default function Header() {
       price: pro.price,
       count: 1,
       cover: pro.cover,
+      discount: pro.discount
+
     }
 
     let isProductInCart = contextData.userCart.some(product => (
@@ -43,7 +45,6 @@ export default function Header() {
       let updatedCart = [...contextData.userCart, newUserProductCart];
       updateLocalStorage(updatedCart);
       contextData.setUserCart(updatedCart);
-      console.log("first")
 
     } else {
       let updatedCart = contextData.userCart.map(product => {
@@ -51,10 +52,10 @@ export default function Header() {
           return {
             ...product,
             count: product.count + 1
-            
+
           };
         }
-        
+
         return product;
       });
 
@@ -74,7 +75,7 @@ export default function Header() {
         }
       }
       return product;
-    }).filter(item => item !== null); 
+    }).filter(item => item !== null);
 
     contextData.setUserCart(updatedCart);
 
@@ -95,7 +96,7 @@ export default function Header() {
 
   const calculateTotalPrice = () => {
     return contextData.userCart.reduce((total, product) => {
-      return total + (product.price * product.count);
+      return total + (((product.price - ((product.discount * product.price) / 100)) * product.count));
     }, 0);
   }
 
@@ -244,7 +245,9 @@ export default function Header() {
                                 </button>
                               </div>
                               <div className='text-zinc-700 dark:text-white font-DanaBold'>
-                                {(product.price * product.count).toLocaleString()}
+                                {
+                                  ((product.price - ((product.discount * product.price) / 100)) * product.count).toLocaleString()
+                                }
                                 <span className='font-Dana text-sm mr-1'>
                                   تومان
                                 </span>
