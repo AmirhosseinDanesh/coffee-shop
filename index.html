@@ -4,9 +4,14 @@
 <head>
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="/images/fav-icon.png" />
+  <meta name="theme-color" content="#27272a">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DAN Coffee shop || More Caffeine More Happiness</title>
   <link rel="manifest" href="./manifest.json" />
+  <link rel="apple-touch-icon" href="images/icons/apple-touch-icon-iphone-60x60.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="images/icons/apple-touch-icon-ipad-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="images/icons/apple-touch-icon-iphone-retina-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="images/icons/apple-touch-icon-ipad-retina-152x152.png">
 </head>
 
 <body class="font-Dana bg-gray-100 dark:bg-zinc-800">
@@ -18,7 +23,18 @@
     } else {
       document.documentElement.classList.remove('dark')
     }
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker
+      .register("./service-worker.js")
+      .then((register)=>{
+        console.log("Register succesfully" , register)
+      })
+      .catch((err) => console.log(err))
+    }else{
+      console.log("browser not support")
+    }
   </script>
+  <script src="./service-worker.js"></script>
 </body>
 
 </html>
