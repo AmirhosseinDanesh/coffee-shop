@@ -94,7 +94,7 @@ export default function Login() {
                                         <Input label="رمز عبور" type="password" name="password" placeholder="••••••••" />
 
                                         <div className="flex items-center justify-between">
-                                            <a href="#" className="text-sm text-primary-600 hover:underline dark:text-primary-500 dark:text-white ">فراموشی رمز عبور</a>
+                                            {/* <a href="#" className="text-sm text-primary-600 hover:underline dark:text-primary-500 dark:text-white ">فراموشی رمز عبور</a> */}
                                         </div>
                                         <button type="submit"
                                             className={isSubmitting ? ("input-submit bg-blue-500") : ("input-submit bg-blue-600")}
