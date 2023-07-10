@@ -16,9 +16,9 @@ export default function ArticleCart({ ...art }) {
                     <NavLink to={art.shortName}>
                         {
                             (art.cover) ? (
-                                <img className="rounded-2xl rounded-bl-[32px] h-[129px] md:h-full" src={`${DataUrl}/courses/covers/${art.cover}`} alt="" />
+                                <img loading='lazy' className="rounded-2xl rounded-bl-[32px] h-[129px] md:h-full" src={`${DataUrl}/courses/covers/${art.cover}`} alt="" />
                             ) : (
-                                <img className="rounded-2xl rounded-bl-[32px] h-[129px] md:h-full" src="/images/blogs/nocover.png" alt="" />
+                                <img loading='lazy' className="rounded-2xl rounded-bl-[32px] h-[129px] md:h-full" src="/images/blogs/nocover.png" alt="" />
                             )
                         }
                     </NavLink>

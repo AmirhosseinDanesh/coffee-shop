@@ -44,8 +44,6 @@ export default {
         'slide-1-M': "url('/images/sliders/1M.webp')",
         'slide-2-D': "url('/images/sliders/2.jpg')",
         'slide-3-D': "url('/images/sliders/3.jpg')",
-        'product-bg': "url('/images/product-bg.png')",
-        'product-bg2': "url('/images/product-bg2.png')",
       }
     },
     screens:{

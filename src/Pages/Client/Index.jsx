@@ -49,7 +49,7 @@ export default function Index() {
           </div>
         </SwiperSlide>
       </Slider>
-      <section className='products-section pt-8 md:pt-20 lg:pt-48 pb-20'>
+      <section className='products-section pt-8 md:pt-20 lg:pt-48'>
         <div className='container'>
           {/* section Head */}
           <div className='flex justify-between items-center mb-5 md:mb-12'>
@@ -83,6 +83,21 @@ export default function Index() {
           </div>
         </div>
       </section>
+      <section className='my-20'>
+        <div className='container'>
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-5 text-white'>
+            <NavLink to="/" className='category-baner1 flex flex-col justify-center pr-7 md:pr-12 rounded-2xl h-[142px] md:h-[248px]  '>
+              <span className='font-DanaBold text-2xl/6  md:text-4xl/6 mb-4 md:mb-7'>انواع قهوه</span>
+              <span className='md:font-DanaMedium  md:text-xl'>ترکیبی و پررو</span>
+            </NavLink>
+            <NavLink to="/" className='category-baner2 flex flex-col justify-center pr-7 md:pr-12 rounded-2xl h-[142px] md:h-[248px]  '>
+              <span className='font-DanaBold text-2xl/6 md:text-4xl/6 mb-4 md:mb-7'>پودر های فوری</span>
+              <span className='md:font-DanaMedium  md:text-xl/6'>نسکافه ، هات چاکلت ،ماسالا</span>
+            </NavLink>
+          </div>
+        </div>
+      </section>
+
     </>
   )
 }

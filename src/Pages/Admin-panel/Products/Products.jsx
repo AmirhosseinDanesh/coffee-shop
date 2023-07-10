@@ -183,7 +183,7 @@ export default function Products() {
                 currentItems.map((product) => (
                   <tr key={product._id} className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                     <th scope="row" className="px-3 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                      <img src={`${DataUrl}/courses/covers/${product.cover}`} alt="" className='w-[120px]' />
+                      <img loading='lazy' src={`${DataUrl}/courses/covers/${product.cover}`} alt="" className='w-[120px]' />
                     </th>
                     <th scope="row" className="px-3 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                       {product.name}

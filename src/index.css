@@ -70,11 +70,47 @@
   .userpanel-li {
     @apply flex justify-center p-2 my-3 md:my-5 text-gray-900 bg-zinc-200 hover:bg-zinc-300 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-800 rounded-lg transition-colors text-center;
   }
+
+  @media screen and (min-width: 1280px) {
+    html.dark .products-section {
+      background-image: url("../images/product-bg.png");
+    }
+    .products-section {
+      background: linear-gradient(
+          rgba(243, 244, 246, 0.65),
+          rgba(243, 244, 246, 0.65)
+        ),
+        url("../images/product-bg.png");
+      background-size: 100%;
+      background-repeat: no-repeat;
+    }
+  }
+
+  .category-baner1 {
+    background: linear-gradient(
+        270deg,
+        rgba(0, 0, 0, 0.8) 30%,
+        rgba(0, 0, 0, 0.2) 100%
+      ),
+      url("../images/categories/category-right.jpg") !important;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  .category-baner2 {
+    background: linear-gradient(
+        270deg,
+        rgba(0, 0, 0, 0.8) 30%,
+        rgba(0, 0, 0, 0.2) 100%
+      ),
+      url("../images/categories/category-left.jpg") !important;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
 }
 
-@layer utilities{
-  .flex-center{
-    @apply flex justify-center items-center
+@layer utilities {
+  .flex-center {
+    @apply flex justify-center items-center;
   }
 }
 
@@ -107,30 +143,16 @@ swiper-container {
   overflow: inherit !important;
 }
 
-.offer{
-  @apply relative 
+.offer {
+  @apply relative;
 }
-.offer::after{
+.offer::after {
   content: "";
   width: 75%;
   height: 1px;
   position: absolute;
-  inset : 0;
+  inset: 0;
   margin: auto;
-  background-color:#EF4444;
+  background-color: #ef4444;
   top: -2px;
-}
-
-
-@media screen and (min-width: 1280px) {
-  html.dark .products-section {
-    @apply bg-product-bg;
-    background-size: contain;
-    background-repeat: no-repeat;
-  }
-  .products-section {
-    @apply bg-product-bg2 ;
-    background-size: contain;
-    background-repeat: no-repeat;
-  }
 }

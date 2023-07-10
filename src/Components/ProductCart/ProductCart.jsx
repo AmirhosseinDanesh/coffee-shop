@@ -52,9 +52,9 @@ export default function ProductCart({ ...pro }) {
                 <NavLink className="relative mb-2 md:mb-5" to={`/products/${pro.shortName}`}>
                     {
                         (pro.cover) ? (
-                            <img className="w-32 mx-auto md:w-auto" src={`${DataUrl}/courses/covers/${pro.cover}`} alt="" />
+                            <img loading='lazy' className="w-32 mx-auto md:w-auto" src={`${DataUrl}/courses/covers/${pro.cover}`} alt="" />
                         ) : (
-                            <img className="w-32 mx-auto md:w-auto" src="/images/blogs/nocover.png" alt="" />
+                            <img loading='lazy' className="w-32 mx-auto md:w-auto" src="/images/blogs/nocover.png" alt="" />
                         )
                     }
                     {

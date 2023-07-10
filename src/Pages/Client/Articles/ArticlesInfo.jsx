@@ -32,7 +32,7 @@ export default function ArticlesInfo() {
                     <NavLink className="underline hover:text-gray-900 hover:dark:text-white " to="/articles">مقالات</NavLink>
                 </h3>
                 <div className='mt-16 flex justify-center'>
-                    <img className='rounded-xl' src={`${DataUrl}/courses/covers/${articleData.cover}`} alt="" />
+                    <img loading='lazy' className='rounded-xl' src={`${DataUrl}/courses/covers/${articleData.cover}`} alt="" />
                 </div>
                 <div className='text-lg mt-10 md:px-10 text-gray-700 dark:text-white tracking-tight	'>
                     {articleData.description}

@@ -130,7 +130,7 @@ export default function ProductDetail() {
           </div>
         </div>
         <div className='w-full md:w-1/2 mt-10'>
-          <img className='w-65 mx-auto md:w-auto rounded-lg' src={`${DataUrl}/courses/covers/${productDetail.cover}`} alt="" />
+          <img loading='lazy' className='w-65 mx-auto md:w-auto rounded-lg' src={`${DataUrl}/courses/covers/${productDetail.cover}`} alt="" />
         </div>
       </div >
 
