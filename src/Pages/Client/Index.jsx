@@ -1,19 +1,28 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
+
+import { NavLink } from 'react-router-dom'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { DataUrlV1 } from '../../Data/Data';
+import { FreeMode, Pagination } from 'swiper';
+
 import Header from '../../Components/Header/Header'
 import Slider from '../../Components/Slider/Slider'
-import { SwiperSlide } from 'swiper/react'
-import { NavLink } from 'react-router-dom'
-import { DataUrlV1 } from '../../Data/Data'
 import ProductCart from "../../Components/ProductCart/ProductCart"
 import ReactLoading from 'react-loading';
 
+import 'swiper/css';
+import 'swiper/css/free-mode';
 export default function Index() {
   const [allProducts, setAllProducts] = useState([])
+  const ref = useRef(null);
+
+
   useEffect(() => {
     fetch(`${DataUrlV1}/courses`)
       .then(res => res.json())
       .then(data => setAllProducts(data))
   }, [])
+
 
   return (
     <>
@@ -41,7 +50,9 @@ export default function Index() {
               <path d="M50 0C69 0 81 22 100 22L0 22C18.75 22 31 0 50 0Z" />
             </svg>
 
-            <div className='hidden md:flex items-center justify-center absolute right-0 bottom-0 left-0 mx-auto translate-y-1/2 w-[30px] h-[30px] border-2 border-orange-300 rounded-full'>
+            <div className='cursor-pointer hidden md:flex items-center justify-center absolute right-0 bottom-0 left-0 mx-auto translate-y-1/2 w-[30px] h-[30px] border-2 border-orange-300 rounded-full' onClick={() => {
+              ref.current?.scrollIntoView({ behavior: 'smooth' });
+            }}>
               <svg className="w-4 h-4 text-zinc-700 dark:text-white " xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" >
                 <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
               </svg>
@@ -49,7 +60,7 @@ export default function Index() {
           </div>
         </SwiperSlide>
       </Slider>
-      <section className='products-section pt-8 md:pt-20 lg:pt-48'>
+      <section ref={ref} className='products-section pt-8 md:pt-20 lg:pt-48'>
         <div className='container'>
           {/* section Head */}
           <div className='flex justify-between items-center mb-5 md:mb-12'>
@@ -83,7 +94,7 @@ export default function Index() {
           </div>
         </div>
       </section>
-      <section className='my-20'>
+      <section className='mt-8 mb-10 md:my-20'>
         <div className='container'>
           <div className='grid grid-cols-1 md:grid-cols-2 gap-5 text-white'>
             <NavLink to="/" className='category-baner1 flex flex-col justify-center pr-7 md:pr-12 rounded-2xl h-[142px] md:h-[248px]  '>
@@ -95,6 +106,87 @@ export default function Index() {
               <span className='md:font-DanaMedium  md:text-xl/6'>نسکافه ، هات چاکلت ،ماسالا</span>
             </NavLink>
           </div>
+        </div>
+      </section>
+      <section className='product-category mb-20'>
+        <div className="container">
+          <Swiper
+            // slidesPerView={4}
+            breakpoints={{
+              10:{
+                slidesPerView: 2,
+              },
+              428: {
+                slidesPerView: 3,
+              },
+              628: {
+                slidesPerView: 4,
+              },
+              768:{
+                slidesPerView : 5
+              },
+              1024 : {
+                slidesPerView : 5,
+              }
+            }}
+            spaceBetween={20}
+            freeMode={true}
+            pagination={{
+              clickable: true,
+            }}
+            modules={[FreeMode, Pagination]}
+            className="mySwiper2"
+          >
+            <SwiperSlide>
+              <div className='w-24 md:w-52 text-center'>
+                <img src="./images/categories/category1.png" alt="" />
+                <span className='font-DanaBold text-sm md:text-xl text-zinc-700 dark:text-white mt-1.5 md:mt-2.5'>
+                  قهوه دمی و اسپرسو
+                </span>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div className='w-24 md:w-52 text-center'>
+                <img src="./images/categories/category2.png" alt="" />
+                <span className='font-DanaBold text-sm md:text-xl text-zinc-700 dark:text-white mt-1.5 md:mt-2.5'>
+                  لوازم جانبی و تجهیزات
+                </span>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div className='w-24 md:w-52 text-center'>
+                <img src="./images/categories/category3.png" alt="" />
+                <span className='font-DanaBold text-sm md:text-xl text-zinc-700 dark:text-white mt-1.5 md:mt-2.5'>
+                  اسپرسو ساز
+                </span>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div className='w-24 md:w-52 text-center'>
+                <img src="./images/categories/category5.png" alt="" />
+                <span className='font-DanaBold text-sm md:text-xl text-zinc-700 dark:text-white mt-1.5 md:mt-2.5'>
+                  قهوه ترک
+                </span>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div className='w-24 md:w-52 text-center'>
+                <img src="./images/categories/category4.png" alt="" />
+                <span className='font-DanaBold text-sm md:text-xl text-zinc-700 dark:text-white mt-1.5 md:mt-2.5'>
+                  پک تستر قهوه
+                </span>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div className='w-24 md:w-52 text-center'>
+                <img src="./images/categories/category5.png" alt="" />
+                <span className='font-DanaBold text-sm md:text-xl text-zinc-700 dark:text-white mt-1.5 md:mt-2.5'>
+                  قهوه ترک
+                </span>
+              </div>
+            </SwiperSlide>
+
+          </Swiper>
         </div>
       </section>
 

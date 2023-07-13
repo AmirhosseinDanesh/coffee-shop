@@ -1,5 +1,5 @@
 import React, { Children, useRef, useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper } from "swiper/react";
 import { Autoplay, EffectFade } from "swiper";
 
 import "swiper/css";
